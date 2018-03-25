@@ -2,6 +2,9 @@
 
 ## About
 
+## Requirements
+- `node 6+` & `npm`
+
 ## FE development environment HOWTO
 
 - Viskas kataloge `frontend`
