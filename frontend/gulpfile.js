@@ -25,6 +25,9 @@ gulp.task('default', function () {
         .pipe(transform('utf8', attachLayout(templateContent)))
         .pipe(handlebars(templateData, options))
         .pipe(htmlbeautify({ indentSize: 2 }))
+        .pipe(rename(function (path) {
+            path.extname = ".html"
+        }))
         .pipe(gulp.dest('dist'));
 });
 
