@@ -1,0 +1,33 @@
+{
+    "title": "KDRMil",
+    "registerFields": [
+        { "label": "Title: (Prof/Dr/Mr/Mrs/Ms)", "name": "title" },
+        { "label": "First Name:", "name": "firstname" },
+        { "label": "Last Name:", "name": "lastname" },
+        { "label": "Affiliation:", "name": "affiliation" },
+        { "label": "E-Mail:", "name": "email" },
+        { "label": "Phone number:", "name": "phone" },
+        { "label": "Article title:", "name": "articletitle" },
+        { "label": "Article authors:", "name": "articleauthors" },
+        { "label": "Article authors affiliations:", "name": "articleauthorsaffiliations" }
+    ],
+    "registerBoxes": [
+        { "label": "Do you need to book the hotel room?", "name": "hotel", "choices": [
+            { "label": "No", "value": "roomno"},
+            { "label": "Single room", "value": "roomsingle"},
+            { "label": "Double room", "value": "roomdouble"}
+        ]},
+        { "label": "Will there be people accompanying?", "name": "accompany", "choices": [
+            { "label": "No", "value": "accno"},
+            { "label": "Yes", "value": "accyes"}
+        ]},
+        { "label": "Do you need prepayment invoice for participation fee?", "name": "invoice", "choices": [
+            { "label": "No", "value": "invno"},
+            { "label": "Yes", "value": "invyes"}
+        ]}
+    ],
+    "trans": {
+        "submit": "Submit",
+        "reset": "Reset"
+    }
+}

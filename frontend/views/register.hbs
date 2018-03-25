@@ -1,0 +1,18 @@
+<form>
+    {{#each registerFields}}
+        {{ this.label }}<br>
+        <input type="text" name="{{ this.name }}">
+        <br> 
+    {{/each}}  
+    {{#each registerBoxes}}
+        {{ this.label }}<br>
+        {{#each this.choices}}
+            <input type="radio" name="{{ @../this.name }}" value="{{ this.value }}"> {{ this.label }}<br>
+        {{/each}} 
+        <br> 
+    {{/each}} 
+    <input type="submit" value="{{ trans.submit }}">
+    <input type="reset" value="{{ trans.reset }}">
+</form> 
+
+<script src="/scripts/register.js"></script>

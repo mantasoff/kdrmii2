@@ -1,0 +1,30 @@
+{
+  "name": "kdrmil",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./express/bin/www",
+    "compile": "gulp"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-ignore": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-transform": "^3.0.5",
+    "hbs": "~4.0.1",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^5.0.2",
+    "gulp-wrap": "^0.13.0"
+  }
+}
