@@ -12,6 +12,7 @@ use core\Model;
 
 class User extends Model
 {
-    protected static $table = "player";
+    protected static $table = "user";
     protected static $selectFields = ["id", "name", "password"];
+    protected static $saveFields = ["name"];
 }

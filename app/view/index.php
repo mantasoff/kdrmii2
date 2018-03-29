@@ -1,3 +1,3 @@
 {{include "index.header"}}
-<div>Page title is: {{user.name}}</div>
+<div>Example array variable: {{user.name}}</div>
 {{include "index.footer"}}

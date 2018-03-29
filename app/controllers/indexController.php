@@ -11,8 +11,7 @@ class indexController extends Controller
         $view->title = "phpFramework";
         $view->render("index",[
             "user" =>[
-                "name"=>"vladiskov",
-                "dbid" => 9
+                "name"=>"var from php"
             ]
         ]);
     }
