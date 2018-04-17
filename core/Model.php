@@ -7,8 +7,6 @@
 
 namespace core;
 
-
-use app\models\User;
 use core\Database\Field;
 use core\Database\Mysql;
 use core\Database\Query;
@@ -17,7 +15,7 @@ class Model
 {
     protected static $table=null;
     protected static $idColumn='id';
-
+    protected static $db = null;
     /**
      * @var array Fields to select from database [ add id field too ]
      */
@@ -55,16 +53,21 @@ class Model
 
     private function getData($id){
         $query = new Query();
+        if(static::$db !== null) $query->db(static::$db);
         $query->table(static::$table)->select(implode(',',array_values(static::$selectFields)))->where(new Field(static::$idColumn,$id));
         $values = Mysql::execute($query);
         if($values === false) return false;
         $this->id = $id;
-        foreach (array_keys((array)$values) as $key){
-            $this->fields[$key]=$values[''.$key];
-        }
+        $this->updateDataFromResult($values);
         return true;
     }
 
+    protected function updateDataFromResult($result){
+        if(!is_array($result)) return;
+        foreach (array_keys((array)$result) as $key){
+                $this->fields[$key]=$result[''.$key];
+        }
+    }
     /**
      * Insert model to database
      * @param bool $insertID Custom id
@@ -85,10 +88,26 @@ class Model
             if($this->fields[$field]==null || $field==static::$idColumn) continue;
             array_push($fields, new Field($field, $this->fields[$field]));
         }
-        Mysql::execute((new Query())->table(static::$table)->insert($fields));
+        $query =new Query();
+        if(static::$db !== null) $query->db(static::$db);
+        $query->table(static::$table)->insert($fields);
+        Mysql::execute($query);
         if(is_numeric(Mysql::lastInserted()))
             $this->fields[static::$idColumn] = Mysql::lastInserted();
         return Mysql::lastInserted();
+    }
+
+    /**
+     * Get formated query
+     * @param null $query
+     * @param string $select
+     * @return Query|null
+     */
+    public static function getQuery($query = null, $select = "*"){
+        if($query === null) $query = new Query();
+        if(static::$db !== null) $query->db(static::$db);
+        $query->table(static::$table)->select($select)->orderBy("id", false);
+        return $query;
     }
 
     public function save(){
@@ -104,7 +123,51 @@ class Model
         foreach (static::$saveFields as $field){
             array_push($fields, new Field($field, $this->fields[$field]));
         }
-        Mysql::execute((new Query())->table(static::$table)->update($fields)->where(new Field(static::$idColumn,$this->fields[static::$idColumn])));
+        $query = new Query();
+        if(static::$db !== null) $query->db(static::$db);
+        $query->table(static::$table)->update($fields)->where(new Field(static::$idColumn,$this->fields[static::$idColumn]));
+        Mysql::execute($query);
+    }
+    public function getArray(){
+        return $this->fields;
+    }
+    public static function getByFields($fields, $order = null, $limit = null)
+    {
+        if (is_array($fields)) {
+            foreach ($fields as $field)
+                if (!$field instanceof Field) {
+                    Mysql::error("Bad fields value in getByFields.", "Not all requested fields are Field type");
+                    return null;
+                }
+        } else {
+            if (!$fields instanceof Field) {
+                Mysql::error("Bad fields value in getByFields.", "Not all requested fields are Field type");
+                return null;
+            }
+        }
+        $query =(new Query())->table(static::$table)->select(implode(',', array_values(static::$selectFields)))->where($fields);
+        if(static::$db !== null) $query->db(static::$db);
+        if($limit !== null)
+            $query->limit($limit);
+        if($order !== null)
+            $query->orderBy(static::$idColumn, strtolower($order)=="asc"?true:false);
+        $result = Mysql::execute($query);
+        $className=get_called_class();
+        if(Mysql::$num_rows > 1){
+            $models = [];
+            foreach ($result as $row)
+            {
+                $model = new $className();
+                $model->updateDataFromResult($row);
+                array_push($models, $model);
+            }
+            return $models;
+        }
+        if(Mysql::$num_rows == 0)
+            return null;
+        $model = new $className();
+        $model->updateDataFromResult($result);
+        return $model;
     }
 
     /**
@@ -112,18 +175,22 @@ class Model
      * @return array
      */
     public static function all(){
-        $result = Mysql::execute((new Query())->table(static::$table)->select(implode(',',array_values(static::$selectFields))));
-        $users = [];
-        $user = null;
-        foreach ($result as $values){
-            $user = new User();
-            foreach (array_keys((array)$values) as $key){
-                $user->fields[$key]=$values[''.$key];
-            }
-            if($user!=null) array_push($users, $user);
-            $user = null;
+        $className=get_called_class();
+        $query = (new Query())->table(static::$table)->select(implode(',',array_values(static::$selectFields)));
+        if(static::$db !== null) $query->db(static::$db);
+        $result = Mysql::execute($query);
+        $models = [];
+        $model = null;
+        foreach ($result as $row){
+            $model = new $className();
+            $model->updateDataFromResult($row);
+            if(!is_array($models))
+                $models = [$model];
+            else
+                array_push($models, $model);
+            $model = null;
         }
-        return $users;
+        return $models;
     }
 
 }

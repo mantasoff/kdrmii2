@@ -14,9 +14,24 @@ class Controller
     }
 
     /**
+     * Access restriction to all controller
+     * @return bool
+     */
+    public function canAccess(){
+        return true;
+    }
+
+    /**
+     * Error when access rejected
+     */
+    public function noAccess(){
+        echo "no access";
+    }
+    /**
      * Get function parameters count
      * @param $func
      * @return int
+     * @throws \ReflectionException
      */
     public static function paramCount($func){
         $reflection = new \ReflectionFunction($func);
@@ -28,6 +43,7 @@ class Controller
      * @param $class
      * @param $func
      * @return int
+     * @throws \ReflectionException
      */
     public static function classParamCount($class, $func){
         $reflection = new \ReflectionMethod($class, $func);
