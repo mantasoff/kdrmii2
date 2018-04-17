@@ -36,6 +36,7 @@ class Field
         return $this->field;
     }
     public function getValue(){
+        Mysql::openConnection();
         if(!$this->escape || !is_string($this->value)) return $this->value;
         return "'".Mysql::escapeString($this->value)."'";
     }

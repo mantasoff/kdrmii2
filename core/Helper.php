@@ -16,6 +16,8 @@ class Helper
     }
     public static function config($configFile)
     {
+        if(!file_exists(__DIR__ . '/../app/config/' . $configFile . ".php"))
+            return false;
         return (object)require __DIR__ . '/../app/config/' . $configFile . ".php";
     }
 }

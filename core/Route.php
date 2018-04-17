@@ -109,10 +109,18 @@ class Route
         $class = "\\app\\controllers\\".$controller."Controller";
         if(!class_exists ($class)){
             $class = "\\app\\controllers\\".$defaultController."Controller";
-            (new $class())->$defaultFunction();
+            $_controller = (new $class());
+            if($_controller->canAccess())
+                $_controller->$defaultFunction();
+            else
+                $_controller->noAccess();
             return;
         }
         $_controller = new $class();
+        if(!$_controller->canAccess()){
+            $_controller->noAccess();
+            return;
+        }
         if(!method_exists($_controller, $function) || Controller::classParamCount($_controller, $function)>0)
             $function = $defaultFunction;
         $_controller->$function();
