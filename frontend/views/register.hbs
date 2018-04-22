@@ -1,7 +1,8 @@
 <form>
     {{#each registerFields}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}">
+        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)"> <br>
+		<p id="message1"></p>
         <br> 
     {{/each}}  
     {{#each registerBoxes}}
@@ -10,7 +11,13 @@
             <input type="radio" name="{{ @../this.name }}" value="{{ this.value }}"> {{ this.label }}<br>
         {{/each}} 
         <br> 
+    {{/each}}  
+	{{#each institutionField}}
+        {{ this.label }}<br>
+        <input type="text" name="{{ this.name }}">
+        <br> 
     {{/each}} 
+	<br> 
     <input type="submit" value="{{ trans.submit }}">
     <input type="reset" value="{{ trans.reset }}">
 </form> 
