@@ -1,6 +1,6 @@
 function notEmpty(name, value) {
-    var x = document.getElementsByName("name").value;
-	//if (x.length > 0)	{
-		return document.getElementById("message1").innerHTML = "You wrote: " + x;
-	//}
+    var x = value;
+	if (x.length > 0)	{
+		return document.getElementById(name+"_ID").innerHTML = "You wrote: " + x;
+	}
 }
