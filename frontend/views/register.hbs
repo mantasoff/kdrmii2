@@ -1,17 +1,28 @@
-<form>
+<form onload="defaultValues()">
     {{#each registerFields}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)"> <br>
-		<p id= "{{ this.name }}_ID" ></p>
+        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)" required> <br>
+		<p id= "{{ this.name }}_ID" ></p>       
     {{/each}}  
+    {{#each registerRoom}}
+        {{ this.label }}<br>
+        {{#each this.choices}}
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" onclick="isLastChoice(this.name, this.value)" required> {{ this.label }}<br>
+        {{/each}} 
+    {{/each}} 
+    {{#each registerRoomOther}}
+        {{ this.label }}<br>
+        <input type="text" name="{{ this.name }}">
+        <br> 
+    {{/each}} 
     {{#each registerBoxes}}
         {{ this.label }}<br>
         {{#each this.choices}}
-            <input type="radio" name="{{ @../this.name }}" value="{{ this.value }}"> {{ this.label }}<br>
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" required> {{ this.label }}<br>
         {{/each}} 
         <br> 
     {{/each}}  
-	{{#each institutionField}}
+	{{#each institutionFields}}
         {{ this.label }}<br>
         <input type="text" name="{{ this.name }}">
         <br> 

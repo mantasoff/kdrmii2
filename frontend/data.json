@@ -11,27 +11,36 @@
         { "label": "Article authors:", "name": "articleauthors", "placeholder": "Article authors" },
         { "label": "Article authors affiliations:", "name": "articleauthorsaffiliations", "placeholder": "Affiliations" }
     ],
-    "registerBoxes": [
+    "registerRoom": [
         { "label": "Do you need to book the hotel room?", "name": "hotel", "choices": [
-            { "label": "No", "value": "roomno"},
-            { "label": "Single room", "value": "roomsingle"},
-            { "label": "Double room", "value": "roomdouble"}
-        ]},
-        { "label": "Will there be people accompanying?", "name": "accompany", "choices": [
-            { "label": "No", "value": "accno"},
-            { "label": "Yes", "value": "accyes"}
-		]},
-		{ "label": "Will people accompanying you be present at additional events?", "name": "accevent", "choices": [
-            { "label": "No", "value": "accevno"},
-            { "label": "Yes", "value": "accevyes"}
-        ]},
-        { "label": "Do you need prepayment invoice for participation fee?", "name": "invoice", "choices": [
-            { "label": "No", "value": "invno"},
-            { "label": "Yes", "value": "invyes"}
+            { "label": "No", "value": "roomno", "choicename": "choice1"},
+            { "label": "Single room", "value": "roomsingle", "choicename": "choice1"},
+            { "label": "Double room", "value": "roomdouble", "choicename": "choice1"},
+            { "label": "Other", "value": "roomother", "choicename": "choice1"}
         ]}
     ],
-	"institutionField": [
-		{ "label": "Institution for which prepayment invoice is issued:", "name": "institution" }
+    "registerRoomOther": [
+        { "label": "Additional information:", "name": "addinfo" }
+	],
+    "registerBoxes": [
+        { "label": "Will there be people accompanying?", "name": "accompany", "choices": [
+            { "label": "No", "value": "accno", "choicename": "choice2"},
+            { "label": "Yes", "value": "accyes", "choicename": "choice2"}
+		]},
+		{ "label": "Will people accompanying you be present at additional events?", "name": "accevent", "choices": [
+            { "label": "No", "value": "accevno", "choicename": "choice3"},
+            { "label": "Yes", "value": "accevyes", "choicename": "choice3"}
+        ]},
+        { "label": "Do you need prepayment invoice for participation fee?", "name": "invoice", "choices": [
+            { "label": "No", "value": "invno", "choicename": "choice4"},
+            { "label": "Yes", "value": "invyes", "choicename": "choice4"}
+        ]}
+    ],
+	"institutionFields": [
+        { "label": "Name of institution for which prepayment invoice is issued:", "name": "institutionname" },
+        { "label": "Company code of institution for which prepayment invoice is issued:", "name": "institutioncompanycode" },
+        { "label": "Address of institution for which prepayment invoice is issued:", "name": "institutionaddress" },
+        { "label": "Bank account code of institution for which prepayment invoice is issued:", "name": "institutionbankcode" }
 	],
     "trans": {
         "submit": "Submit",
