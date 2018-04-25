@@ -20,7 +20,7 @@
         ]}
     ],
     "registerRoomOther": [
-        { "label": "Additional information:", "name": "addinfo" }
+        { "label": "Additional information:", "name": "addinfo", "id": "addinfo" }
 	],
     "registerBoxes": [
         { "label": "Will there be people accompanying?", "name": "accompany", "choices": [

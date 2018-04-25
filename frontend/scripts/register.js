@@ -8,5 +8,5 @@ function isLastChoice(name, value) {
 
 }
 function defaultValues() {
-	
+	return document.getElementById("addinfo").innerHTML.hidden(true);
 }
