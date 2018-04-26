@@ -15,6 +15,7 @@ class Query
     private $orderBy = null;
     private $limit = null;
     private $offset = null;
+    private $db = null;
 
     /**
      * Set table for query to execute in
@@ -27,6 +28,10 @@ class Query
         return $this;
     }
 
+    public function db($db){
+        $this->db = $db;
+        return $this;
+    }
     /**
      * Select statement for mysql
      * @param $select string Fields to select(separated by comma)
@@ -45,7 +50,7 @@ class Query
     public function update($fields){
         if($this->table == null)
             die("Query table was not set.");
-        $this->command = "UPDATE " . $this->table . " SET ";
+        $this->command = "UPDATE ". ($this->db === null?"":$this->db.".") . $this->table . " SET ";
         $result = [];
         if(is_array($fields)){
             foreach ($fields as $field) {
@@ -96,7 +101,7 @@ class Query
             array_push($keys, $fields->getField());
             array_push($values, $fields->getValue());
         }
-        $this->command = "INSERT INTO " . $this->table . " ( ".implode(",", $keys)." ) VALUES (".implode(",", $values).")";
+        $this->command = "INSERT INTO ". ($this->db === null?"":$this->db.".") . $this->table . " ( ".implode(",", $keys)." ) VALUES (".implode(",", $values).")";
         return $this;
     }
 
@@ -130,7 +135,7 @@ class Query
         }
         else{
             if(!$fields instanceof Field)
-                die("Bad query formatting. One of fields was not instance of Field");
+                die("Bad query formatting. Fields was not instance of Field");
             array_push($result,$fields->toString());
         }
         $this->where .= implode(' AND ', $result);
@@ -144,6 +149,6 @@ class Query
     public function toString(){
         if (strpos(strtolower($this->command), "update") !== false) return $this->command ." ". $this->where . $this->limit . $this->offset;
         else if (strpos(strtolower($this->command), "insert") !== false || strpos(strtolower($this->command), "replace") !== false) return $this->command;
-        else return $this->command . $this->table . " " . $this->where . $this->orderBy . $this->limit . $this->offset;
+        else return $this->command . ($this->db === null?"":$this->db.".") . $this->table . " " . $this->where . $this->orderBy . $this->limit . $this->offset;
     }
 }

@@ -1,18 +1,49 @@
-<form>
+<form onload="defaultValues()" 
+    name="reg_form" 
+    action="change/this/to/normal/url" 
+    method="POST" 
+    onsubmit="return FrontPage_Form1_Validator(this)"
+    novalidate>
+    <!-- TODO: Specify a real registration endpoint url (action) -->
     {{#each registerFields}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}">
-        <br> 
+        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)" required> <br>
+		<p id= "{{ this.name }}_ID" ></p>       
     {{/each}}  
+    {{#each registerRoom}}
+        {{ this.label }}<br>
+        {{#each this.choices}}
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" onclick="isLastChoice(this.name, this.value)" required> {{ this.label }}<br>
+        {{/each}} 
+    {{/each}} 
+    {{#each registerRoomOther}}
+        {{ this.label }}<br>
+        <input type="text" name="{{ this.name }}" id="{{ this.id }}">
+        <br> 
+    {{/each}} 
     {{#each registerBoxes}}
         {{ this.label }}<br>
         {{#each this.choices}}
-            <input type="radio" name="{{ @../this.name }}" value="{{ this.value }}"> {{ this.label }}<br>
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" required> {{ this.label }}<br>
         {{/each}} 
         <br> 
+    {{/each}}  
+	{{#each institutionFields}}
+        {{ this.label }}<br>
+        <input type="text" name="{{ this.name }}">
+        <br> 
     {{/each}} 
+	<br> 
     <input type="submit" value="{{ trans.submit }}">
     <input type="reset" value="{{ trans.reset }}">
 </form> 
 
+<script>
+    var registerFormData = {
+        registerFields: ({{{json registerFields}}}),
+        registerRoom: ({{{json registerRoom}}}),
+        registerRoomOther: ({{{json registerRoomOther}}}),
+        institutionFields: ({{{json institutionFields}}})
+    }
+</script>
 <script src="/scripts/register.js"></script>
