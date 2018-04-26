@@ -2,10 +2,8 @@
 namespace app\controllers;
 use app\models\User;
 use core\Controller;
-use core\Database\Mysql;
 use core\Exceptions\Error;
 use core\Exceptions\Success;
-use core\Helper;
 use core\Post;
 
 class userController extends Controller
@@ -36,5 +34,9 @@ class userController extends Controller
         $user->leading_people = Post::get("accompany");
         $user->insert();
         (new Success(200, "User created"))->printJson();
+        return 1;
+    }
+    public function validate($id, $hash){
+        echo "test";
     }
 }
