@@ -4,6 +4,7 @@ use app\models\User;
 use core\Controller;
 use core\Database\Mysql;
 use core\Exceptions\Error;
+use core\Exceptions\Success;
 use core\Helper;
 use core\Post;
 
@@ -16,7 +17,7 @@ class userController extends Controller
             return (new Error(400, "No arguments given"))->printJson();
         }
         $requiredParams=["title", "firstname", "lastname", "affiliation", "email", "phone", "articletitle",
-            "articleauthors", "articleauthorsaffiliations", "hotel", "accompany", "invoice"];
+            "articleauthors", "articleauthorsaffiliations", "hotel", "accompany"];
         foreach ($requiredParams as $param){
             if(Post::get($param) === false || Post::get($param) === null || Post::get($param) === ""){
                 return (new Error(400, "Not all required arguments given"))->printJson();
@@ -36,7 +37,6 @@ class userController extends Controller
         $user->hotel = Post::get("hotel");
         $user->leading_people = Post::get("accompany");
         $user->insert();
-
-        var_dump(count($_POST));
+        (new Success(200, "User created"))->printJson();
     }
 }

@@ -48,11 +48,11 @@ class Mysql
     public static function error($error, $details = null){
         if(ini_get('display_errors') == 1)
         {
-            (new Error(503, "[Database] ". $error .": ". $details))->print();
+            (new Error(503, "[Database] ". $error .": ". $details))->printString();
             die();
         }
         else
-            (new Error(503, "[Database] ". $error))->print();
+            (new Error(503, "[Database] ". $error))->printString();
             die();
     }
 

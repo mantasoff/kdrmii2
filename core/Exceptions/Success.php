@@ -6,11 +6,12 @@
  * Time: 17:12
  */
 namespace core\Exceptions;
-class Error extends Exception
+
+class Success extends Exception
 {
     public function __construct($response_code, $message)
     {
-        $this->success = false;
+        $this->success = true;
         parent::__construct($response_code, $message);
     }
 }
