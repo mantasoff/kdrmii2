@@ -1,4 +1,10 @@
-<form onload="defaultValues()">
+<form onload="defaultValues()" 
+    name="reg_form" 
+    action="change/this/to/normal/url" 
+    method="POST" 
+    onsubmit="return FrontPage_Form1_Validator(this)"
+    novalidate>
+    <!-- TODO: Specify a real registration endpoint url (action) -->
     {{#each registerFields}}
         {{ this.label }}<br>
         <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)" required> <br>
@@ -32,4 +38,12 @@
     <input type="reset" value="{{ trans.reset }}">
 </form> 
 
+<script>
+    var registerFormData = {
+        registerFields: ({{{json registerFields}}}),
+        registerRoom: ({{{json registerRoom}}}),
+        registerRoomOther: ({{{json registerRoomOther}}}),
+        institutionFields: ({{{json institutionFields}}})
+    }
+</script>
 <script src="/scripts/register.js"></script>

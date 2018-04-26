@@ -16,6 +16,9 @@ gulp.task('default', function () {
         helpers : {
             capitals : function(str){
                 return str.toUpperCase();
+            },
+            json: function(context) {
+                return JSON.stringify(context);
             }
         }
     }

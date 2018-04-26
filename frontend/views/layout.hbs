@@ -240,69 +240,12 @@ submission is 10th of September 2018.</span></p>
 <p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;">&nbsp;</span></p>
 
 <p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;">
-<script language="JavaScript" type="text/javascript">
-<!--
 
-//Tikriname varda ir pavardes
-function FrontPage_Form1_Validator(theForm)
-{
-  //Tikriname varda ir pavardes
-  if (theForm.first_name.value.length == 0) {
-  	alert("Please enter a valid first name.");
-    theForm.first_name.focus();
-    return (false);
-  }
+</span></p>
 
-  if (theForm.last_name.value.length == 0) {
-  	alert("Please enter a valid surname.");
-    theForm.last_name.focus();
-    return (false);
-  }
+{{{ body }}}
 
-  if (theForm.affilation.value.length == 0) {
-  	alert("Please enter a valid affiliation.");
-    theForm.affilation.focus();
-    return (false);
-  }
-  
-  if (theForm.phone.value.length == 0) {
-  	alert("Please enter a valid phone number.");
-    theForm.phone.focus();
-    return (false);
-  }
-
-  if (theForm.email.value.length == 0) {
-  	alert("Please enter an email.");
-    theForm.email.focus();
-    return (false);
-  }
-
-  if (theForm.article_title.value.length > 0) {
-		if (theForm.article_authors.value.length == 0) {
-		alert("Please enter an article authors.");
-		theForm.article_authors.focus();
-		return (false);
-		}
-
-
-		if (theForm.article_authors_affiliations.value.length == 0) {
-		alert("Please enter an article authors affiliations.");
-		theForm.article_authors_affiliations.focus();
-		return (false);
-		}
-  }
-  
-  return true;
-}
-
-//-->
-</script>
-
-</span></p><form name="reg_form" action="pages/scripts/registration.php" method="POST" onsubmit="return FrontPage_Form1_Validator(this)">
-
-{{{body}}}
-
-</form><p></p>
+<p></p>
   </td>
   </tr>
   </tbody></table></td></tr></tbody></table>
