@@ -23,8 +23,6 @@ class userController extends Controller
                 return (new Error(400, "Not all required arguments given"))->printJson();
             }
         }
-        $db_config = Helper::config("database");
-        Mysql::connect($db_config->host, $db_config->user, $db_config->password, $db_config->database);
         $user = new User();
         $user->email=Post::get("email");
         $user->first_name = Post::get("firstname");
