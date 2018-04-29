@@ -46,23 +46,25 @@ class Validation extends Model
      * @param $userId
      */
     public static function createUserValidation($userId){
-        $hash = self::randomString(10);
         $validation = new Validation();
         $validation->user_id = $userId;
-        $validation->hash = $hash;
+        $validation->hash = self::randomString(10);
         $validation->valid_till = time()+86400;
         $validation->insert();
-        self::sendMailValidation($userId, $hash);
+        self::sendMailValidation($userId, $validation);
     }
 
     /**
      * Send user mail validation
      * @param $userId
-     * @param $hash
+     * @param $validation
      */
-    public static function sendMailValidation($userId, $hash){
-        $mail = new Mail();
-        $link = "validate/5/dfafadsfasdfgdasgdsfas";
+    public static function sendMailValidation($userId, $validation){
+        $user = new User($userId);
+        $link = "validate/".$validation->id."/".$validation->hash;
+        $mail = new Mail($user->email,
+            "Registracijos patvirtinimas",
+            "Norint patvirtinti slaptažodį paspauskite ant nuorodos: <a href='".$link."'>atstatyti slaptažodį</a>.");
         $mail->send();
     }
 }
