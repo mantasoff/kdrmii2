@@ -21,15 +21,19 @@
     "registerRoomOther": [
         { "label": "Additional information:", "name": "addinfo", "id": "addinfo" }
 	],
-    "registerBoxes": [
+    "registerBox1": [
         { "label": "Will there be people accompanying?", "name": "accompany", "choices": [
             { "label": "No", "value": "accno", "choicename": "choice2", "checked": "checked"},
             { "label": "Yes", "value": "accyes", "choicename": "choice2", "checked": ""}
-		]},
+		]}
+    ],
+    "registerBox2": [
 		{ "label": "Will people accompanying you be present at additional events?", "name": "accevent", "choices": [
             { "label": "No", "value": "accevno", "choicename": "choice3", "checked": "checked"},
             { "label": "Yes", "value": "accevyes", "choicename": "choice3", "checked": ""}
-        ]},
+        ]}
+    ],
+    "registerBox3": [
         { "label": "Do you need prepayment invoice for participation fee?", "name": "invoice", "choices": [
             { "label": "No", "value": "invno", "choicename": "choice4", "checked": "checked"},
             { "label": "Yes", "value": "invyes", "choicename": "choice4", "checked": ""}
@@ -40,7 +44,10 @@
         { "label": "Address of institution for which prepayment invoice is issued:", "name": "institutionaddress" },
         { "label": "Company code of institution for which prepayment invoice is issued:", "name": "institutioncompanycode" },
         { "label": "Bank account code of institution for which prepayment invoice is issued:", "name": "institutionbankcode" }
-	],
+    ],
+    "abstractField": [
+        { "label": "Abstract:", "name": "abstract", "placeholder": "Abstract", "id": "abstractfield" }
+    ],
     "trans": {
         "submit": "Submit",
         "reset": "Reset"

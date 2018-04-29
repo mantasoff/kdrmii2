@@ -3,6 +3,7 @@
  * @param {string} name 
  * @param {string} value 
  */
+window.onload = defaultValues;
 function notEmpty(name, value) {
   var x = value;
 	if (x.length === 0)	{
@@ -18,22 +19,44 @@ function notEmpty(name, value) {
  * @param {string} name 
  * @param {string} value 
  */
-function isLastChoice(label) {
-  var x = label;
-	if (x === "Other")	{
-    return document.getElementById("otherroom").hidden="false";
+function isLastChoice(value) {
+  let x = value;
+	if (x == "roomother")	{
+    document.getElementById("otherroom").style.display = "inline";
   }
-  if (x != "Other")	{
-    return document.getElementById("otherroom").hidden="true";
+  if (x != "roomother")	{
+    document.getElementById("otherroom").style.display = "none";
+    document.getElementById("addinfo").value = null;
 	}
 }
 
+function isLastChoice2(value) {
+  let x = value;
+	if (x == "accyes")	{
+    document.getElementById("otheraccompany").style.display = "inline";
+  }
+  if (x != "accyes")	{
+    document.getElementById("otheraccompany").style.display = "none";
+	}
+}
+
+function isLastChoice3(value) {
+  let x = value;
+	if (x == "invyes")	{
+    document.getElementById("otherinvoice").style.display = "inline";
+  }
+  if (x != "invyes")	{
+    document.getElementById("otherinvoice").style.display = "none";
+	}
+}
+//abstract
 /**
  * Preloads default values to the form
  */
 function defaultValues() {
-  console.log("asdfffffffffff")
-  return document.getElementById("otherroom").hidden="true";
+  document.getElementById("otherroom").style.display = "none";
+  document.getElementById("otheraccompany").style.display = "none";
+  document.getElementById("otherinvoice").style.display = "none";
 }
 
 /**
@@ -49,13 +72,10 @@ function FrontPage_Form1_Validator(theForm)
   /**
    * Iterate through register form fields and check if
    * required fields are filled
-   * 
-   * !!! registerFormData still has registerRoom, registerRoomOther 
-   * and institutionFields that have to be validated too
    */
   
   for(var i = 0; i < registerFields.length; i++) {    
-    if (registerFields[i].required && (theForm[registerFields[i].name].value.length == 3)) {
+    if (registerFields[i].required && (theForm[registerFields[i].name].value.length == 0)) {
       alert("Please enter a valid " + registerFields[i].placeholder + ".");
       theForm[registerFields[i].name].focus();
       return false;
