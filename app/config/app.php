@@ -1,4 +1,5 @@
 <?php
 return [
-  'directory' => '/kdrmii'
+    'directory' => '/kdrmii',
+    'error_format' => \core\Exceptions\ExceptionsPrintTypes::Json
 ];

@@ -149,6 +149,6 @@ class Query
     public function toString(){
         if (strpos(strtolower($this->command), "update") !== false) return $this->command ." ". $this->where . $this->limit . $this->offset;
         else if (strpos(strtolower($this->command), "insert") !== false || strpos(strtolower($this->command), "replace") !== false) return $this->command;
-        else return $this->command . ($this->db === null?"":$this->db.".") . $this->table . " " . $this->where . $this->orderBy . $this->limit . $this->offset;
+        else return $this->command . ($this->db === null?"":$this->db.".") ." ". $this->table . " " . $this->where . $this->orderBy . $this->limit . $this->offset;
     }
 }
