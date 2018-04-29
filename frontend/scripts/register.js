@@ -7,6 +7,9 @@ function notEmpty(name, value) {
   var x = value;
 	if (x.length === 0)	{
 		return document.getElementById(name+"_ID").innerHTML = "Please fill out this field";
+  }
+  if (x.length > 0)	{
+		return document.getElementById(name+"_ID").innerHTML = "";
 	}
 }
 
@@ -15,15 +18,22 @@ function notEmpty(name, value) {
  * @param {string} name 
  * @param {string} value 
  */
-function isLastChoice(name, value) {
-
+function isLastChoice(label) {
+  var x = label;
+	if (x === "Other")	{
+    return document.getElementById("otherroom").hidden="false";
+  }
+  if (x != "Other")	{
+    return document.getElementById("otherroom").hidden="true";
+	}
 }
 
 /**
  * Preloads default values to the form
  */
 function defaultValues() {
-	return document.getElementById("addinfo").innerHTML.hidden(true);
+  console.log("asdfffffffffff")
+  return document.getElementById("otherroom").hidden="true";
 }
 
 /**
@@ -45,7 +55,7 @@ function FrontPage_Form1_Validator(theForm)
    */
   
   for(var i = 0; i < registerFields.length; i++) {    
-    if (registerFields[i].required && (theForm[registerFields[i].name].value.length == 0)) {
+    if (registerFields[i].required && (theForm[registerFields[i].name].value.length == 3)) {
       alert("Please enter a valid " + registerFields[i].placeholder + ".");
       theForm[registerFields[i].name].focus();
       return false;

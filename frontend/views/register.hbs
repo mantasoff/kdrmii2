@@ -1,38 +1,59 @@
-<form onload="defaultValues()" 
+<form onload="defaultValues()"
     name="reg_form" 
     action="change/this/to/normal/url" 
     method="POST" 
     onsubmit="return FrontPage_Form1_Validator(this)"
     novalidate>
     <!-- TODO: Specify a real registration endpoint url (action) -->
+    <label for="title">Title: (Prof/Dr/Mr/Mrs/Ms)</label>
+    <select name="title">
+        <option value="Prof">Prof</option>
+        <option value="Dr">Dr</option>
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Ms">Ms</option>
+    </select> <br>
+    {{#each registerTitle}}
+        {{ this.label }}
+        {{#each this.choices}}
+            <input type="option" name="{{ this.title }}" value="{{ this.value }}" label="{{ this.label }}" 
+        {{/each}} 
+        <br>
+    {{/each}}
+
     {{#each registerFields}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)" required> <br>
-		<p id= "{{ this.name }}_ID" ></p>       
+        <input type="text" name="{{ this.name }}" placeholder="{{ this.placeholder }}" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+		<font color="red"><p id= "{{ this.name }}_ID" ></p></font>       
     {{/each}}  
     {{#each registerRoom}}
         {{ this.label }}<br>
         {{#each this.choices}}
-            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" onclick="isLastChoice(this.name, this.value)" required> {{ this.label }}<br>
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" onclick="isLastChoice(this.label)" {{ this.checked }} required> {{ this.label }}<br>
         {{/each}} 
+        <br>
     {{/each}} 
+    <p id="otherroom">
     {{#each registerRoomOther}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}" id="{{ this.id }}">
+        <input type="text" name="{{ this.name }}" id="{{ this.id }}" size="45">
         <br> 
     {{/each}} 
+    </p>
     {{#each registerBoxes}}
         {{ this.label }}<br>
         {{#each this.choices}}
-            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" required> {{ this.label }}<br>
+            <input type="radio" name="{{ this.choicename }}" value="{{ this.value }}" {{ this.checked }} required> {{ this.label }} <br>
         {{/each}} 
         <br> 
     {{/each}}  
+    <p hidden>
 	{{#each institutionFields}}
         {{ this.label }}<br>
-        <input type="text" name="{{ this.name }}">
+        <input type="text" name="{{ this.name }}" size="45">
         <br> 
     {{/each}} 
+    </p>
 	<br> 
     <input type="submit" value="{{ trans.submit }}">
     <input type="reset" value="{{ trans.reset }}">

@@ -1,22 +1,21 @@
 {
     "title": "KDRMil",
     "registerFields": [
-        { "label": "Title: (Prof/Dr/Mr/Mrs/Ms)", "name": "title", "placeholder": "Prof/Dr/Mr/Mrs/Ms" },
         { "label": "First Name:", "name": "firstname", "placeholder": "First Name", "required": true },
         { "label": "Last Name:", "name": "lastname", "placeholder": "Last Name", "required": true },
         { "label": "Affiliation:", "name": "affiliation", "placeholder": "Affiliation", "required": true },
         { "label": "E-Mail:", "name": "email", "placeholder": "Email", "required": true },
-        { "label": "Phone number:", "name": "phone", "placeholder": "Phone number" },
-        { "label": "Article title:", "name": "articletitle", "placeholder": "Article title" },
-        { "label": "Article authors:", "name": "articleauthors", "placeholder": "Article authors" },
-        { "label": "Article authors affiliations:", "name": "articleauthorsaffiliations", "placeholder": "Affiliations" }
+        { "label": "Phone number:", "name": "phone", "placeholder": "Phone number", "required": true },
+        { "label": "Article title:", "name": "articletitle", "placeholder": "Article title", "required": true },
+        { "label": "Article authors:", "name": "articleauthors", "placeholder": "Article authors", "required": true },
+        { "label": "Article authors affiliations:", "name": "articleauthorsaffiliations", "placeholder": "Affiliations", "required": true }
     ],
     "registerRoom": [
         { "label": "Do you need to book the hotel room?", "name": "hotel", "choices": [
-            { "label": "No", "value": "roomno", "choicename": "choice1"},
-            { "label": "Single room", "value": "roomsingle", "choicename": "choice1"},
-            { "label": "Double room", "value": "roomdouble", "choicename": "choice1"},
-            { "label": "Other", "value": "roomother", "choicename": "choice1"}
+            { "label": "No", "value": "roomno", "choicename": "choice1", "checked": "checked"},
+            { "label": "Single room", "value": "roomsingle", "choicename": "choice1", "checked": ""},
+            { "label": "Double room", "value": "roomdouble", "choicename": "choice1", "checked": ""},
+            { "label": "Other", "value": "roomother", "choicename": "choice1", "checked": ""}
         ]}
     ],
     "registerRoomOther": [
@@ -24,22 +23,22 @@
 	],
     "registerBoxes": [
         { "label": "Will there be people accompanying?", "name": "accompany", "choices": [
-            { "label": "No", "value": "accno", "choicename": "choice2"},
-            { "label": "Yes", "value": "accyes", "choicename": "choice2"}
+            { "label": "No", "value": "accno", "choicename": "choice2", "checked": "checked"},
+            { "label": "Yes", "value": "accyes", "choicename": "choice2", "checked": ""}
 		]},
 		{ "label": "Will people accompanying you be present at additional events?", "name": "accevent", "choices": [
-            { "label": "No", "value": "accevno", "choicename": "choice3"},
-            { "label": "Yes", "value": "accevyes", "choicename": "choice3"}
+            { "label": "No", "value": "accevno", "choicename": "choice3", "checked": "checked"},
+            { "label": "Yes", "value": "accevyes", "choicename": "choice3", "checked": ""}
         ]},
         { "label": "Do you need prepayment invoice for participation fee?", "name": "invoice", "choices": [
-            { "label": "No", "value": "invno", "choicename": "choice4"},
-            { "label": "Yes", "value": "invyes", "choicename": "choice4"}
+            { "label": "No", "value": "invno", "choicename": "choice4", "checked": "checked"},
+            { "label": "Yes", "value": "invyes", "choicename": "choice4", "checked": ""}
         ]}
     ],
 	"institutionFields": [
-        { "label": "Name of institution for which prepayment invoice is issued:", "name": "institutionname" },
-        { "label": "Company code of institution for which prepayment invoice is issued:", "name": "institutioncompanycode" },
+        { "label": "Name of institution for which prepayment invoice is issued:", "name": "institutionname" },   
         { "label": "Address of institution for which prepayment invoice is issued:", "name": "institutionaddress" },
+        { "label": "Company code of institution for which prepayment invoice is issued:", "name": "institutioncompanycode" },
         { "label": "Bank account code of institution for which prepayment invoice is issued:", "name": "institutionbankcode" }
 	],
     "trans": {
