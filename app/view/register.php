@@ -11,8 +11,7 @@ submission is 10th of September 2018.</span></p>
 
 </span></p>
 
-<form name="reg_form" action="change/this/to/normal/url" method="POST" onsubmit="return FrontPage_Form1_Validator(this)" novalidate>
-    <!-- TODO: Specify a real registration endpoint url (action) -->
+<form name="reg_form" action="{{config.directory}}/user/register" method="POST" onsubmit="return FrontPage_Form1_Validator(this)" novalidate>
     <label for="title">Title: (Prof/Dr/Mr/Mrs/Ms)</label>
     <select name="title">
         <option value="Prof">Prof</option>
@@ -61,10 +60,10 @@ submission is 10th of September 2018.</span></p>
         <p id="articleauthorsaffiliations_ID"></p>
     </font>
     Do you need to book the hotel room?<br>
-    <input type="radio" name="choice1" value="roomno" onclick="isLastChoice(this.value)" checked required> No<br>
-    <input type="radio" name="choice1" value="roomsingle" onclick="isLastChoice(this.value)" required> Single room<br>
-    <input type="radio" name="choice1" value="roomdouble" onclick="isLastChoice(this.value)" required> Double room<br>
-    <input type="radio" name="choice1" value="roomother" onclick="isLastChoice(this.value)" required> Other<br>
+    <input type="radio" name="hotel" value="roomno" onclick="isLastChoice(this.value)" checked required> No<br>
+    <input type="radio" name="hotel" value="roomsingle" onclick="isLastChoice(this.value)" required> Single room<br>
+    <input type="radio" name="hotel" value="roomdouble" onclick="isLastChoice(this.value)" required> Double room<br>
+    <input type="radio" name="hotel" value="roomother" onclick="isLastChoice(this.value)" required> Other<br>
     <p id="otherroom">
         Additional information:<br>
         <textarea type="text" name="addinfo" id="addinfo" rows="4" cols="50"> </textarea>
