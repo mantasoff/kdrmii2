@@ -12,3 +12,7 @@ spl_autoload_register(function($class) {
     if(file_exists($file))
         require $file;
 });
+
+require_once __DIR__ . '/composer/autoload_real.php';
+
+return ComposerAutoloaderInitf2c39e071a89e501b34352705f54a734::getLoader();
