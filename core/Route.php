@@ -107,7 +107,7 @@ class Route
             $function = $urlExplode[1];
 
         $class = "\\app\\controllers\\".$controller."Controller";
-        if(!class_exists ($class)){
+        if(!class_exists ($class) || !method_exists($class, "canAccess")){
             $class = "\\app\\controllers\\".$defaultController."Controller";
             $_controller = (new $class());
             if($_controller->canAccess())

@@ -7,6 +7,7 @@
 
 namespace core;
 
+use app\models\User;
 use core\Database\Field;
 use core\Database\Mysql;
 use core\Database\Query;
@@ -51,6 +52,11 @@ class Model
         if($id!=null) $this->getData($id);
     }
 
+    /**
+     * Get model data from database by id
+     * @param $id
+     * @return bool
+     */
     private function getData($id){
         $query = new Query();
         if(static::$db !== null) $query->db(static::$db);
@@ -62,12 +68,17 @@ class Model
         return true;
     }
 
+    /**
+     * Update model data from database fields
+     * @param $result
+     */
     protected function updateDataFromResult($result){
         if(!is_array($result)) return;
         foreach (array_keys((array)$result) as $key){
                 $this->fields[$key]=$result[''.$key];
         }
     }
+
     /**
      * Insert model to database
      * @param bool $insertID Custom id
@@ -88,7 +99,7 @@ class Model
             if($this->fields[$field]==null || $field==static::$idColumn) continue;
             array_push($fields, new Field($field, $this->fields[$field]));
         }
-        $query =new Query();
+        $query = new Query();
         if(static::$db !== null) $query->db(static::$db);
         $query->table(static::$table)->insert($fields);
         Mysql::execute($query);
@@ -97,6 +108,23 @@ class Model
         return Mysql::lastInserted();
     }
 
+    /**
+     * Delete model from database
+     */
+    public function delete(){
+        if(static::$idColumn==null){
+            Mysql::error('ID column not set for object');
+            return;
+        }
+        if($this->fields[static::$idColumn]==null){
+            Mysql::error('ID column value not set');
+            return;
+        }
+        $query = new Query();
+        if(static::$db !== null) $query->db(static::$db);
+        $query->table(static::$table)->delete()->where(new Field(static::$idColumn, $this->fields[static::$idColumn]));
+        Mysql::execute($query);
+    }
     /**
      * Get formated query
      * @param null $query
@@ -110,6 +138,9 @@ class Model
         return $query;
     }
 
+    /**
+     * Save model to database
+     */
     public function save(){
         if(static::$idColumn==null){
             Mysql::error('ID column not set for object');
@@ -128,9 +159,22 @@ class Model
         $query->table(static::$table)->update($fields)->where(new Field(static::$idColumn,$this->fields[static::$idColumn]));
         Mysql::execute($query);
     }
+
+    /**
+     * Get model data in array
+     * @return array
+     */
     public function getArray(){
         return $this->fields;
     }
+
+    /**
+     * Get model/models from database with specified fields
+     * @param $fields
+     * @param null $order
+     * @param null $limit
+     * @return User|User[]|null
+     */
     public static function getByFields($fields, $order = null, $limit = null)
     {
         if (is_array($fields)) {
