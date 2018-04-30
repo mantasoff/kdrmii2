@@ -14,12 +14,6 @@ class indexController extends Controller
      */
     public function index()
     {
-        $view = new View();
-        $view->title = "phpFramework";
-        $view->render("index",[
-            "user" =>[
-                "name"=>"var from php"
-            ]
-        ]);
+        (new View())->render("register");
     }
 }

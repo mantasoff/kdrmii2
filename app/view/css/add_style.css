@@ -1,0 +1,74 @@
+body { 	margin:0px;padding:0px;	}
+td {
+	text-align: left;
+	vertical-align: top;
+	font-family:Tahoma;
+	font-size:11px;
+	color:#737C83;
+	line-height:13px;
+}
+
+a {
+	text-decoration: underline;
+	color:#2D75A4;
+}
+
+a:hover {text-decoration:underline;}
+
+.copy {
+	font-family:Tahoma;
+	font-size:10px;
+	color:#717171;
+	text-decoration:none;
+}
+
+.bot_txt {color:#2D75A4; font-size:9px; font-weight:bold}
+
+.gray {color:#737C83;}
+.blue {color:#2D75A4}
+.red {color:#EC5100; font-size:9px}
+.orange {color:#FF8F0D; font-size:9px}
+.small {font-size:10px}
+.normal {font-size:12px}
+
+.menu_bg1 {
+	background-position: right center; 
+	background-repeat: norepeat;
+	background-image: url(./../images/m1r.jpg);
+}
+
+.menu_bg1 A:link, .menu_bg1 A:active, .menu_bg1 A:visited, .menu_bg1 A:hover {COLOR: #8A8A8A; FONT-SIZE: 12px; FONT-FAMILY: Verdana, Helvetica; font-weight:bold; TEXT-DECORATION: none}
+
+.menu_bg2 {
+	background-position: right center; 
+	background-repeat: norepeat;
+	background-image: url(./../images/m2r.jpg);
+}
+
+.menu_bg2 A:link, .menu_bg2 A:active, .menu_bg2 A:visited, .menu_bg2 A:hover {COLOR: #353859; FONT-SIZE: 12px; FONT-FAMILY: Verdana, Helvetica; font-weight:bold; TEXT-DECORATION: none}
+
+#under{text-decoration:underline;}
+
+INPUT 		{BORDER-TOP-COLOR: #000000; BORDER-LEFT-COLOR: #000000; BORDER-RIGHT-COLOR: #000000; BORDER-BOTTOM-COLOR: #000000; BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 11px; BORDER-BOTTOM-WIDTH: 1px; FONT-FAMILY: Verdana,Helvetica; BORDER-RIGHT-WIDTH: 1px}
+TEXTAREA	{BORDER-TOP-COLOR: #000000; BORDER-LEFT-COLOR: #000000; BORDER-RIGHT-COLOR: #000000; BORDER-BOTTOM-COLOR: #000000; BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 11px; BORDER-BOTTOM-WIDTH: 1px; FONT-FAMILY: Verdana,Helvetica; BORDER-RIGHT-WIDTH: 1px}
+SELECT 		{BORDER-TOP-COLOR: #000000; BORDER-LEFT-COLOR: #000000; BORDER-RIGHT-COLOR: #000000; BORDER-BOTTOM-COLOR: #000000; BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; FONT-SIZE: 11px; BORDER-BOTTOM-WIDTH: 1px; FONT-FAMILY: Verdana,Helvetica; BORDER-RIGHT-WIDTH: 1px}
+FORM 		{FONT-FAMILY: Verdana,Helvetica; FONT-SIZE: 11px}
+
+
+
+.area_title 	{BACKGROUND: none; COLOR:  #212121; FONT-SIZE: 16px; FONT-WEIGHT: bold; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 18 0 12 0; text-align: center;}
+.area_subtitle 	{BACKGROUND: none; COLOR: #636363; FONT-SIZE: 14px; FONT-WEIGHT: bold; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 12 0 6 0; text-align: center;}
+.area_div_name 	{BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 14px; FONT-WEIGHT: bold; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 6 0 3 0; text-align: justify; text-indent: 0;}
+.area_subdiv_name 	{BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: bold; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 6 0 3 0; text-align: justify; text-indent: 0;}
+.area_text {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 6 0 6 0; text-align: justify; text-indent: 20;}
+.area_text_simple {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 6 0 6 0;}
+.area_small_text 	{BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 9px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 4 0 4 20; text-align: justify; text-indent: -20;}
+.area_nuneric1 {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 6 0 6 20; text-align: justify; text-align: justify; text-indent: -20;}
+.area_nuneric2 {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 4 0 4 40; text-align: justify; text-align: justify; text-indent: -20;}
+.area_nuneric3 {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; margin: 2 0 2 60; text-align: justify; text-align: justify; text-indent: -20;}
+.area_enumeration {BACKGROUND: none; COLOR: #6A6A6A; FONT-SIZE: 12px; FONT-WEIGHT: normal; FONT-FAMILY: Tahoma, Verdana, Helvetica; TEXT-DECORATION: none; none; margin: 2 0 2 20; text-align: justify;}
+
+
+.content 		{BACKGROUND: none; COLOR: #00008B; FONT-SIZE: 12px; FONT-FAMILY: Tahoma, Verdana, Helvetica}
+
+
