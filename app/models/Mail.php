@@ -8,6 +8,8 @@
 namespace app\models;
 
 
+use core\View;
+
 class Mail
 {
     private $mail;
@@ -17,7 +19,7 @@ class Mail
     {
         $this->mail = $mail;
         $this->subject = $subject;
-
+        $this->text = (new View())->rendered("other/mail", ["content" => $text]);
     }
     public function send(){
         $headers = "MIME-Version: 1.0" . "\r\n";

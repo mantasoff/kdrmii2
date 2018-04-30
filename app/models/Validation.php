@@ -8,6 +8,7 @@
 namespace app\models;
 
 
+use app\controllers\mailController;
 use core\Database\Field;
 use core\Database\Mysql;
 use core\Database\Query;
@@ -27,44 +28,15 @@ class Validation extends Model
     }
 
     /**
-     * Generate random string
-     * @param int $length string length
-     * @return string
-     */
-    public static function randomString($length = 5){
-        $randomBytes = openssl_random_pseudo_bytes($length);
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        $charactersLength = strlen($characters);
-        $result = '';
-        for ($i = 0; $i < $length; $i++)
-            $result .= $characters[ord($randomBytes[$i]) % $charactersLength];
-        return $result;
-    }
-
-    /**
      * Create user validation in database
      * @param $userId
      */
     public static function createUserValidation($userId){
         $validation = new Validation();
         $validation->user_id = $userId;
-        $validation->hash = self::randomString(10);
+        $validation->hash = mailController::randomString(10);
         $validation->valid_till = time()+86400;
         $validation->insert();
-        self::sendMailValidation($userId, $validation);
-    }
-
-    /**
-     * Send user mail validation
-     * @param $userId
-     * @param $validation
-     */
-    public static function sendMailValidation($userId, $validation){
-        $user = new User($userId);
-        $link = "validate/".$validation->id."/".$validation->hash;
-        $mail = new Mail($user->email,
-            "Registracijos patvirtinimas",
-            "Norint patvirtinti slaptažodį paspauskite ant nuorodos: <a href='".$link."'>atstatyti slaptažodį</a>.");
-        $mail->send();
+        mailController::sendMailValidation($userId, $validation);
     }
 }
