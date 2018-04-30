@@ -78,8 +78,8 @@ class View
                 $this->fileContent("app/view/js/" . $path . ".js"));
         }
     }
-    public function render($path, $moreParams = [])
-    {
+
+    public function rendered($path, $moreParams = []){
         if(!empty($moreParams))
             foreach($moreParams as $key=>$value)
                 $this->$key = $value;
@@ -87,6 +87,12 @@ class View
             $this->data["session"] = $_SESSION;
         $this->data["config"] = (array)Helper::config("app");
         if(file_exists("app/view/".$path.".php"))
-            echo $this->fileContent("app/view/".$path.".php", $this->data);
+            return $this->fileContent("app/view/".$path.".php", $this->data);
+        return null;
+    }
+
+    public function render($path, $moreParams = [])
+    {
+        echo self::rendered($path, $moreParams);
     }
 }
