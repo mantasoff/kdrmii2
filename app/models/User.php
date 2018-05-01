@@ -70,7 +70,35 @@ class User extends Model
         if(strlen($data["degree"])>12){
             return "Degree is too long";
         }
-        //TODO: add more field validation
+        if(strlen($data["first_name"]) > 64){
+            return "First name is too long.";
+        }
+        if(strlen($data["last_name"]) > 64){
+            return "Last name is too long.";
+        }
+        if(strlen($data["affiliation"]) > 255){
+            return "Affiliation is too long.";
+        }
+        if(strlen($data["phone_number"]) > 18){
+            return "Phone number is too long.";
+        }
+        if(strlen($data["article_title"]) > 255){
+            return "Article title is too long.";
+        }
+        if(strlen($data["article_authors"]) > 300){
+            return "Article authors is too long.";
+        }
+        if(strlen($data["article_authors_affiliations"]) > 300){
+            return "Article authors affiliations is too long.";
+        }
+        if(strlen($data["abstract"]) > 300){
+            return "Abstraction is too long.";
+        }
+        if(strlen($data["hotel"]) > 64){
+            return "Hotel name is too long.";
+        }
+
+
         $withMail = User::getByFields([new Field("email", $data["email"])]);
         if($withMail !== null){
             return "User with this email already exist.";
@@ -99,7 +127,9 @@ class User extends Model
             $user->hotel = $data["hotel"];
         else
             $user->hotel = $data["otherroom"];
-        $user->leading_people = $data["leading_people"];
+        $user->leading_people = ($data["leading_people"] === "accyes" ? true : false );
+        if($user-> leading_people)
+            $user->additional_events = ($data["additional_events"] === "accevyes" ? true : false );
         $user->abstract = $data["abstract"];
         $id=$user->insert();
         Validation::createUserValidation($id);
