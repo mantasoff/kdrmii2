@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 use core\Controller;
+use core\Session;
 use core\View;
 
 /**
@@ -14,6 +15,8 @@ class indexController extends Controller
      */
     public function index()
     {
-        (new View())->render("register");
+        (new View())->render("register", ["message" => (Session::get("message") === false ? "" : Session::get("message"))]);
+        if(Session::get("message") !== false)
+            Session::set("message", false);
     }
 }

@@ -1,16 +1,16 @@
 {{include "header"}}
-<p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;">We ask those
-willing to participate and give a talk at the conference to register and send
-us the talk title in Lithuanian and English as well as a short abstract in
-English (up to 300 words). The deadline for registration and abstract
-submission is 10th of September 2018.</span></p>
+<p class="MsoNormal">
+    <span style="font-size: 10pt; line-height: 107%;">
+        We ask those willing to participate and give a talk at the conference to register and send
+        us the talk title in Lithuanian and English as well as a short abstract in
+        English (up to 300 words). The deadline for registration and abstract
+        submission is 10th of September 2018.
+    </span>
+</p>
 
 <p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;">&nbsp;</span></p>
-
-<p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;">
-
-</span></p>
-
+<p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;"></span></p>
+{{message}}
 <form name="reg_form" action="{{config.directory}}/user/register" method="POST" onsubmit="return FrontPage_Form1_Validator(this)" novalidate>
     <label for="title">Title: (Prof/Dr/Mr/Mrs/Ms)</label>
     <select name="title">
@@ -19,7 +19,8 @@ submission is 10th of September 2018.</span></p>
         <option value="Mr">Mr</option>
         <option value="Mrs">Mrs</option>
         <option value="Ms">Ms</option>
-    </select> <br> First Name:<br>
+    </select>
+    <br> First Name:<br>
     <input type="text" name="firstname" placeholder="First Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="firstname_ID"></p>
@@ -29,13 +30,18 @@ submission is 10th of September 2018.</span></p>
     <font color="red">
         <p id="lastname_ID"></p>
     </font>
+    Institution:<br>
+    <input type="text" name="institution" placeholder="Institution" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <font color="red">
+        <p id="institution_ID"></p>
+    </font>
     Affiliation:<br>
     <input type="text" name="affiliation" placeholder="Affiliation" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="affiliation_ID"></p>
     </font>
     E-Mail:<br>
-    <input type="text" name="email" placeholder="Email" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="email" name="email" placeholder="Email" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="email_ID"></p>
     </font>
@@ -70,18 +76,18 @@ submission is 10th of September 2018.</span></p>
         <br>
     </p>
     <br> Will there be people accompanying?<br>
-    <input type="radio" name="choice2" value="accno" onclick="isLastChoice2(this.value)" checked required> No <br>
-    <input type="radio" name="choice2" value="accyes" onclick="isLastChoice2(this.value)" required> Yes <br>
+    <input type="radio" name="leading_people" value="accno" onclick="isLastChoice2(this.value)" checked required> No <br>
+    <input type="radio" name="leading_people" value="accyes" onclick="isLastChoice2(this.value)" required> Yes <br>
     <br>
     <p id="otheraccompany">
         Will people accompanying you be present at additional events?<br>
-        <input type="radio" name="choice3" value="accevno" checked required> No <br>
-        <input type="radio" name="choice3" value="accevyes" required> Yes <br>
+        <input type="radio" name="additional_events" value="accevno" checked required> No <br>
+        <input type="radio" name="additional_events" value="accevyes" required> Yes <br>
         <br>
     </p>
     Do you need prepayment invoice for participation fee?<br>
-    <input type="radio" name="choice4" value="invno" onclick="isLastChoice3(this.value)" checked required> No <br>
-    <input type="radio" name="choice4" value="invyes" onclick="isLastChoice3(this.value)" required> Yes <br>
+    <input type="radio" name="invoice_required" value="invno" onclick="isLastChoice3(this.value)" checked required> No <br>
+    <input type="radio" name="invoice_required" value="invyes" onclick="isLastChoice3(this.value)" required> Yes <br>
     <br>
     <p id="otherinvoice">
         Name of institution for which prepayment invoice is issued:<br>
@@ -95,13 +101,12 @@ submission is 10th of September 2018.</span></p>
         <br>
     </p>
     Abstract:<br>
-    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50"> </textarea>
+    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required> </textarea>
     <br>
     <br>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
 </form>
-
 <script>
     var registerFormData = {
         registerFields: ([{
@@ -113,6 +118,11 @@ submission is 10th of September 2018.</span></p>
             "label": "Last Name:",
             "name": "lastname",
             "placeholder": "Last Name",
+            "required": true
+        }, {
+            "label": "Institution:",
+            "name": "institution",
+            "placeholder": "Institution",
             "required": true
         }, {
             "label": "Affiliation:",

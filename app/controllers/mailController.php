@@ -38,7 +38,7 @@ class mailController
         $link = "validate/".$validation->id."/".$validation->hash;
         $mail = new Mail($user->email,
             "Registration confirmation",
-            "<p>Hello ".$user->name.",</p>
+            "<p>Hello ".$user->first_name.",</p>
                     <p>Thank you for registering for 10th International “Data Analysis Methods for Software Systems” workshop.</p>
                     <p>Please confirm your registration: <a href='".$link."'>confirm</a></p>
         ");
