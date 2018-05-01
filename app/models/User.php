@@ -70,25 +70,25 @@ class User extends Model
         if(strlen($data["degree"])>12){
             return "Degree is too long";
         }
-        if(strlen($data["first_name"]) > 64){
+        if(strlen($data["firstname"]) > 64){
             return "First name is too long.";
         }
-        if(strlen($data["last_name"]) > 64){
+        if(strlen($data["lastname"]) > 64){
             return "Last name is too long.";
         }
         if(strlen($data["affiliation"]) > 255){
             return "Affiliation is too long.";
         }
-        if(strlen($data["phone_number"]) > 18){
+        if(strlen($data["phone"]) > 18){
             return "Phone number is too long.";
         }
-        if(strlen($data["article_title"]) > 255){
+        if(strlen($data["articletitle"]) > 255){
             return "Article title is too long.";
         }
-        if(strlen($data["article_authors"]) > 300){
+        if(strlen($data["articleauthors"]) > 300){
             return "Article authors is too long.";
         }
-        if(strlen($data["article_authors_affiliations"]) > 300){
+        if(strlen($data["articleauthorsaffiliations"]) > 300){
             return "Article authors affiliations is too long.";
         }
         if(strlen($data["abstract"]) > 300){
