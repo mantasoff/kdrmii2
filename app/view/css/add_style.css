@@ -1,0 +1,155 @@
+body {
+	margin:0;
+	padding:0;
+}
+td {
+	text-align: left;
+	vertical-align: top;
+	font-family:Tahoma, sans-serif;
+	font-size:11px;
+	color:#737C83;
+	line-height:13px;
+}
+
+a {
+	text-decoration: underline;
+	color:#2D75A4;
+}
+
+a:hover {text-decoration:underline;}
+
+.error{
+    color: red;
+}
+.success{
+    color: green;
+}
+.copy {
+	font-family: Tahoma, sans-serif;
+	font-size:10px;
+	color:#717171;
+	text-decoration:none;
+}
+
+.bot_txt {
+	color:#2D75A4;
+	font-size:9px;
+	font-weight:bold
+}
+
+.gray {color:#737C83;}
+.blue {color:#2D75A4}
+.red {color:#EC5100; font-size:9px}
+.orange {color:#FF8F0D; font-size:9px}
+.small {font-size:10px}
+.normal {font-size:12px}
+
+.menu_bg1 {
+	background: url('{{config.directory}}/images/m1r.jpg') no-repeat right center;
+}
+
+.menu_bg1 A:link, .menu_bg1 A:active, .menu_bg1 A:visited, .menu_bg1 A:hover {
+    COLOR: #8A8A8A;
+    FONT-SIZE: 12px;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight:bold;
+    TEXT-DECORATION: none
+}
+
+.menu_bg2 {
+	background: url('{{config.directory}}/images/m2r.jpg') no-repeat right center;
+}
+
+.menu_bg2 A:link, .menu_bg2 A:active, .menu_bg2 A:visited, .menu_bg2 A:hover {
+    color: #353859;
+    font-size: 12px;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight:bold;
+    text-decoration: none
+}
+
+#under{text-decoration:underline;}
+
+input, textarea, select{
+    border: 1px solid #000000;
+    font-size: 11px;
+    font-family: Verdana,Helvetica, sans-serif;
+}
+form{
+    font-family: Verdana,Helvetica, sans-serif;
+    font-size: 11px
+}
+
+
+
+.area_title, .area_subtitle {
+    background: none;
+    color:  #212121;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Tahoma, Verdana, Helvetica, sans-serif;
+    text-decoration: none;
+    margin: 18px 0 12px 0;
+    text-align: center;
+}
+.area_subtitle{
+    margin: 12px 0 6px 0;
+    color: #636363;
+    font-size: 14px;
+}
+.area_div_name, .area_subdiv_name,.area_text 	{
+    BACKGROUND: none;
+    COLOR: #6A6A6A;
+    FONT-SIZE: 14px;
+    FONT-WEIGHT: bold;
+    FONT-FAMILY: Tahoma, Verdana, Helvetica, sans-serif;
+    TEXT-DECORATION: none;
+    margin: 6px 0 3px 0;
+    text-align: justify;
+    text-indent: 0;
+}
+.area_subdiv_name, .area_text, .area_text_simple{
+    FONT-SIZE: 12px;
+}
+.area_text{
+    text-indent: 20px;
+}
+.area_text, .area_text_simple{
+    font-weight: normal;
+    margin: 6px 0 6px 0;
+}
+.area_small_text, .area_nuneric1, .area_nuneric2, ..area_nuneric3, .area_enumeration{
+    background: none;
+    color: #6A6A6A;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: Tahoma, Verdana, Helvetica, sans-serif;
+    text-decoration: none;
+}
+.area_small_text{
+    FONT-SIZE: 9px;
+    FONT-WEIGHT: normal;
+    font-family: Tahoma, Verdana, Helvetica, sans-serif;
+    TEXT-DECORATION: none;
+    margin: 4px 0 4px 20px;
+    text-align: justify;
+    text-indent: -20px;
+}
+.area_nuneric1, .area_nuneric2, .area_nuneric3{
+    text-align: justify;
+    text-indent: -20px;
+}
+.area_nuneric1 {
+    margin: 6px 0 6px 20px;
+}
+.area_nuneric2 {margin: 4px 0 4px 40px;}
+.area_nuneric3 {margin: 2px 0 2px 60px;}
+.area_enumeration {margin: 2px 0 2px 20px; text-align: justify;}
+.content{
+    background: none;
+    color: #00008B;
+    font-size: 12px;
+    font-family: Tahoma, Verdana, Helvetica, sans-serif;
+}
+
+

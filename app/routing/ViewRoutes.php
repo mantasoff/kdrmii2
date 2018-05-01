@@ -20,7 +20,7 @@
     if(!file_exists($file))
         echo "Failed to load style file $style.css";
     else
-        include($file);
+        (new \core\View())->renderCss($style);
     exit;
 });
 /**

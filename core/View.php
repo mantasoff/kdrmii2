@@ -51,6 +51,26 @@ class View
             }, $content);
         return $content;
     }
+    public function renderCss($path){
+        $this->data["config"] = (array)Helper::config("app");
+        if(file_exists("app/view/css/".$path.".css")) {
+            echo preg_replace(
+                array(
+                    // Remove comment(s)
+                    '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+                    // Remove white-space(s) outside the string and regex
+                    '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
+                    // Remove the last semicolon
+                    '#;+\}#',
+                ),
+                array(
+                    '$1',
+                    '$1$2',
+                    '}',
+                ),
+                $this->fileContent("app/view/css/" . $path . ".css"));
+        }
+    }
     public function renderJs($path){
         $this->data["config"] = (array)Helper::config("app");
         if(file_exists("app/view/js/".$path.".js")) {
