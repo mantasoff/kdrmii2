@@ -8,6 +8,7 @@
 namespace app\models;
 
 
+use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Database\Mysql;
 use core\Database\Query;
@@ -42,6 +43,9 @@ class User extends Model
     public static function validateData($data){
         if(!is_array($data) || count($data) === 0){
             return "No data given";
+        }
+        if(!recaptcha::verify()){
+            return "reCaptcha validation failed";
         }
         $requiredParams=["title", "firstname", "lastname", "institution", "affiliation", "email", "phone", "articletitle",
             "articleauthors", "articleauthorsaffiliations", "hotel", "leading_people", "invoice_required", "abstract"];

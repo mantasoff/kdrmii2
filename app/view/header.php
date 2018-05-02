@@ -5,7 +5,6 @@
     <title>{{config.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Language" content="en">
-    <meta name="Author" content="Virginijus Marvinkevicius">
     <meta name="KeyWords" content="DAMSS, Data Analysis Methods for Software Systems, International Workshop">
     <meta name="Description" content="International Workshop for Data Analysis Methods for Software Systems">
 

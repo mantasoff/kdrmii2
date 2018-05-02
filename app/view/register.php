@@ -1,4 +1,5 @@
 {{include "header"}}
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <p class="MsoNormal">
     <span style="font-size: 10pt; line-height: 107%;">
         We ask those willing to participate and give a talk at the conference to register and send
@@ -104,7 +105,7 @@
     <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required> </textarea>
     <br>
     <br>
-    <input type="submit" value="Submit">
+    <input type="submit" class="g-recaptcha" data-sitekey="6LcMpVYUAAAAAPD0rqA7Bag75oOMoYmrfWKIRdT1" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
 </form>
 <script>
