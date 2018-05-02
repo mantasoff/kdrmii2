@@ -73,7 +73,11 @@
     <input type="radio" name="hotel" value="roomother" onclick="isLastChoice(this.value)" required> Other<br>
     <p id="otherroom">
         Additional information:<br>
-        <textarea type="text" name="addinfo" id="addinfo" rows="4" cols="50"> </textarea>
+        <textarea type="text" name="addinfo" id="addinfo" rows="4" cols="50"></textarea>
+        <br>
+        <font color="red">
+            <label id="addinfo_ID">
+        </font>
         <br>
     </p>
     <br> Will there be people accompanying?<br>
@@ -91,19 +95,41 @@
     <input type="radio" name="invoice_required" value="invyes" onclick="isLastChoice3(this.value)" required> Yes <br>
     <br>
     <p id="otherinvoice">
-        Name of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionname" size="45">
-        <br> Address of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionaddress" size="45">
-        <br> Company code of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutioncompanycode" size="45">
-        <br> Bank account code of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionbankcode" size="45">
+    Name of institution for which prepayment invoice is issued:<br>
+        <input type="text" name="institutionname" id="institutionname" size="45">
+        <br>
+        <font color="red">
+            <label id="institutionname_ID">
+        </font>
+        <br>
+        Address of institution for which prepayment invoice is issued:<br>
+        <input type="text" name="institutionaddress" id="institutionaddress" size="45">
+        <br>
+        <font color="red">
+            <label id="institutionaddress_ID">
+        </font>
+        <br>
+        Company code of institution for which prepayment invoice is issued:<br>
+        <input type="text" name="institutioncompanycode" id="institutioncompanycode" size="45">
+        <br>
+        <font color="red">
+            <label id="institutioncompanycode_ID">
+        </font>
+        <br>
+        Bank account code of institution for which prepayment invoice is issued:<br>
+        <input type="text" name="institutionbankcode" id="institutionbankcode" size="45">
+        <br>
+        <font color="red">
+            <label id="institutionbankcode_ID">
+        </font>
         <br>
     </p>
     Abstract:<br>
-    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required> </textarea>
+    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required></textarea>
     <br>
+    <font color="red">
+        <p id="abstract_ID"></p>
+    </font>
     <br>
     <input type="submit" class="g-recaptcha" data-sitekey="<?php echo \core\Helper::config('app')->recaptcha["site_key"]?>" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
@@ -188,16 +214,26 @@
         }]),
         institutionFields: ([{
             "label": "Name of institution for which prepayment invoice is issued:",
-            "name": "institutionname"
+            "name": "institutionname",
+            "id": "institutionname"
         }, {
             "label": "Address of institution for which prepayment invoice is issued:",
-            "name": "institutionaddress"
+            "name": "institutionaddress",
+            "id": "institutionaddress"
         }, {
             "label": "Company code of institution for which prepayment invoice is issued:",
-            "name": "institutioncompanycode"
+            "name": "institutioncompanycode",
+            "id": "institutioncompanycode"
         }, {
             "label": "Bank account code of institution for which prepayment invoice is issued:",
-            "name": "institutionbankcode"
+            "name": "institutionbankcode",
+            "id": "institutionbankcode"
+        }]),
+        abstractField: ([{
+            "label": "Abstract:",
+            "name": "abstract",
+            "placeholder": "Abstract",
+            "required": true
         }])
     }
 </script>
