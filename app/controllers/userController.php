@@ -128,7 +128,7 @@ class userController extends Controller
         }
         if(intval($validation->valid_till) < time()){
             $user = new User($validation->user_id);
-            if($user->id !== null)
+            if($user->id !== null && $validation->type === "validate")
                 $user->delete();
             $validation->delete();
             indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
@@ -140,10 +140,15 @@ class userController extends Controller
             $validation->delete();
             return;
         }
-        $user->validated = 1;
-        $user->save();
-        $validation->delete();
-        mailController::sendPassword($user->id);
-        indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+        if($validation->type === "validate"){
+            $user->validated = 1;
+            $user->save();
+            $validation->delete();
+            mailController::sendPassword($user->id);
+            indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+        }else{
+            mailController::sendNewPassword($user->id);
+            indexController::moveToIndex("<div class='success'>Your new password is sent to your email.</div>");
+        }
     }
 }
