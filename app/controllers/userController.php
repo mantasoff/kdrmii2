@@ -11,9 +11,9 @@ use core\View;
 class userController extends Controller
 {
     public function index(){}
-    /***
-     * *
-     * Password Reset route
+
+    /**
+     * Password reset route
      */
     public function passwordReset()
     {
@@ -48,13 +48,9 @@ class userController extends Controller
         }
     }
 
-    /***
-     * * User login
-     * Checks if fields fill out
-     * Checks if user information is correct
-     * Login
+    /**
+     * User login route
      */
-
     public function login(){
         if(User::isLogged()){
             indexController::redirect('/dashboard');

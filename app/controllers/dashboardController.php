@@ -8,6 +8,9 @@ use core\View;
 
 class dashboardController extends Controller
 {
+    /**
+     * Main dashboard page
+     */
     public function index(){
         $user = new User(Session::get("id"));
         $userData = $user->getArray();

@@ -25,10 +25,20 @@ class indexController extends Controller
         if(Session::get("message") !== false)
             Session::set("message", false);
     }
+
+    /**
+     * Redirect to index page
+     * @param $message
+     */
     public static function moveToIndex($message){
         Session::set("message",$message);
         self::redirect('/');
     }
+
+    /**
+     * Redirect in project
+     * @param $project_url
+     */
     public static function redirect($project_url){
         header('Location: '.Helper::config("app")->directory.$project_url);
     }

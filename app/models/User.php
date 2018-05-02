@@ -162,6 +162,11 @@ class User extends Model
         Validation::createUserValidation($id);
         return 1;
     }
+
+    /**
+     * Check if user is looged in
+     * @return bool
+     */
     public static function isLogged(){
         if(Session::get("id") === false)
             return false;
