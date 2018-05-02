@@ -105,7 +105,7 @@
     <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required> </textarea>
     <br>
     <br>
-    <input type="submit" class="g-recaptcha" data-sitekey="6LcMpVYUAAAAAPD0rqA7Bag75oOMoYmrfWKIRdT1" data-callback="recaptchaSubmit" value="Submit">
+    <input type="submit" class="g-recaptcha" data-sitekey="<?php echo \core\Helper::config('app')->recaptcha["site_key"]?>" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
 </form>
 <script>
