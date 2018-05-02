@@ -18,15 +18,12 @@ class indexController extends Controller
     public function index()
     {
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return 1;
         }
         (new View())->render("register", ["message" => (Session::get("message") === false ? "" : Session::get("message"))]);
         if(Session::get("message") !== false)
             Session::set("message", false);
-    }
-    public function test(){
-        echo "test";
     }
     public static function moveToIndex($message){
         Session::set("message",$message);

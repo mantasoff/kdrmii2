@@ -12,16 +12,12 @@ class userController extends Controller
 {
     public function index(){}
 
-    public function dashboard(){
-        if(!User::isLogged()){
-            indexController::redirect('/user/login');
-            return;
-        }
-    }
-
+    /**
+     * Login route
+     */
     public function login(){
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return;
         }
         $message = "";
@@ -38,7 +34,7 @@ class userController extends Controller
                     $message = "<div class='error'>User name or passwords incorrect.</div>";
                 }else{
                     Session::set("id", $user->id);
-                    indexController::redirect('/user/dashboard');
+                    indexController::redirect('/dashboard');
                     return;
                 }
             }
@@ -59,7 +55,7 @@ class userController extends Controller
      */
     public function register(){
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return 0;
         }
         $error = User::validateData($_POST);

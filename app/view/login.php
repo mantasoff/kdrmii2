@@ -1,8 +1,4 @@
 {{include "header"}}
-<?php
-
-var_dump(\app\models\User::isLogged());
-?>
 {{message}}
 Prisijungti
 <form method="post">
