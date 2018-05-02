@@ -17,10 +17,11 @@ class User extends Model
 {
     protected static $table = "users";
     protected static $selectFields = ["id", "email", "password", "institution", "degree", "first_name",
-        "last_name", "affiliation", "phone_number", "article_title", "article_authors", "hotel", "leading_people",
-        "abstract", "additional_events", "validated"];
+        "last_name", "affiliation", "phone_number", "article_title", "article_authors", "article_authors_affiliations", "hotel",
+        "leading_people", "abstract", "additional_events", "validated"];
     protected static $saveFields = ["email", "password", "institution", "degree", "first_name", "last_name", "affiliation",
-        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events", "validated"];
+        "phone_number", "article_title", "article_authors", "article_authors_affiliations", "hotel", "leading_people", "abstract",
+        "additional_events", "validated"];
     /**
      * @var string Static salt for hashing passwords
      */
@@ -63,7 +64,7 @@ class User extends Model
         if(!in_array($data["hotel"], ["roomother", "roomno", "roomsingle", "roomdouble"])){
             return "Bad hotel value";
         }
-        if($data["hotel"] === "roomother" && (!isset($data["otherroom"]) || $data["otherroom"] === null || $data["otherroom"] === "" || strlen($data["otherroom"])<2)) {
+        if($data["hotel"] === "roomother" && (!isset($data["addinfo"]) || $data["addinfo"] === null || $data["addinfo"] === "" || strlen($data["addinfo"])<2)) {
             return "Additional information about room is required";
         }
         if(!in_array($data["leading_people"], ["accyes", "accno"])){
@@ -118,8 +119,6 @@ class User extends Model
         if(strlen($data["hotel"]) > 64){
             return "Hotel name is too long.";
         }
-
-
         $withMail = User::getByFields([new Field("email", $data["email"])]);
         if($withMail !== null){
             return "User with this email already exist.";
@@ -127,6 +126,12 @@ class User extends Model
         return true;
     }
 
+    public function updateData($data, $params){
+        foreach ($params as $key){
+            $this->$key = $data[$key];
+        }
+        $this->save();
+    }
     /**
      * Create user in database
      * @param $data
@@ -144,6 +149,7 @@ class User extends Model
         $user->phone_number = $data["phone"];
         $user->article_title = $data["articletitle"];
         $user->article_authors = $data["title"];
+        $user->article_authors_affiliation = $data["articleauthorsaffiliations"];
         if(in_array($data["hotel"], ["roomno","roomsingle", "roomdouble"]))
             $user->hotel = $data["hotel"];
         else
