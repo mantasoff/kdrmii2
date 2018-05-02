@@ -15,4 +15,4 @@ spl_autoload_register(function($class) {
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-return ComposerAutoloaderInitf2c39e071a89e501b34352705f54a734::getLoader();
+return ComposerAutoloaderInite9feef8766847951b7b8de26e8eb0bc4::getLoader();
