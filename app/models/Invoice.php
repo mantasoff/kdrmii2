@@ -18,6 +18,7 @@ class Invoice extends Model
 // Validations
 
     /**
+     * Validate incvoice data.
      * @param $data
      * @return int|string
      */

@@ -12,6 +12,10 @@ use core\Helper;
 
 class recaptcha
 {
+    /**
+     * Validate reCaptcha response from google
+     * @return bool
+     */
     public static function verify(){
         $post_data = http_build_query(
             array(
