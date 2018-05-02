@@ -36,6 +36,6 @@ gulp.task('default', function () {
 
 function attachLayout(template) {
     return function (content, file) {
-        return template.replace('{{{body}}}', content);
+        return template.replace('{{{ body }}}', content);
     }
 }

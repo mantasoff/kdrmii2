@@ -1,5 +1,5 @@
 filter:
-    excluded_paths: [ 'vendor/*', 'tests/*', 'samples/*', 'src/PhpWord/Shared/PCLZip/*' ]
+    excluded_paths: [ 'vendor/*', 'tests/*', 'samples/*', 'src/PhpWord/Shared/PclZip/*' ]
 
 before_commands:
     - "composer install --prefer-source --dev"

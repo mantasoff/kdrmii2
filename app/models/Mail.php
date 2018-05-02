@@ -8,6 +8,7 @@
 namespace app\models;
 
 
+use core\Helper;
 use core\View;
 
 class Mail
@@ -24,7 +25,7 @@ class Mail
     public function send(){
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= 'From: <webmaster@example.com>' . "\r\n";
+        $headers .= 'From: <'.Helper::config('app')->mail.'>' . "\r\n";
         mail($this->mail,$this->subject, $this->text, $headers);
     }
 }

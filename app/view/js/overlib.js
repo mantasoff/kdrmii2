@@ -113,7 +113,7 @@ if(typeof ol_text=='undefined'){var ol_text="Default Text";}
 if(typeof ol_cap=='undefined'){var ol_cap="";}
 if(typeof ol_sticky=='undefined'){var ol_sticky=0;}
 if(typeof ol_background=='undefined'){var ol_background="";}
-if(typeof ol_close=='undefined'){var ol_close="Uþdaryti";}
+if(typeof ol_close=='undefined'){var ol_close="Uï¿½daryti";}
 if(typeof ol_hpos=='undefined'){var ol_hpos=8;}
 if(typeof ol_status=='undefined'){var ol_status="";}
 if(typeof ol_autostatus=='undefined'){var ol_autostatus=0;}
@@ -669,8 +669,8 @@ return true;
 function layerWrite(txt){
 txt +="\n";
 if(ns4){
-var lyr=oframe.document.overDiv.document
-lyr.write(txt)
+var lyr=oframe.document.overDiv.document;
+lyr.write(txt);
 lyr.close()
 }else if(ie4){
 oframe.document.all["overDiv"].innerHTML=txt
