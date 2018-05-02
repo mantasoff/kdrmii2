@@ -1,9 +1,9 @@
 <?php
 namespace app\controllers;
 use core\Controller;
-use core\View;
+use core\Helper;
 
-class indexController extends Controller
+class documentController extends Controller
 {
     public function index()
     {
@@ -28,7 +28,7 @@ $phpWord->setDefaultParagraphStyle(
 $section = $phpWord->addSection();
 
 $section->addImage(
-    "./core/phpoffice/resources/DAMSSlogo.jpg",
+    Helper::host()."/images/DAMSSlogo.jpg",
     array(
         'width'         => 141,
         'height'        => 49,
@@ -157,7 +157,7 @@ $section->addText(
 // Adding Text element with font customized using explicitly created font style object...
 
 $section->addImage(
-    "./core/phpoffice/resources/Sponsors.jpg"
+    Helper::host()."/images/Sponsors.jpg"
 );
 
 $contentType = 'Content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document;';
@@ -168,9 +168,5 @@ $objWriter->save("php://output");
 
 /* Note: we skip RTF, because it's not XML-based and requires a different example. */
 /* Note: we skip PDF, because "HTML-to-PDF" approach is used to create PDF documents. */
-    }
-
-    public function test(){
-        echo "testuojam";
     }
 }

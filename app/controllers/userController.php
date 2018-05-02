@@ -4,45 +4,75 @@ use app\models\User;
 use app\models\Validation;
 use core\Controller;
 use core\Database\Field;
-use core\Exceptions\Error;
-use core\Exceptions\Success;
 use core\Post;
+use core\Session;
+use core\View;
 
 class userController extends Controller
 {
     public function index(){}
 
+    public function dashboard(){
+        if(!User::isLogged()){
+            indexController::redirect('/user/login');
+            return;
+        }
+    }
+
+    public function login(){
+        if(User::isLogged()){
+            indexController::redirect('/user/dashboard');
+            return;
+        }
+        $message = "";
+        if(isset($_POST) && count($_POST) > 0){
+            if(Post::get("email") === false || strlen(Post::get("email")) < 1 ||
+                Post::get("password") === false || strlen(Post::get("password")) < 1){
+                $message = "<div class='error'>Error: email or password is empty.</div>";
+            }else{
+                $user = User::getByFields([
+                    new Field("email", Post::get("email")) ,
+                    new Field("password", User::getHashedPassword(Post::get("password")))
+                ]);
+                if($user === null || is_array($user)){
+                    $message = "<div class='error'>User name or passwords incorrect.</div>";
+                }else{
+                    Session::set("id", $user->id);
+                    indexController::redirect('/user/dashboard');
+                    return;
+                }
+            }
+        }
+        (new View())->render("login", ["message" => $message]);
+    }
+
+    /**
+     * Logout action
+     */
+    public function logout(){
+        Session::destroy();
+        indexController::redirect('/user/login');
+    }
     /**
      * User registration route
      * @return int 0 if fails to register user, 1 if success
      */
     public function register(){
-        if(count($_POST) === 0){
-            (new Error(400, "No arguments given"))->printData();
+        if(User::isLogged()){
+            indexController::redirect('/user/dashboard');
             return 0;
         }
-        $requiredParams=["title", "firstname", "lastname", "affiliation", "email", "phone", "articletitle",
-            "articleauthors", "articleauthorsaffiliations", "hotel", "accompany"];
-        foreach ($requiredParams as $param){
-            if(Post::get($param) === false || Post::get($param) === null || Post::get($param) === ""){
-                (new Error(400, "Not all required arguments given"))->printData();
-                return 0;
-            }
+        $error = User::validateData($_POST);
+        if($error !== true){
+            indexController::moveToIndex("<div class='error'>Error: $error</div>");
+            return 0;
         }
-        $user = new User();
-        $user->email = Post::get("email");
-        $user->first_name = Post::get("firstname");
-        $user->last_name = Post::get("lastname");
-        $user->degree = Post::get("title");
-        $user->affiliation = Post::get("affiliation");
-        $user->phone_number = Post::get("phone");
-        $user->article_title = Post::get("articletitle");
-        $user->article_authors = Post::get("title");
-        $user->hotel = Post::get("hotel");
-        $user->leading_people = Post::get("accompany");
-        $id=$user->insert();
-        Validation::createUserValidation($id);
-        (new Success(200, "User created"))->printData();
+        if(User::create($_POST) === 0)
+        {
+            indexController::moveToIndex("<div class='error'>Error: Unknown error.</div>");
+            return 0;
+        }
+        indexController::moveToIndex("<div class='success'>Registration successful. Please check your mail for further information.</div>");
         return 1;
     }
 
@@ -57,7 +87,7 @@ class userController extends Controller
             new Field("hash", $hash)
         ]);
         if($validation === null || $validation->id === null) {
-            (new Error(400, "Validations not found"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
             return;
         }
         if(intval($validation->valid_till) < time()){
@@ -65,17 +95,19 @@ class userController extends Controller
             if($user->id !== null)
                 $user->delete();
             $validation->delete();
-            (new Error(400, "Validations not found"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
             return;
         }
         $user = new User($validation->user_id);
         if($user->id === null){
-            (new Error(400, "User not exist anymore"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: User not exist anymore.</div>");
+            $validation->delete();
             return;
         }
         $user->validated = 1;
         $user->save();
         $validation->delete();
-        (new Success(200, "User validated"))->printData();
+        mailController::sendPassword($user->id);
+        indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
     }
 }

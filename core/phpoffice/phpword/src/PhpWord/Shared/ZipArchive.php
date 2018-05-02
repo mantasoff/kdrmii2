@@ -23,8 +23,8 @@ use PhpOffice\PhpWord\Settings;
 /**
  * ZipArchive wrapper
  *
- * Wraps zip archive functionality of PHP ZipArchive and PCLZip. PHP ZipArchive
- * properties and methods are bypassed and used as the model for the PCLZip
+ * Wraps zip archive functionality of PHP ZipArchive and PclZip. PHP ZipArchive
+ * properties and methods are bypassed and used as the model for the PclZip
  * emulation. Only needed PHP ZipArchive features are implemented.
  *
  * @method  bool addFile(string $filename, string $localname = null)
@@ -69,7 +69,7 @@ class ZipArchive
     private $zip;
 
     /**
-     * Use PCLZip (default behaviour)
+     * Use PclZip (default behaviour)
      *
      * @var bool
      */
@@ -85,12 +85,12 @@ class ZipArchive
             if (!defined('PCLZIP_TEMPORARY_DIR')) {
                 define('PCLZIP_TEMPORARY_DIR', Settings::getTempDir() . '/');
             }
-            require_once 'PCLZip/pclzip.lib.php';
+            require_once 'PclZip/pclzip.lib.php';
         }
     }
 
     /**
-     * Catch function calls: pass to ZipArchive or PCLZip
+     * Catch function calls: pass to ZipArchive or PclZip
      *
      * `call_user_func_array` can only used for public function, hence the `public` in all `pcl...` methods
      *
@@ -106,7 +106,7 @@ class ZipArchive
             $zipObject = $this->zip;
         } else {
             $zipObject = $this;
-            $zipFunction = "pclzip{$zipFunction}";
+            $zipFunction = "PclZip{$zipFunction}";
         }
 
         // Run function

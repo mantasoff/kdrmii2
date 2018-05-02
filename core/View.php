@@ -29,8 +29,10 @@ class View
     private function replacements($content, $dataToExtract=[]){
         foreach ($this->data as $key=>$value){
             if(is_array($value)){
-                foreach ($value as $_key=>$_value)
-                    $content = str_replace("{{".$key.".".$_key."}}", $_value, $content);
+                foreach ($value as $_key=>$_value) {
+                    if(is_array($_value)) continue;
+                    $content = str_replace("{{" . $key . "." . $_key . "}}", $_value, $content);
+                }
             }
             else $content = str_replace("{{".$key."}}", $value, $content);
         }
@@ -50,6 +52,26 @@ class View
                 return call_user_func_array($function, $params);
             }, $content);
         return $content;
+    }
+    public function renderCss($path){
+        $this->data["config"] = (array)Helper::config("app");
+        if(file_exists("app/view/css/".$path.".css")) {
+            echo preg_replace(
+                array(
+                    // Remove comment(s)
+                    '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+                    // Remove white-space(s) outside the string and regex
+                    '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
+                    // Remove the last semicolon
+                    '#;+\}#',
+                ),
+                array(
+                    '$1',
+                    '$1$2',
+                    '}',
+                ),
+                $this->fileContent("app/view/css/" . $path . ".css"));
+        }
     }
     public function renderJs($path){
         $this->data["config"] = (array)Helper::config("app");

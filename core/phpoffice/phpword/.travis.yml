@@ -45,11 +45,11 @@ before_script:
 
 script:
     ## PHP_CodeSniffer
-    - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs src/ tests/ --standard=PSR2 -n --ignore=src/PhpWord/Shared/PCLZip ; fi
+    - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs src/ tests/ --standard=PSR2 -n --ignore=src/PhpWord/Shared/PclZip ; fi
     ## PHP-CS-Fixer
     - if [ -n "$COVERAGE" ]; then ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run ; fi
     ## PHP Mess Detector
-    - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpmd src/,tests/ text ./phpmd.xml.dist --exclude pclzip.lib.php ; fi
+    - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpmd src/,tests/ text ./phpmd.xml.dist --exclude PclZip.lib.php ; fi
     ## PHPUnit
     - ./vendor/bin/phpunit -c ./ $(if [ -n "$COVERAGE" ]; then echo --coverage-text; else echo --no-coverage; fi)
     ## PHPLOC
