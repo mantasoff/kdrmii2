@@ -11,7 +11,10 @@ use core\View;
 class userController extends Controller
 {
     public function index(){}
-
+    /***
+     * *
+     * Password Reset route
+     */
     public function passwordReset()
     {
         if (User::isLogged()) {
@@ -44,6 +47,13 @@ class userController extends Controller
             return;
         }
     }
+
+    /***
+     * * User login
+     * Checks if fields fill out
+     * Checks if user information is correct
+     * Login
+     */
 
     public function login(){
         if(User::isLogged()){

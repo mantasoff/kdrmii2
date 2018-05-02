@@ -22,6 +22,11 @@ class Mail
         $this->subject = $subject;
         $this->text = (new View())->rendered("other/mail", ["content" => $text]);
     }
+
+    /**
+     * Send function route
+     */
+
     public function send(){
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
