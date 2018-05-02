@@ -39,7 +39,7 @@ class ComposerStaticInitf2c39e071a89e501b34352705f54a734
     );
 
     public static $classMap = array (
-        'PclZip' => __DIR__ . '/..' . '/pclzip/pclzip/pclzip.lib.php',
+        'PclZip' => __DIR__ . '/..',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -22,7 +22,7 @@
 //   The use of this software is at the risk of the user.
 //
 // --------------------------------------------------------------------------------
-// $Id: pclzip.lib.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
+// $Id: PclZip.lib.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
 // --------------------------------------------------------------------------------
 
 // ----- Constants
@@ -2147,7 +2147,7 @@ class PclZip
         @rewind($this->zip_fd);
 
         // ----- Creates a temporay file
-        $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('pclzip-') . '.tmp';
+        $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('PclZip-') . '.tmp';
 
         // ----- Open the temporary file in write mode
         if (($v_zip_temp_fd = @fopen($v_zip_temp_name, 'wb')) == 0) {
@@ -2728,7 +2728,7 @@ class PclZip
         }
 
         // ----- Creates a compressed temporary file
-        $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('pclzip-') . '.gz';
+        $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('PclZip-') . '.gz';
         if (($v_file_compressed = @gzopen($v_gzip_temp_name, "wb")) == 0) {
             fclose($v_file);
             PclZip::privErrorLog(PCLZIP_ERR_WRITE_OPEN_FAIL, 'Unable to open temporary file \'' . $v_gzip_temp_name . '\' in binary write mode');
@@ -3781,7 +3781,7 @@ class PclZip
         $v_result = 1;
 
         // ----- Creates a temporary file
-        $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('pclzip-') . '.gz';
+        $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('PclZip-') . '.gz';
         if (($v_dest_file = @fopen($v_gzip_temp_name, "wb")) == 0) {
             fclose($v_file);
             PclZip::privErrorLog(PCLZIP_ERR_WRITE_OPEN_FAIL, 'Unable to open temporary file \'' . $v_gzip_temp_name . '\' in binary write mode');
@@ -4597,7 +4597,7 @@ class PclZip
         if ($v_nb_extracted > 0) {
 
             // ----- Creates a temporay file
-            $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('pclzip-') . '.tmp';
+            $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('PclZip-') . '.tmp';
 
             // ----- Creates a temporary zip archive
             $v_temp_zip = new PclZip($v_zip_temp_name);
@@ -4866,7 +4866,7 @@ class PclZip
         @rewind($p_archive_to_add->zip_fd);
 
         // ----- Creates a temporay file
-        $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('pclzip-') . '.tmp';
+        $v_zip_temp_name = PCLZIP_TEMPORARY_DIR . uniqid('PclZip-') . '.tmp';
 
         // ----- Open the temporary file in write mode
         if (($v_zip_temp_fd = @fopen($v_zip_temp_name, 'wb')) == 0) {
