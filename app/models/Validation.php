@@ -30,6 +30,7 @@ class Validation extends Model
     /**
      * Create user validation in database
      * @param $userId
+     * @param $type
      */
     public static function createUserValidation($userId,$type="validate"){
         $validation = new Validation();
