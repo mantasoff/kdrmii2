@@ -50,13 +50,13 @@ class mailController
      * @param $userId
      * @param $validation
      */
-    public static function sendMail($userId){
+    public static function sendPassword($userId){
         $user = new User($userId);
         $password = self::randomString(8);
         $user->setPassword($password);
         $user->save();
         $mail = new Mail($user->email,
-            "Registration confirmation",
+            "DAMSS password",
             "<p>Hello ".$user->first_name.",</p>
                     <p>Your registration validated.</p>
                     <p>If you want to change any of your entered information or cancel your participation just login into our website.</p>

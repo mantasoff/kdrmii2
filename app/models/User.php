@@ -81,7 +81,7 @@ class User extends Model
         if(strlen($data["institution"]) > 100){
             return "Institution is too long.";
         }
-        if(strlen($data["degree"])>12){
+        if(strlen($data["title"])>12){
             return "Degree is too long";
         }
         if(strlen($data["firstname"]) > 64){
