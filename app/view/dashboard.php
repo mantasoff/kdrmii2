@@ -21,6 +21,8 @@ Email:<br>
     <input name="article_authors" value="{{user.article_authors}}"><br>
     Article authors affiliations:<br>
     <input name="article_authors_affiliations" value="{{user.article_authors_affiliations}}"><br>
+    Abstract:<br>
+    <textarea name="abstract">{{user.abstract}}</textarea><br>
     <input type="submit">
 </form>
 {{include "footer"}}

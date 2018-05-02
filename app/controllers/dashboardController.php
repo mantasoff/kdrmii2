@@ -13,7 +13,8 @@ class dashboardController extends Controller
         $userData = $user->getArray();
         unset($userData["password"]);
         if(isset($_POST) && count($_POST)> 2){
-            $params=["institution", "affiliation", "phone_number", "phone_number", "article_title", "article_authors", "article_authors_affiliations"];
+            $params=["institution", "affiliation", "phone_number", "phone_number", "article_title", "article_authors",
+                "article_authors_affiliations", "abstract"];
             foreach($params as $key){
                 if(Post::get($key) === false || strlen(Post::get($key)) < 1){
                     (new View())->render("dashboard", [
