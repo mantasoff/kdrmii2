@@ -3,9 +3,8 @@ namespace app\controllers;
 use app\models\User;
 use core\Controller;
 use core\Database\Field;
-use core\View;
 
-class indexController extends Controller
+class document2Controller extends Controller
 {
     public function index()
     {

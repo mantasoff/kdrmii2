@@ -4,7 +4,9 @@
  */
 \core\Route::get("images/{image}", function($image){
     $file = "app/view/images/".$image;
+    if(!file_exists($file)) return;
     $fp = fopen($file, 'rb');
+    if($fp === false) return;
     header("Content-Type: image/png");
     header("Content-Length: " . filesize($file));
     fpassthru($fp);

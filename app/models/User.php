@@ -8,6 +8,7 @@
 namespace app\models;
 
 
+use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Model;
 
@@ -16,9 +17,21 @@ class User extends Model
     protected static $table = "users";
     protected static $selectFields = ["id", "email", "password", "institution", "degree", "first_name",
         "last_name", "affiliation", "phone_number", "article_title", "article_authors", "hotel", "leading_people",
-        "abstract", "additional_events"];
-    protected static $saveFields = ["email", "institution", "degree", "first_name", "last_name", "affiliation",
-        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events"];
+        "abstract", "additional_events", "validated"];
+    protected static $saveFields = ["email", "password", "institution", "degree", "first_name", "last_name", "affiliation",
+        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events", "validated"];
+    /**
+     * @var string Static salt for hashing passwords
+     */
+    private $salt = "D1ISxMojS4g1FRmSAGsd";
+
+    /**
+     * Set hashed password for user
+     * @param $unHashed string password to set
+     */
+    public function setPassword($unHashed){
+        $this->password = hash('sha256', $this->salt."".$unHashed);
+    }
 
     /**
      * Validate user data before creating
@@ -28,6 +41,9 @@ class User extends Model
     public static function validateData($data){
         if(!is_array($data) || count($data) === 0){
             return "No data given";
+        }
+        if(!recaptcha::verify()){
+            return "reCaptcha validation failed";
         }
         $requiredParams=["title", "firstname", "lastname", "institution", "affiliation", "email", "phone", "articletitle",
             "articleauthors", "articleauthorsaffiliations", "hotel", "leading_people", "invoice_required", "abstract"];
@@ -67,7 +83,7 @@ class User extends Model
         if(strlen($data["institution"]) > 100){
             return "Institution is too long.";
         }
-        if(strlen($data["degree"])>12){
+        if(strlen($data["title"])>12){
             return "Degree is too long";
         }
         if(strlen($data["firstname"]) > 64){

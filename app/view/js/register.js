@@ -1,3 +1,12 @@
+function recaptchaSubmit(){
+    let form = document.getElementsByName("reg_form")[0];
+    if(typeof form === "undefined") return;
+    if(FrontPage_Form1_Validator(form))
+        form.submit();
+    else
+        grecaptcha.reset();
+}
+
 /**
  * Adds error to element if it's empty
  * @param {string} name 
@@ -81,26 +90,5 @@ function FrontPage_Form1_Validator(theForm)
       return false;
     }
   }
-
-  /**
-   * Check if article title is filled and then if more
-   * required data is given
-   */
-  if (theForm.articletitle.value.length > 0) {
-		  if (theForm.articleauthors.value.length == 0) {
-		  alert("Please enter article authors.");
-		  theForm.article_authors.focus();
-		  return false;
-		}
-
-		if (theForm.article_authors_affiliations.value.length == 0) {
-		  alert("Please enter article authors affiliations.");
-		  theForm.articleauthorsaffiliations.focus();
-		  return (false);
-		}
-  }
-
-  // TODO: Validate registerRoom, registerRoomOther, institutionFields
-
   return true;
 }

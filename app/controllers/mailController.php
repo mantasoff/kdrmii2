@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\models\Mail;
 use app\models\User;
+use core\Helper;
 
 class mailController
 {
@@ -35,12 +36,31 @@ class mailController
      */
     public static function sendMailValidation($userId, $validation){
         $user = new User($userId);
-        $link = "validate/".$validation->id."/".$validation->hash;
+        $link = Helper::host()."/user/validate/".$validation->id."/".$validation->hash;
         $mail = new Mail($user->email,
             "Registration confirmation",
             "<p>Hello ".$user->first_name.",</p>
                     <p>Thank you for registering for 10th International “Data Analysis Methods for Software Systems” workshop.</p>
                     <p>Please confirm your registration: <a href='".$link."'>confirm</a></p>
+        ");
+        $mail->send();
+    }
+    /**
+     * Send user first password
+     * @param $userId
+     * @param $validation
+     */
+    public static function sendPassword($userId){
+        $user = new User($userId);
+        $password = self::randomString(8);
+        $user->setPassword($password);
+        $user->save();
+        $mail = new Mail($user->email,
+            "DAMSS password",
+            "<p>Hello ".$user->first_name.",</p>
+                    <p>Your registration validated.</p>
+                    <p>If you want to change any of your entered information or cancel your participation just login into our website.</p>
+                    <p>Your password: ".$password."</p>
         ");
         $mail->send();
     }

@@ -4,11 +4,6 @@ use app\models\User;
 use app\models\Validation;
 use core\Controller;
 use core\Database\Field;
-use core\Exceptions\Error;
-use core\Exceptions\Success;
-use core\Helper;
-use core\Session;
-use core\View;
 
 class userController extends Controller
 {
@@ -22,16 +17,15 @@ class userController extends Controller
     public function register(){
         $error = User::validateData($_POST);
         if($error !== true){
-            (new View())->render("register", ["message"=>"<div class='error'>Error: $error</div>"]);
+            indexController::moveToIndex("<div class='error'>Error: $error</div>");
             return 0;
         }
         if(User::create($_POST) === 0)
         {
-            (new View())->render("register", ["message"=>"<div class='error'>Error: Unknown error.</div>"]);
+            indexController::moveToIndex("<div class='error'>Error: Unknown error.</div>");
             return 0;
         }
-        Session::set("message","<div class='success'>Registration successful. Please check your mail for further information.</div>");
-        header('Location: '.Helper::config("app")->directory.'/');
+        indexController::moveToIndex("<div class='success'>Registration successful. Please check your mail for further information.</div>");
         return 0;
     }
 
@@ -46,7 +40,7 @@ class userController extends Controller
             new Field("hash", $hash)
         ]);
         if($validation === null || $validation->id === null) {
-            (new Error(400, "Validations not found"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
             return;
         }
         if(intval($validation->valid_till) < time()){
@@ -54,17 +48,19 @@ class userController extends Controller
             if($user->id !== null)
                 $user->delete();
             $validation->delete();
-            (new Error(400, "Validations not found"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
             return;
         }
         $user = new User($validation->user_id);
         if($user->id === null){
-            (new Error(400, "User not exist anymore"))->printData();
+            indexController::moveToIndex("<div class='error'>Error: User not exist anymore.</div>");
+            $validation->delete();
             return;
         }
         $user->validated = 1;
         $user->save();
         $validation->delete();
-        (new Success(200, "User validated"))->printData();
+        mailController::sendPassword($user->id);
+        indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
     }
 }
