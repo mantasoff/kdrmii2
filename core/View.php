@@ -29,8 +29,10 @@ class View
     private function replacements($content, $dataToExtract=[]){
         foreach ($this->data as $key=>$value){
             if(is_array($value)){
-                foreach ($value as $_key=>$_value)
-                    $content = str_replace("{{".$key.".".$_key."}}", $_value, $content);
+                foreach ($value as $_key=>$_value) {
+                    if(is_array($_value)) continue;
+                    $content = str_replace("{{" . $key . "." . $_key . "}}", $_value, $content);
+                }
             }
             else $content = str_replace("{{".$key."}}", $value, $content);
         }

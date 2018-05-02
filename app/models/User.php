@@ -8,6 +8,7 @@
 namespace app\models;
 
 
+use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Model;
 
@@ -16,9 +17,21 @@ class User extends Model
     protected static $table = "users";
     protected static $selectFields = ["id", "email", "password", "institution", "degree", "first_name",
         "last_name", "affiliation", "phone_number", "article_title", "article_authors", "hotel", "leading_people",
-        "abstract", "additional_events"];
-    protected static $saveFields = ["email", "institution", "degree", "first_name", "last_name", "affiliation",
-        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events"];
+        "abstract", "additional_events", "validated"];
+    protected static $saveFields = ["email", "password", "institution", "degree", "first_name", "last_name", "affiliation",
+        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events", "validated"];
+    /**
+     * @var string Static salt for hashing passwords
+     */
+    private $salt = "D1ISxMojS4g1FRmSAGsd";
+
+    /**
+     * Set hashed password for user
+     * @param $unHashed string password to set
+     */
+    public function setPassword($unHashed){
+        $this->password = hash('sha256', $this->salt."".$unHashed);
+    }
 
     /**
      * Validate user data before creating
@@ -28,6 +41,9 @@ class User extends Model
     public static function validateData($data){
         if(!is_array($data) || count($data) === 0){
             return "No data given";
+        }
+        if(!recaptcha::verify()){
+            return "reCaptcha validation failed";
         }
         $requiredParams=["title", "firstname", "lastname", "institution", "affiliation", "email", "phone", "articletitle",
             "articleauthors", "articleauthorsaffiliations", "hotel", "leading_people", "invoice_required", "abstract"];
@@ -67,28 +83,28 @@ class User extends Model
         if(strlen($data["institution"]) > 100){
             return "Institution is too long.";
         }
-        if(strlen($data["degree"])>12){
+        if(strlen($data["title"])>12){
             return "Degree is too long";
         }
-        if(strlen($data["first_name"]) > 64){
+        if(strlen($data["firstname"]) > 64){
             return "First name is too long.";
         }
-        if(strlen($data["last_name"]) > 64){
+        if(strlen($data["lastname"]) > 64){
             return "Last name is too long.";
         }
         if(strlen($data["affiliation"]) > 255){
             return "Affiliation is too long.";
         }
-        if(strlen($data["phone_number"]) > 18){
+        if(strlen($data["phone"]) > 18){
             return "Phone number is too long.";
         }
-        if(strlen($data["article_title"]) > 255){
+        if(strlen($data["articletitle"]) > 255){
             return "Article title is too long.";
         }
-        if(strlen($data["article_authors"]) > 300){
+        if(strlen($data["articleauthors"]) > 300){
             return "Article authors is too long.";
         }
-        if(strlen($data["article_authors_affiliations"]) > 300){
+        if(strlen($data["articleauthorsaffiliations"]) > 300){
             return "Article authors affiliations is too long.";
         }
         if(strlen($data["abstract"]) > 300){

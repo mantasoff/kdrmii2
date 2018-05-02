@@ -1,3 +1,12 @@
+function recaptchaSubmit(){
+    let form = document.getElementsByName("reg_form")[0];
+    if(typeof form === "undefined") return;
+    if(FrontPage_Form1_Validator(form))
+        form.submit();
+    else
+        grecaptcha.reset();
+}
+
 /**
  * Adds error to element if it's empty
  * @param {string} name 
