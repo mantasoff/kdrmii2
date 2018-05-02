@@ -10,8 +10,6 @@ namespace app\models;
 
 use app\controllers\recaptcha;
 use core\Database\Field;
-use core\Database\Mysql;
-use core\Database\Query;
 use core\Model;
 
 class User extends Model
@@ -19,9 +17,9 @@ class User extends Model
     protected static $table = "users";
     protected static $selectFields = ["id", "email", "password", "institution", "degree", "first_name",
         "last_name", "affiliation", "phone_number", "article_title", "article_authors", "hotel", "leading_people",
-        "abstract", "additional_events"];
+        "abstract", "additional_events", "validated"];
     protected static $saveFields = ["email", "password", "institution", "degree", "first_name", "last_name", "affiliation",
-        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events"];
+        "phone_number", "article_title", "article_authors", "hotel", "leading_people", "abstract", "additional_events", "validated"];
     /**
      * @var string Static salt for hashing passwords
      */

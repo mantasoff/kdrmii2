@@ -1,9 +1,8 @@
 <?php
 namespace app\controllers;
 use core\Controller;
-use core\View;
 
-class indexController extends Controller
+class documentController extends Controller
 {
     public function index()
     {
@@ -168,9 +167,5 @@ $objWriter->save("php://output");
 
 /* Note: we skip RTF, because it's not XML-based and requires a different example. */
 /* Note: we skip PDF, because "HTML-to-PDF" approach is used to create PDF documents. */
-    }
-
-    public function test(){
-        echo "testuojam";
     }
 }

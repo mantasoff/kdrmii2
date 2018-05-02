@@ -4,8 +4,6 @@ use app\models\User;
 use app\models\Validation;
 use core\Controller;
 use core\Database\Field;
-use core\Exceptions\Error;
-use core\Exceptions\Success;
 
 class userController extends Controller
 {
