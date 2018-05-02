@@ -64,4 +64,16 @@ class mailController
         ");
         $mail->send();
     }
+    public static function sendPasswordValidation($userId, $validation){
+        $user = new User($userId);
+        $link = Helper::host()."/user/validate/".$validation->id."/".$validation->hash;
+        $mail = new Mail($user->email,
+            "Registration confirmation",
+            "<p>Hello ".$user->first_name.",</p>
+                    <p>Password reset request.</p>
+                    <p>Please click following link if you want to reset your password.</p>
+                    <p>Your : ".$link."</p>
+        ");
+        $mail->send();
+    }
 }

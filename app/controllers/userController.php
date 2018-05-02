@@ -12,6 +12,32 @@ class userController extends Controller
 {
     public function index(){}
 
+    public function passwordReset()
+    {
+        if (User::isLogged()) {
+            indexController::redirect('/dashboard');
+            return;
+        }
+        $message = "";
+        if (isset($_POST) && count($_POST) > 0) {
+
+            if (Post::get("email") === false || strlen(Post::get("email")) < 1) {
+                $message = "<div class='error'>Error: email is empty.</div>";
+            }else{
+                $user = User::getByFields([
+                    new Field("email", Post::get("email"))
+                ]);
+                if($user === null || is_array($user)){
+                    $message = "<div class='error'>Error: Email incorrect.</div>";
+                }else{
+                    Validation::createUserValidation($user->id,"reset");
+                    return;
+                }
+            }
+        }
+        (new View())->render("reset", ["message" => $message]);
+        indexController::moveToIndex('Your password reset link has been sent to your email, please confirm');
+    }
     public function dashboard(){
         if(!User::isLogged()){
             indexController::redirect('/user/login');
