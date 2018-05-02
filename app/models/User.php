@@ -11,6 +11,7 @@ namespace app\models;
 use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Model;
+use core\Session;
 
 class User extends Model
 {
@@ -23,14 +24,18 @@ class User extends Model
     /**
      * @var string Static salt for hashing passwords
      */
-    private $salt = "D1ISxMojS4g1FRmSAGsd";
+    private static $salt = "D1ISxMojS4g1FRmSAGsd";
 
     /**
      * Set hashed password for user
      * @param $unHashed string password to set
      */
     public function setPassword($unHashed){
-        $this->password = hash('sha256', $this->salt."".$unHashed);
+        $this->password = self::getHashedPassword($unHashed);
+    }
+
+    public static function getHashedPassword($unHashed){
+        return hash('sha256', self::$salt."".$unHashed);
     }
 
     /**
@@ -150,5 +155,14 @@ class User extends Model
         $id=$user->insert();
         Validation::createUserValidation($id);
         return 1;
+    }
+    public static function isLogged(){
+        if(Session::get("id") === false)
+            return false;
+        if(!is_numeric(Session::get("id")))
+            return false;
+        if(intval(Session::get("id")) < 1)
+            return false;
+        return true;
     }
 }

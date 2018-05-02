@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+use app\models\User;
 use core\Controller;
 use core\Helper;
 use core\Session;
@@ -16,12 +17,22 @@ class indexController extends Controller
      */
     public function index()
     {
+        if(User::isLogged()){
+            indexController::redirect('/user/dashboard');
+            return 1;
+        }
         (new View())->render("register", ["message" => (Session::get("message") === false ? "" : Session::get("message"))]);
         if(Session::get("message") !== false)
             Session::set("message", false);
     }
+    public function test(){
+        echo "test";
+    }
     public static function moveToIndex($message){
         Session::set("message",$message);
-        header('Location: '.Helper::config("app")->directory.'/');
+        self::redirect('/');
+    }
+    public static function redirect($project_url){
+        header('Location: '.Helper::config("app")->directory.$project_url);
     }
 }
