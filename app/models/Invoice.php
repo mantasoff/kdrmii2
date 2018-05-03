@@ -16,6 +16,12 @@ class Invoice extends Model
     protected static $selectFields = ["invoice_id", "requesting_user", "company_name","company_adress","company_code","bank_code"];
     protected static $saveFields = ["requesting_user", "company_name","company_code","company_invoice","bank_code"];
 // Validations
+
+    /**
+     * Validate incvoice data.
+     * @param $data
+     * @return int|string
+     */
     public function validateData($data){
         if(!isset($data["institutionname"]) || strlen($data["institutionname"]) > 255) {
                  return "Company name is too long.";

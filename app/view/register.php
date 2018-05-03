@@ -66,6 +66,13 @@
     <font color="red">
         <p id="articleauthorsaffiliations_ID"></p>
     </font>
+
+    Abstract:<br>
+    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required></textarea>
+    <br>
+    <font color="red">
+        <p id="abstract_ID"></p>
+    </font>
     Do you need to book the hotel room?<br>
     <input type="radio" name="hotel" value="roomno" onclick="isLastChoice(this.value)" checked required> No<br>
     <input type="radio" name="hotel" value="roomsingle" onclick="isLastChoice(this.value)" required> Single room<br>
@@ -124,13 +131,6 @@
         </font>
         <br>
     </p>
-    Abstract:<br>
-    <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required></textarea>
-    <br>
-    <font color="red">
-        <p id="abstract_ID"></p>
-    </font>
-    <br>
     <input type="submit" class="g-recaptcha" data-sitekey="<?php echo \core\Helper::config('app')->recaptcha["site_key"]?>" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
 </form>
