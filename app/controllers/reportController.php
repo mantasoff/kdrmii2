@@ -375,14 +375,43 @@ class reportController extends Controller
                 $pstyle,
                 array('align' => 'both', 'spaceAfter' => 100)
             );
-        
-        
+            
+
+            
             $section->addText(
                 $user->article_title,
                 $fontStyleName
             );
+            
+            
+            
+            $article_authors = explode(',',$user->article_authors);
+            $articleAuthorPrint = '';
+            $name = true;
+            $first_time = true;
+            $article_authors_nameSurname = [];
+            foreach($article_authors as $aa) {
+                $article_authors_nameSurname = explode(' ',$aa);
+                $name = true;
+                foreach($article_authors_nameSurname as $aans) {
+                    if(!$first_time && $name) {
+                        $articleAuthorPrint = $articleAuthorPrint . ', ';
+                    }
+                    if ($name) {
+                        $aans = $aans . ' ';
+                        $articleAuthorPrint = $articleAuthorPrint . $aans[0] . '. '; 
+                    }
+                    else {
+                        $articleAuthorPrint = $articleAuthorPrint . $aans;
+                    }
+                    $name = !$name;
+                    $first_time = false;
+                }
+            }
+            
+            
             $section->addText(
-                $user->article_authors,
+                $articleAuthorPrint,
                 $fontStyleName2,
                 array('space' => array('before' => 0, 'after' => 50))
             );
