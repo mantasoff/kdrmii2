@@ -12,6 +12,35 @@ class userController extends Controller
 {
     public function index(){}
 
+    /**
+     * Password reset route
+     */
+    public function passwordReset()
+    {
+        if (User::isLogged()) {
+            indexController::redirect('/dashboard');
+            return;
+        }
+        $message = "";
+        if (isset($_POST) && count($_POST) > 0) {
+
+            if (Post::get("email") === false || strlen(Post::get("email")) < 1) {
+                $message = "<div class='error'>Error: email is empty.</div>";
+            }else{
+                $user = User::getByFields([
+                    new Field("email", Post::get("email"))
+                ]);
+                if($user === null || is_array($user)){
+                    $message = "<div class='error'>Error: Email incorrect.</div>";
+                }else{
+                    Validation::createUserValidation($user->id,"reset");
+                    return;
+                }
+            }
+        }
+        (new View())->render("reset", ["message" => $message]);
+        indexController::moveToIndex('Your password reset link has been sent to your email, please confirm');
+    }
     public function dashboard(){
         if(!User::isLogged()){
             indexController::redirect('/user/login');
@@ -19,9 +48,12 @@ class userController extends Controller
         }
     }
 
+    /**
+     * User login route
+     */
     public function login(){
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return;
         }
         $message = "";
@@ -38,7 +70,7 @@ class userController extends Controller
                     $message = "<div class='error'>User name or passwords incorrect.</div>";
                 }else{
                     Session::set("id", $user->id);
-                    indexController::redirect('/user/dashboard');
+                    indexController::redirect('/dashboard');
                     return;
                 }
             }
@@ -59,7 +91,7 @@ class userController extends Controller
      */
     public function register(){
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return 0;
         }
         $error = User::validateData($_POST);
@@ -92,7 +124,7 @@ class userController extends Controller
         }
         if(intval($validation->valid_till) < time()){
             $user = new User($validation->user_id);
-            if($user->id !== null)
+            if($user->id !== null && $validation->type === "validate")
                 $user->delete();
             $validation->delete();
             indexController::moveToIndex("<div class='error'>Error: Validation not found.</div>");
@@ -104,10 +136,15 @@ class userController extends Controller
             $validation->delete();
             return;
         }
-        $user->validated = 1;
-        $user->save();
-        $validation->delete();
-        mailController::sendPassword($user->id);
-        indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+        if($validation->type === "validate"){
+            $user->validated = 1;
+            $user->save();
+            $validation->delete();
+            mailController::sendPassword($user->id);
+            indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+        }else{
+            mailController::sendNewPassword($user->id);
+            indexController::moveToIndex("<div class='success'>Your new password is sent to your email.</div>");
+        }
     }
 }

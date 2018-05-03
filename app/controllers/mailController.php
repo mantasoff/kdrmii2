@@ -64,4 +64,40 @@ class mailController
         ");
         $mail->send();
     }
+
+    /**
+     * Send new generated password
+     * @param $userId
+     */
+    public static function sendNewPassword($userId){
+        $user = new User($userId);
+        $password = self::randomString(8);
+        $user->setPassword($password);
+        $user->save();
+        $mail = new Mail($user->email,
+            "DAMSS password",
+            "<p>Hello ".$user->first_name.",</p>
+                    <p>Your password has been reset.</p>
+                    <p>If you want to change any of your entered information or cancel your participation just login into our website.</p>
+                    <p>Your password: ".$password."</p>
+        ");
+        $mail->send();
+    }
+    /**
+     * Send password change validation
+     * @param $userId
+     * @param $validation
+     */
+    public static function sendPasswordValidation($userId, $validation){
+        $user = new User($userId);
+        $link = Helper::host()."/user/validate/".$validation->id."/".$validation->hash;
+        $mail = new Mail($user->email,
+            "Registration confirmation",
+            "<p>Hello ".$user->first_name.",</p>
+                    <p>Password reset request.</p>
+                    <p>Please click following link if you want to reset your password.</p>
+                    <p>Your : ".$link."</p>
+        ");
+        $mail->send();
+    }
 }

@@ -18,20 +18,27 @@ class indexController extends Controller
     public function index()
     {
         if(User::isLogged()){
-            indexController::redirect('/user/dashboard');
+            indexController::redirect('/dashboard');
             return 1;
         }
         (new View())->render("register", ["message" => (Session::get("message") === false ? "" : Session::get("message"))]);
         if(Session::get("message") !== false)
             Session::set("message", false);
     }
-    public function test(){
-        echo "test";
-    }
+
+    /**
+     * Redirect to index page
+     * @param $message
+     */
     public static function moveToIndex($message){
         Session::set("message",$message);
         self::redirect('/');
     }
+
+    /**
+     * Redirect in project
+     * @param $project_url
+     */
     public static function redirect($project_url){
         header('Location: '.Helper::config("app")->directory.$project_url);
     }

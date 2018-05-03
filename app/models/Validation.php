@@ -30,13 +30,16 @@ class Validation extends Model
     /**
      * Create user validation in database
      * @param $userId
+     * @param $type
      */
-    public static function createUserValidation($userId){
+    public static function createUserValidation($userId,$type="validate"){
         $validation = new Validation();
+        $validation->type = $type;
         $validation->user_id = $userId;
         $validation->hash = mailController::randomString(10);
         $validation->valid_till = time()+86400;
         $validation->insert();
-        mailController::sendMailValidation($userId, $validation);
+        if($type==="validate") mailController::sendMailValidation($userId, $validation);
+        else mailController::sendPasswordValidation($userId, $validation);
     }
 }

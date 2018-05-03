@@ -1,9 +1,4 @@
 {{include "header"}}
-<?php
-
-var_dump(\app\models\User::isLogged());
-?>
-<br>
 {{message}}
 Login
 <form name="login_form" method="POST" onsubmit="return Login_Form1_Validator(this)" novalidate>
