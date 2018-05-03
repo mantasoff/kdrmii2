@@ -174,7 +174,7 @@ function FrontPage_Form1_Validator(theForm)
     return false;
   } else document.getElementById(theForm.articleauthorsaffiliations.name+"_ID").innerText = "";
 
-  if (theForm.abstract.value.length > 300) {
+  if (theForm.abstract.value.length > 800) {
     document.getElementById(theForm.abstract.name+"_ID").innerText = theForm.abstract.placeholder + " too long.";
     theForm[theForm.abstract.name].focus();
     return false;

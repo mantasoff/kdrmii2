@@ -11,6 +11,7 @@ namespace app\models;
 use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Model;
+use core\Post;
 use core\Session;
 
 class User extends Model
@@ -104,6 +105,9 @@ class User extends Model
         if(strlen($data["phone"]) > 18){
             return "Phone number is too long.";
         }
+        if(preg_match("/^[0-9+ ]+$/", $data["phone"]) == 0 || preg_match("/^[0-9+ ]+$/", $data["phone"]) == false){
+            return "Phone number is not valid";
+        }
         if(strlen($data["articletitle"]) > 255){
             return "Article title is too long.";
         }
@@ -113,11 +117,11 @@ class User extends Model
         if(strlen($data["articleauthorsaffiliations"]) > 300){
             return "Article authors affiliations is too long.";
         }
-        if(strlen($data["abstract"]) > 300){
+        if(strlen($data["abstract"]) > 800){
             return "Abstraction is too long.";
         }
         if(strlen($data["hotel"]) > 64){
-            return "Hotel name is too long.";
+            return "Hotel data is too long.";
         }
         $withMail = User::getByFields([new Field("email", $data["email"])]);
         if($withMail !== null){
@@ -125,11 +129,38 @@ class User extends Model
         }
         return true;
     }
+    public static function validateUpdateData($params){
+        foreach($params as $key){
+            if(Post::get($key) === false || strlen(Post::get($key)) < 1){
+                return "$key is required.";
+            }
+        }
+        if(!in_array(Post::get("hotel"), ["roomother", "roomno", "roomsingle", "roomdouble"])){
+            return "Bad hotel value";
+        }
+        if(strlen(Post::get("hotel")) > 64){
+            return "Hotel data is too long.";
+        }
+        if(preg_match("/^[0-9+ ]+$/", Post::get("phone_number")) == 0 || preg_match("/^[0-9+ ]+$/", Post::get("phone_number")) == false){
+            return "Phone number is not valid";
+        }
+        if(Post::get("hotel") === "roomother" && (Post::get("addinfo") === false || Post::get("addinfo") === null || Post::get("addinfo") === "" || strlen(Post::get("addinfo"))<2)) {
+            return "Additional information about room is required";
+        }
 
+        return true;
+    }
     public function updateData($data, $params){
         foreach ($params as $key){
             $this->$key = $data[$key];
         }
+        if(Post::get("hotel") === "roomother")
+            $this->hotel = Post::get("addinfo");
+        $this->leading_people = ($data["leading_people"] == "accyes" ? 1 : 0 );
+        if($this-> leading_people === 1)
+            $this->additional_events = $data["additional_events"] == "accevyes" ? 1 : 0 ;
+        else
+            $this->additional_events = 0;
         $this->save();
     }
     /**
@@ -153,7 +184,7 @@ class User extends Model
         if(in_array($data["hotel"], ["roomno","roomsingle", "roomdouble"]))
             $user->hotel = $data["hotel"];
         else
-            $user->hotel = $data["otherroom"];
+            $user->hotel = $data["addinfo"];
         $user->leading_people = ($data["leading_people"] === "accyes" ? true : false );
         if($user-> leading_people)
             $user->additional_events = ($data["additional_events"] === "accevyes" ? true : false );
