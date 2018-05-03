@@ -156,7 +156,7 @@ class Model
         }
         $query = new Query();
         if(static::$db !== null) $query->db(static::$db);
-        $query->table(static::$table)->update($fields)->where(new Field(static::$idColumn,$this->fields[static::$idColumn]));
+        $query->table(static::$table)->update($fields)->where(new Field(static::$idColumn,$this->fields[static::$idColumn]));;
         Mysql::execute($query);
     }
 

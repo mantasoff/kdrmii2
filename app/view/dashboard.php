@@ -1,18 +1,22 @@
 {{include "header"}}
+<link href="{{config.directory}}/styles/dashboard" type="text/css" rel="stylesheet">
 <br>
-<input button type="button" value="Logout">
-<br>
-<br>
-<input button type="button" value="Invoice information">
+<a href="{{config.directory}}/user/logout"><input class="top" type="button" value="Logout"></a>
+<a href="{{config.directory}}/dashboard/invoice"><input class="top" type="button" value="Invoice information"></a>
+{{message}}
 <br>
 Title:<br>
 <input value="{{user.degree}}" disabled><br>
+<br>
 First name:<br>
 <input value="{{user.first_name}}" disabled><br>
+<br>
 Last name:<br>
 <input value="{{user.last_name}}" disabled><br>
+<br>
 Email:<br>
 <input value="{{user.email}}" disabled><br>
+<br>
 <form name="dashboard_form" method="POST" onsubmit="return Dashboard_Form1_Validator(this)" novalidate>
     Institution:<br>
     <input name="institution" value="{{user.institution}}"><br>
@@ -50,14 +54,20 @@ Email:<br>
         <label id="article_authors_affiliations_ID">
     </font>
     <br>
+    Abstract:<br>
+    <textarea name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required>{{user.abstract}}</textarea>
+    <font color="red">
+        <p id="abstract_ID"></p>
+    </font>
+    <br>
     Do you need to book the hotel room?<br>
-    <input type="radio" name="hotel" value="roomno" onclick="isLastChoice(this.value)" required> No<br>
-    <input type="radio" name="hotel" value="roomsingle" onclick="isLastChoice(this.value)" required> Single room<br>
-    <input type="radio" name="hotel" value="roomdouble" onclick="isLastChoice(this.value)" required> Double room<br>
-    <input type="radio" name="hotel" value="roomother" onclick="isLastChoice(this.value)" required> Other<br>
-    <p id="otherroom">
+    <input type="radio" name="hotel" value="roomno" onclick="isLastChoice(this.value)" required <?php if($user["hotel"]==="roomno") echo "checked";?>> No<br>
+    <input type="radio" name="hotel" value="roomsingle" onclick="isLastChoice(this.value)" required <?php if($user["hotel"]==="roomsingle") echo "checked";?>> Single room<br>
+    <input type="radio" name="hotel" value="roomdouble" onclick="isLastChoice(this.value)" required <?php if($user["hotel"]==="roomdouble") echo "checked";?>> Double room<br>
+    <input type="radio" name="hotel" value="roomother" onclick="isLastChoice(this.value)" required <?php if(!in_array($user["hotel"],["roomno","roomsingle","roomdouble"])) echo "checked";?>> Other<br>
+    <p id="otherroom" <?php if(in_array($user["hotel"],["roomno","roomsingle","roomdouble"])) echo "style='display: none'";?>>
         Additional information:<br>
-        <textarea type="text" name="addinfo" id="addinfo" rows="4" cols="50"></textarea>
+        <textarea name="addinfo" id="addinfo" rows="4" cols="50"><?php if(!in_array($user["hotel"],["roomno","roomsingle","roomdouble"])) echo $user["hotel"]; ?></textarea>
         <br>
         <font color="red">
             <label id="addinfo_ID">
@@ -65,26 +75,21 @@ Email:<br>
         <br>
     </p>
     <br> Will there be people accompanying?<br>
-    <input type="radio" name="leading_people" value="accno" onclick="isLastChoice2(this.value)"  required> No <br>
-    <input type="radio" name="leading_people" value="accyes" onclick="isLastChoice2(this.value)" required> Yes <br>
+    <input type="radio" name="leading_people" value="accno" onclick="isLastChoice2(this.value)"  required <?php if($user["leading_people"] != "1") echo "checked";?>> No <br>
+    <input type="radio" name="leading_people" value="accyes" onclick="isLastChoice2(this.value)" required <?php if($user["leading_people"] == "1") echo "checked";?>> Yes <br>
     <br>
-    <p id="otheraccompany">
+    <p id="otheraccompany" <?php if($user["leading_people"] != "1") echo "style='display:none;'"; ?>>
         Will people accompanying you be present at additional events?<br>
-        <input type="radio" name="additional_events" value="accevno"  required> No <br>
-        <input type="radio" name="additional_events" value="accevyes" required> Yes <br>
+        <input type="radio" name="additional_events" value="accevno"  required <?php if($user["additional_events"] != "1") echo "checked";?>> No <br>
+        <input type="radio" name="additional_events" value="accevyes" required <?php if($user["additional_events"] == "1") echo "checked";?>> Yes <br>
         <br>
     </p>
-    <textarea type="text" name="abstract" value="{{user.abstract}}" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required></textarea>
-    <br>
-    <font color="red">
-        <p id="abstract_ID"></p>
-    </font>
     <br>
 
     <input type="submit" value="Update information">
 </form>
 <script>
-    var registerFormData = {
+    var dashboardFormData = {
         registerFields: ([{
             "label": "Institution:",
             "name": "institution",

@@ -133,6 +133,9 @@
     </p>
     <input type="submit" class="g-recaptcha" data-sitekey="<?php echo \core\Helper::config('app')->recaptcha["site_key"]?>" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
+    <br>
+    <br>
+    <a href="{{config.directory}}/user/login">Already registered? Sign in</a>
 </form>
 <script>
     var registerFormData = {

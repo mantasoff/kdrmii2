@@ -34,12 +34,12 @@ class userController extends Controller
                     $message = "<div class='error'>Error: Email incorrect.</div>";
                 }else{
                     Validation::createUserValidation($user->id,"reset");
+                    indexController::moveToIndex('<div class="success">Your password reset link has been sent to your email, please confirm</div>');
                     return;
                 }
             }
         }
-        (new View())->render("reset", ["message" => $message]);
-        indexController::moveToIndex('Your password reset link has been sent to your email, please confirm');
+        (new View())->render("recover", ["message" => $message]);
     }
     public function dashboard(){
         if(!User::isLogged()){
