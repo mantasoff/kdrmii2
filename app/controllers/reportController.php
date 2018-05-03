@@ -3,6 +3,7 @@ namespace app\controllers;
 use app\models\User;
 use core\Controller;
 use core\Database\Field;
+use core\Helper;
 use core\View;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -139,150 +140,189 @@ class reportController extends Controller
 
     }
 
-    public function diplomaWord() {
+    public function diplomaWord()
+    {
         require_once 'core/autoload.php';
+
+
+        //$Users = User::getByFields(new Field("Validated", 1));
+        //$Users2 = User::getByFields(new Field("Validated", 1));
+
+        $Users = User::all();
+        $Users2 = User::all();
+        if (!is_array($Users)) {
+            $Users = [$Users];
+        }
+
 
         // Creating the new document...
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
-            
+
         $phpWord->setDefaultParagraphStyle(
             array(
-                'alignment'  => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
+                'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
                 'spaceAfter' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(12),
-                'spacing'    => 120,
+                'spacing' => 120,
             )
         );
 
+        $array = [];
+        foreach ($Users as $user) {
+            $authorsarray = explode(',', $user->article_authors);
+            foreach ($authorsarray as $author) {
+                if (!isset($array[$author]))
+                    $array[$author] = [[$user->article_title, $user->institution]];
+                else {
+                    array_push($array[$author], [$user->article_title, $user->institution]);
+
+                }
+            }
+        }
+        foreach ($array as $author=>$articles) {
+            if(count($array[$author]) < 3)
+                for($i=count($array[$author]);$i<4;$i++)
+                    array_push($array[$author], ["", ""]);
+        }
+        foreach ($array as $author=>$articles) {
+
+                $section = $phpWord->addSection();
+
+                $section->addImage(
+                    Helper::host() . "/images/DAMSSlogo.jpg",
+                    array(
+                        'width' => 141,
+                        'height' => 49,
+                        'marginTop' => -1,
+                        'marginLeft' => -1,
+                        'wrappingStyle' => 'behind'
+                    )
+                );
+
+                $fontStyleName = 'oneUserDefinedStyle';
+
+                $phpWord->addFontStyle(
+                    $fontStyleName,
+                    array('name' => 'Cambria', 'size' => 24, 'color' => '1B2232', 'bold' => true, 'align' => 'center')
+                );
+                $fontStyleName2 = 'twoUserDefinedStyle';
+                $phpWord->addFontStyle(
+                    $fontStyleName2,
+                    array('name' => 'Cambria', 'size' => 16, 'color' => '1B2232', 'bold' => false)
+                );
+                $fontStyleName3 = 'threeUserDefinedStyle';
+                $phpWord->addFontStyle(
+                    $fontStyleName3,
+                    array('name' => 'Cambria', 'size' => 18, 'color' => '1B2232', 'bold' => true)
+                );
+                $fontStyleName4 = 'fourUserDefinedStyle';
+                $phpWord->addFontStyle(
+                    $fontStyleName4,
+                    array('name' => 'Cambria', 'size' => 14, 'color' => '1B2232', 'bold' => false)
+                );
+                $fontStyleName5 = 'fiveUserDefinedStyle';
+                $phpWord->addFontStyle(
+                    $fontStyleName5,
+                    array('name' => 'Cambria', 'size' => 16, 'color' => '990000', 'bold' => true)
+                );
+
+                $fontStyleName6 = 'sixUserDefinedStyle';
+                $phpWord->addFontStyle(
+                    $fontStyleName6,
+                    array('name' => 'Cambria', 'size' => 16, 'color' => '1B2232', 'bold' => false, 'italic' => true)
+                );
+
+                $section->addText(
+                    'CERTIFICATE OF PARTICIPATION',
+                    $fontStyleName
+                );
+
+                $section->addText(
+                    'This is certify that',
+                    $fontStyleName2
+                );
+
+                $section->addText(
+                    $author,
+                    $fontStyleName3
+                );
 
 
-        $section = $phpWord->addSection();
+                $section->addText(
+                    $articles[0][1],
+                    $fontStyleName4
+                );
 
-        $section->addImage(
-            "./core/phpoffice/resources/DAMSSlogo.jpg",
-            array(
-                'width'         => 141,
-                'height'        => 49,
-                'marginTop'     => -1,
-                'marginLeft'    => -1,
-                'wrappingStyle' => 'behind'
-            )
-        );
+                $section->addText(
+                    'has attended the 10th international workshop',
+                    $fontStyleName4
+                );
 
-        $fontStyleName = 'oneUserDefinedStyle';
+                $section->addText(
+                    'Data Analysis Methods for Software Systems',
+                    $fontStyleName5
+                );
 
-        $phpWord->addFontStyle(
-            $fontStyleName,
-            array('name' => 'Cambria', 'size' => 24, 'color' => '1B2232', 'bold' => true, 'align' => 'center')
-        );
-        $fontStyleName2 = 'twoUserDefinedStyle';
-        $phpWord->addFontStyle(
-            $fontStyleName2,
-            array('name' => 'Cambria', 'size' => 16, 'color' => '1B2232', 'bold' => false)
-        );
-        $fontStyleName3 = 'threeUserDefinedStyle';
-        $phpWord->addFontStyle(
-            $fontStyleName3,
-            array('name' => 'Cambria', 'size' => 18, 'color' => '1B2232', 'bold' => true)
-        );
-        $fontStyleName4 = 'fourUserDefinedStyle';
-        $phpWord->addFontStyle(
-            $fontStyleName4,
-            array('name' => 'Cambria', 'size' => 14, 'color' => '1B2232', 'bold' => false)
-        );
-        $fontStyleName5 = 'fiveUserDefinedStyle';
-        $phpWord->addFontStyle(
-            $fontStyleName5,
-            array('name' => 'Cambria', 'size' => 16, 'color' => '990000', 'bold' => true)
-        );
+                $section->addText(
+                    'held in Druskininkai, Lithuania, 29 November - 1 December 2018 has presented the paper',
+                    $fontStyleName4
+                );
 
-        $fontStyleName6 = 'sixUserDefinedStyle';
-        $phpWord->addFontStyle(
-            $fontStyleName6,
-            array('name' => 'Cambria', 'size' => 16, 'color' => '1B2232', 'bold' => false,'italic' => true)
-        );
-
-        $section->addText(
-            'CERTIFICATE OF PARTICIPATION',
-            $fontStyleName
-        );
-
-        $section->addText(
-            'This is certify that',
-            $fontStyleName2
-        );
-
-        $section->addText(
-            'Petras Petraitis',
-            $fontStyleName3
-        );
+                foreach ($articles as  $title) {
+                    $section->addText(
+                        $title[0],
+                        $fontStyleName2,
+                        array('space' => array('before' => 0, 'after' => 0))
+                    );
+                }
 
 
-        $section->addText(
-            'Vilnius Gediminas Technical University',
-            $fontStyleName4
-        );
+                $phpWord->addParagraphStyle('p2Style', array('align' => 'start', 'spaceAfter' => 100,'space' => array('before' => 400, 'after' => 0)));
+                $phpWord->addParagraphStyle('p3Style', array('align' => 'end', 'spaceAfter' => 100));
 
-        $section->addText(
-            'has attended the 10th international workshop',
-            $fontStyleName4
-        );
+                $section->addText(
+                    'Program Committee',
+                    $fontStyleName6,
+                    'p2Style'
+                );
 
-        $section->addText(
-            'Data Analysis Methods for Software Systems',
-            $fontStyleName5
-        );
-
-        $section->addText(
-            'held in Druskininkai, Lithuania, 29 November - 1 December 2018 has presented the paper',
-            $fontStyleName4
-        );
-
-        $section->addText(
-            'Automatic Adjustment of Disparity in Stereo View by Eye Activity Based Markers',
-            $fontStyleName2
-        );
+                $section->addText(
+                    '  ' . 'Dr. Saulius Maskeliūnas',
+                    $fontStyleName4,
+                    'p2Style'
+                );
 
 
+                $section->addText(
+                    '  ' . 'Prof. Gintautas Dzemyda',
+                    $fontStyleName4,
+                    'p2Style'
+                );
 
-        $phpWord->addParagraphStyle('p2Style', array('align'=>'start', 'spaceAfter'=>100));
-        $phpWord->addParagraphStyle('p3Style', array('align'=>'end', 'spaceAfter'=>100));
+                $section->addText(
+                    'Druskininkai, 1 December, 2018',
+                    $fontStyleName4,
+                    'p3Style'
+                );
+                // Adding Text element with font customized using explicitly created font style object...
 
-        $section->addText(
-            'Program Committee',
-            $fontStyleName6,
-            'p2Style'
-        );
+                $section->addImage(
+                    Helper::host() . "/images/Sponsors.jpg",
+                    array(
+                        'width'         => 425,
+                        'height'        => 68,
+                        'marginTop'     => -1,
+                        'marginLeft'    => 0,
+                        'wrappingStyle' => 'behind'
+                    )
+                );
+            }
 
-        $section->addText(
-            '  ' . 'Dr. Saulius Maskeliūnas',
-            $fontStyleName4,
-            'p2Style'
-        );
-
-
-        $section->addText(
-            '  ' . 'Prof. Gintautas Dzemyda',
-            $fontStyleName4,
-            'p2Style'
-        );
-
-        $section->addText(
-            'Druskininkai, 1 December, 2018',
-            $fontStyleName4,
-            'p3Style'
-        );
-        // Adding Text element with font customized using explicitly created font style object...
-
-        $section->addImage(
-            "./core/phpoffice/resources/Sponsors.jpg"
-        );
-
-        $contentType = 'Content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document;';
-        header($contentType);
-        // Saving the document as OOXML file...
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save("php://output");
-    }
+            $contentType = 'Content-type: application/vnd.openxmlformats-officedocument.wordprocessingml.document;';
+            header($contentType);
+            // Saving the document as OOXML file...
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            $objWriter->save("php://output");
+        }
 
     public function abstractWord () {
         require_once 'core/autoload.php';     
@@ -335,14 +375,43 @@ class reportController extends Controller
                 $pstyle,
                 array('align' => 'both', 'spaceAfter' => 100)
             );
-        
-        
+            
+
+            
             $section->addText(
                 $user->article_title,
                 $fontStyleName
             );
+            
+            
+            
+            $article_authors = explode(',',$user->article_authors);
+            $articleAuthorPrint = '';
+            $name = true;
+            $first_time = true;
+            $article_authors_nameSurname = [];
+            foreach($article_authors as $aa) {
+                $article_authors_nameSurname = explode(' ',$aa);
+                $name = true;
+                foreach($article_authors_nameSurname as $aans) {
+                    if(!$first_time && $name) {
+                        $articleAuthorPrint = $articleAuthorPrint . ', ';
+                    }
+                    if ($name) {
+                        $aans = $aans . ' ';
+                        $articleAuthorPrint = $articleAuthorPrint . $aans[0] . '. '; 
+                    }
+                    else {
+                        $articleAuthorPrint = $articleAuthorPrint . $aans;
+                    }
+                    $name = !$name;
+                    $first_time = false;
+                }
+            }
+            
+            
             $section->addText(
-                $user->article_authors,
+                $articleAuthorPrint,
                 $fontStyleName2,
                 array('space' => array('before' => 0, 'after' => 50))
             );
