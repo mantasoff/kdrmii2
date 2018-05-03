@@ -30,7 +30,11 @@ a:hover {text-decoration:underline;}
 	color:#717171;
 	text-decoration:none;
 }
-
+input.top {
+    display: inline-block;
+    float: right;
+    margin: 0 10px;
+}
 .bot_txt {
 	color:#2D75A4;
 	font-size:9px;
