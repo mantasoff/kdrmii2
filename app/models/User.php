@@ -150,6 +150,12 @@ class User extends Model
 
         return true;
     }
+
+    /**
+     * Check and update user data.
+     * @param $data array Data to update user with
+     * @param $params array Variables to update
+     */
     public function updateData($data, $params){
         foreach ($params as $key){
             $this->$key = $data[$key];
