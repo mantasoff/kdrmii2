@@ -18,15 +18,25 @@ class dashboardController extends Controller
         if(isset($_POST) && count($_POST)> 2){
             $params=["institution", "affiliation", "phone_number", "phone_number", "article_title", "article_authors",
                 "article_authors_affiliations", "abstract", "hotel", "leading_people"];
-            if(User::validateUpdateData($params) !== true){
+            foreach ($params as $param){
+                if(!isset($_POST[$param])){
+                    (new View())->render("dashboard", [
+                        "message" => "<div class='error'>$param is required</div>",
+                        "user" => $userData
+                    ]);
+                    return;
+                }
+            }
+            $validation = User::validate($_POST);
+            if($validation !== true){
                 (new View())->render("dashboard", [
-                    "message" => "<div class='error'>".User::validateUpdateData($params)."</div>",
+                    "message" => "<div class='error'>$validation</div>",
                     "user" => $userData
                 ]);
                 return;
             }
 
-            $user->updateData($_POST, $params);
+            $user->updateData($_POST);
             $userData=$user->getArray();
             (new View())->render("dashboard", [
                 "message"=> "<div class='success'>Saved.</div>",

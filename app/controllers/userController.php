@@ -10,7 +10,14 @@ use core\View;
 
 class userController extends Controller
 {
-    public function index(){}
+    public function index(){
+        $data = [
+            "email" => "test@dsfd.lt",
+            "institution" => "152",
+            "additional_events" => "accevyes"
+        ];
+        var_dump(User::validate($data));
+    }
 
     /**
      * Password reset route

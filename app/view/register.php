@@ -13,8 +13,8 @@
 <p class="MsoNormal"><span style="font-size: 10pt; line-height: 107%;"></span></p>
 {{message}}
 <form name="reg_form" action="{{config.directory}}/user/register" method="POST" onsubmit="return FrontPage_Form1_Validator(this)" novalidate>
-    <label for="title">Title: (Prof/Dr/Mr/Mrs/Ms)</label>
-    <select name="title">
+    <label for="degree">Title: (Prof/Dr/Mr/Mrs/Ms)</label>
+    <select name="degree">
         <option value="Prof">Prof</option>
         <option value="Dr">Dr</option>
         <option value="Mr">Mr</option>
@@ -22,14 +22,14 @@
         <option value="Ms">Ms</option>
     </select>
     <br> First Name:<br>
-    <input type="text" name="firstname" placeholder="First Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="first_name" placeholder="First Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="firstname_ID"></p>
+        <p id="first_name_ID"></p>
     </font>
     Last Name:<br>
-    <input type="text" name="lastname" placeholder="Last Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="last_name" placeholder="Last Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="lastname_ID"></p>
+        <p id="last_name_ID"></p>
     </font>
     Institution:<br>
     <input type="text" name="institution" placeholder="Institution" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
@@ -47,24 +47,24 @@
         <p id="email_ID"></p>
     </font>
     Phone number:<br>
-    <input type="text" name="phone" placeholder="Phone number" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="phone_number" placeholder="Phone number" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="phone_ID"></p>
+        <p id="phone_number_ID"></p>
     </font>
     Article title:<br>
-    <input type="text" name="articletitle" placeholder="Article title" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="article_title" placeholder="Article title" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="articletitle_ID"></p>
+        <p id="article_title_ID"></p>
     </font>
     Article authors:<br>
-    <input type="text" name="articleauthors" placeholder="Article authors" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="article_authors" placeholder="Article authors" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="articleauthors_ID"></p>
+        <p id="article_authors_ID"></p>
     </font>
     Article authors affiliations:<br>
-    <input type="text" name="articleauthorsaffiliations" placeholder="Affiliations" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="article_authors_affiliations" placeholder="Affiliations" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
-        <p id="articleauthorsaffiliations_ID"></p>
+        <p id="article_authors_affiliations_ID"></p>
     </font>
 
     Abstract:<br>
@@ -80,10 +80,10 @@
     <input type="radio" name="hotel" value="roomother" onclick="isLastChoice(this.value)" required> Other<br>
     <p id="otherroom">
         Additional information:<br>
-        <textarea type="text" name="addinfo" id="addinfo" rows="4" cols="50"></textarea>
+        <textarea type="text" name="hotel_info" id="hotel_info" rows="4" cols="50"></textarea>
         <br>
         <font color="red">
-            <label id="addinfo_ID">
+            <label id="hotel_info_ID">
         </font>
         <br>
     </p>
@@ -97,40 +97,7 @@
         <input type="radio" name="additional_events" value="accevyes" required> Yes <br>
         <br>
     </p>
-    Do you need prepayment invoice for participation fee?<br>
-    <input type="radio" name="invoice_required" value="invno" onclick="isLastChoice3(this.value)" checked required> No <br>
-    <input type="radio" name="invoice_required" value="invyes" onclick="isLastChoice3(this.value)" required> Yes <br>
     <br>
-    <p id="otherinvoice">
-    Name of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionname" id="institutionname" size="45">
-        <br>
-        <font color="red">
-            <label id="institutionname_ID">
-        </font>
-        <br>
-        Address of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionaddress" id="institutionaddress" size="45">
-        <br>
-        <font color="red">
-            <label id="institutionaddress_ID">
-        </font>
-        <br>
-        Company code of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutioncompanycode" id="institutioncompanycode" size="45">
-        <br>
-        <font color="red">
-            <label id="institutioncompanycode_ID">
-        </font>
-        <br>
-        Bank account code of institution for which prepayment invoice is issued:<br>
-        <input type="text" name="institutionbankcode" id="institutionbankcode" size="45">
-        <br>
-        <font color="red">
-            <label id="institutionbankcode_ID">
-        </font>
-        <br>
-    </p>
     <input type="submit" class="g-recaptcha" data-sitekey="<?php echo \core\Helper::config('app')->recaptcha["site_key"]?>" data-callback="recaptchaSubmit" value="Submit">
     <input type="reset" value="Reset">
     <br>
@@ -141,12 +108,12 @@
     var registerFormData = {
         registerFields: ([{
             "label": "First Name:",
-            "name": "firstname",
+            "name": "first_name",
             "placeholder": "First Name",
             "required": true
         }, {
             "label": "Last Name:",
-            "name": "lastname",
+            "name": "last_name",
             "placeholder": "Last Name",
             "required": true
         }, {
@@ -166,22 +133,22 @@
             "required": true
         }, {
             "label": "Phone number:",
-            "name": "phone",
+            "name": "phone_number",
             "placeholder": "Phone number",
             "required": true
         }, {
             "label": "Article title:",
-            "name": "articletitle",
+            "name": "article_title",
             "placeholder": "Article title",
             "required": true
         }, {
             "label": "Article authors:",
-            "name": "articleauthors",
+            "name": "article_authors",
             "placeholder": "Article authors",
             "required": true
         }, {
             "label": "Article authors affiliations:",
-            "name": "articleauthorsaffiliations",
+            "name": "article_authors_affiliations",
             "placeholder": "Affiliations",
             "required": true
         }]),
@@ -212,25 +179,8 @@
         }]),
         registerRoomOther: ([{
             "label": "Additional information:",
-            "name": "addinfo",
-            "id": "addinfo"
-        }]),
-        institutionFields: ([{
-            "label": "Name of institution for which prepayment invoice is issued:",
-            "name": "institutionname",
-            "id": "institutionname"
-        }, {
-            "label": "Address of institution for which prepayment invoice is issued:",
-            "name": "institutionaddress",
-            "id": "institutionaddress"
-        }, {
-            "label": "Company code of institution for which prepayment invoice is issued:",
-            "name": "institutioncompanycode",
-            "id": "institutioncompanycode"
-        }, {
-            "label": "Bank account code of institution for which prepayment invoice is issued:",
-            "name": "institutionbankcode",
-            "id": "institutionbankcode"
+            "name": "hotel_info",
+            "id": "hotel_info"
         }]),
         abstractField: ([{
             "label": "Abstract:",

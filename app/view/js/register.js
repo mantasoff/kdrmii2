@@ -14,6 +14,7 @@ function recaptchaSubmit(){
  */
 window.onload = defaultValues;
 function notEmpty(name, value) {
+  console.log(name);
   var x = value;
 	if (x.length === 0)	{
 		return document.getElementById(name+"_ID").innerHTML = "Please fill out this field";
@@ -49,27 +50,12 @@ function isLastChoice2(value) {
 	}
 }
 
-function isLastChoice3(value) {
-  let x = value;
-	if (x == "invyes")	{
-    document.getElementById("otherinvoice").style.display = "inline";
-  }
-  if (x != "invyes")	{
-    document.getElementById("otherinvoice").style.display = "none";
-    document.getElementById("institutionname").value = null;
-    document.getElementById("institutionaddress").value = null;
-    document.getElementById("institutioncompanycode").value = null;
-    document.getElementById("institutionbankcode").value = null;
-	}
-}
-
 /**
  * Preloads default values to the form
  */
 function defaultValues() {
   document.getElementById("otherroom").style.display = "none";
   document.getElementById("otheraccompany").style.display = "none";
-  document.getElementById("otherinvoice").style.display = "none";
 }
 
 /**
@@ -87,7 +73,8 @@ function FrontPage_Form1_Validator(theForm)
    * required fields are filled
    */
   
-  for(var i = 0; i < registerFields.length; i++) {    
+  for(var i = 0; i < registerFields.length; i++) {
+    console.log(registerFields[i].name);
     if (registerFields[i].required && (theForm[registerFields[i].name].value.length < 3)) {
       document.getElementById(registerFields[i].name+"_ID").innerText = "Please enter a valid " + registerFields[i].placeholder + ".";
       theForm[registerFields[i].name].focus();
@@ -132,17 +119,17 @@ function FrontPage_Form1_Validator(theForm)
     return false;
   } else document.getElementById(theForm.institution.name+"_ID").innerText = "";
 
-  if (theForm.firstname.value.length > 64) {
-    document.getElementById(theForm.firstname.name+"_ID").innerText = theForm.firstname.placeholder + " too long.";
-    theForm[theForm.firstname.name].focus();
+  if (theForm.first_name.value.length > 64) {
+    document.getElementById(theForm.firstname.name+"_ID").innerText = theForm.first_name.placeholder + " too long.";
+    theForm[theForm.first_name.name].focus();
     return false;
-  } else document.getElementById(theForm.firstname.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.first_name.name+"_ID").innerText = "";
 
-  if (theForm.lastname.value.length > 64) {
-    document.getElementById(theForm.lastname.name+"_ID").innerText = theForm.lastname.placeholder + " too long.";
-    theForm[theForm.lastname.name].focus();
+  if (theForm.last_name.value.length > 64) {
+    document.getElementById(theForm.last_name.name+"_ID").innerText = theForm.last_name.placeholder + " too long.";
+    theForm[theForm.last_name.name].focus();
     return false;
-  } else document.getElementById(theForm.lastname.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.last_name.name+"_ID").innerText = "";
 
   if (theForm.affiliation.value.length > 255) {
     document.getElementById(theForm.affiliation.name+"_ID").innerText = theForm.affiliation.placeholder + " too long.";
@@ -150,29 +137,29 @@ function FrontPage_Form1_Validator(theForm)
     return false;
   } else document.getElementById(theForm.affiliation.name+"_ID").innerText = "";
 
-  if (theForm.phone.value.length > 18) {
-    document.getElementById(theForm.phone.name+"_ID").innerText = theForm.phone.placeholder + " too long.";
-    theForm[theForm.phone.name].focus();
+  if (theForm.phone_number.value.length > 18) {
+    document.getElementById(theForm.phone_number.name+"_ID").innerText = theForm.phone_number.placeholder + " too long.";
+    theForm[theForm.phone_number.name].focus();
     return false;
-  } else document.getElementById(theForm.phone.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.phone_number.name+"_ID").innerText = "";
 
-  if (theForm.articletitle.value.length > 255) {
-    document.getElementById(theForm.articletitle.name+"_ID").innerText = theForm.articletitle.placeholder + " too long.";
-    theForm[theForm.articletitle.name].focus();
+  if (theForm.article_title.value.length > 255) {
+    document.getElementById(theForm.article_title.name+"_ID").innerText = theForm.article_title.placeholder + " too long.";
+    theForm[theForm.article_title.name].focus();
     return false;
-  } else document.getElementById(theForm.articletitle.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.article_title.name+"_ID").innerText = "";
 
-  if (theForm.articleauthors.value.length > 300) {
-    document.getElementById(theForm.articleauthors.name+"_ID").innerText = theForm.articleauthors.placeholder + " too long.";
-    theForm[theForm.articleauthors.name].focus();
+  if (theForm.article_authors.value.length > 300) {
+    document.getElementById(theForm.article_authors.name+"_ID").innerText = theForm.article_authors.placeholder + " too long.";
+    theForm[theForm.article_authors.name].focus();
     return false;
-  } else document.getElementById(theForm.articleauthors.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.article_authors.name+"_ID").innerText = "";
 
-  if (theForm.articleauthorsaffiliations.value.length > 300) {
-    document.getElementById(theForm.articleauthorsaffiliations.name+"_ID").innerText = theForm.articleauthorsaffiliations.placeholder + " too long.";
-    theForm[theForm.articleauthorsaffiliations.name].focus();
+  if (theForm.article_authors_affiliations.value.length > 300) {
+    document.getElementById(theForm.article_authors_affiliations.name+"_ID").innerText = theForm.article_authors_affiliations.placeholder + " too long.";
+    theForm[theForm.article_authors_affiliations.name].focus();
     return false;
-  } else document.getElementById(theForm.articleauthorsaffiliations.name+"_ID").innerText = "";
+  } else document.getElementById(theForm.article_authors_affiliations.name+"_ID").innerText = "";
 
   if (theForm.abstract.value.length > 800) {
     document.getElementById(theForm.abstract.name+"_ID").innerText = theForm.abstract.placeholder + " too long.";
@@ -180,71 +167,18 @@ function FrontPage_Form1_Validator(theForm)
     return false;
   } else document.getElementById(theForm.abstract.name+"_ID").innerText = "";
 
-  if (theForm.addinfo.value.length > 64) {
-    document.getElementById(theForm.addinfo.name+"_ID").innerText = theForm.addinfo.placeholder + " too long.";
-    theForm[theForm.addinfo.name].focus();
+  if (theForm.hotel_info.value.length > 64) {
+    document.getElementById(theForm.hotel_info.name+"_ID").innerText = theForm.hotel_info.placeholder + " too long.";
+    theForm[theForm.hotel_info.name].focus();
     return false;
-  } else document.getElementById(theForm.addinfo.name+"_ID").innerText =  "";
+  } else document.getElementById(theForm.hotel_info.name+"_ID").innerText =  "";
 
-  if (theForm.institutionname.value.length > 255) {
-    document.getElementById(theForm.institutionname.name+"_ID").innerText = "Institution name too long.";
-    theForm[theForm.institutionname.name].focus();
-    return false;
-  } else document.getElementById(theForm.institutionname.name+"_ID").innerText = "";
-
-  if (theForm.institutionaddress.value.length > 255) {
-    document.getElementById(theForm.institutionaddress.name+"_ID").innerText = "Address too long.";
-    theForm[theForm.institutionaddress.name].focus();
-    return false;
-  } else document.getElementById(theForm.institutionaddress.name+"_ID").innerText = "";
-
-  if (theForm.institutioncompanycode.value.length > 255) {
-    document.getElementById(theForm.institutioncompanycode.name+"_ID").innerText = "Company too long.";
-    theForm[theForm.institutioncompanycode.name].focus();
-    return false;
-  } else document.getElementById(theForm.institutioncompanycode.name+"_ID").innerText = "";
-
-  if (theForm.institutionbankcode.value.length > 255) {
-    document.getElementById(theForm.institutionbankcode.name+"_ID").innerText = "Bank code too long.";
-    theForm[theForm.institutionbankcode.name].focus();
-    return false;
-  } else document.getElementById(theForm.institutionbankcode.name+"_ID").innerText = "";
-
-  /**
-   * dependent field validation
-   */
-  if (theForm.invoice_required.value == "invyes") {
-    if (theForm.institutionname.value.length < 1) {
-      document.getElementById(theForm.institutionname.name+"_ID").innerText = "Please enter institution name.";
-      theForm[theForm.institutionname.name].focus();
-      return false;
-    } else document.getElementById(theForm.institutionname.name+"_ID").innerText = "";
-
-    if (theForm.institutionaddress.value.length < 1) {
-      document.getElementById(theForm.institutionaddress.name+"_ID").innerText = "Please enter address.";
-      theForm[theForm.institutionaddress.name].focus();
-      return false;
-    } else  document.getElementById(theForm.institutionaddress.name+"_ID").innerText = "";
-
-    if (theForm.institutioncompanycode.value.length < 1) {
-      document.getElementById(theForm.institutioncompanycode.name+"_ID").innerText = "Please enter company code.";
-      theForm[theForm.institutioncompanycode.name].focus();
-      return false;
-    } else document.getElementById(theForm.institutioncompanycode.name+"_ID").innerText = "";
-
-    if (theForm.institutionbankcode.value.length < 1) {
-      document.getElementById(theForm.institutionbankcode.name+"_ID").innerText = "Please enter bank code.";
-      theForm[theForm.institutionbankcode.name].focus();
-      return false;
-    } else document.getElementById(theForm.institutionbankcode.name+"_ID").innerText = "";
-
-  }
   if (theForm.hotel.value == "roomother") {
-    if (theForm.addinfo.value.length < 1) {
-      document.getElementById(theForm.addinfo.name+"_ID").innerText = "Please fill out his field.";
-      theForm[theForm.addinfo.name].focus();
+    if (theForm.hotel_info.value.length < 1) {
+      document.getElementById(theForm.hotel_info.name+"_ID").innerText = "Please fill out his field.";
+      theForm[theForm.hotel_info.name].focus();
       return false;
-    } else document.getElementById(theForm.addinfo.name+"_ID").innerText = "";
+    } else document.getElementById(theForm.hotel_info.name+"_ID").innerText = "";
 
   }
 

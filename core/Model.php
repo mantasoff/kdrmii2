@@ -18,6 +18,10 @@ class Model
     protected static $idColumn='id';
     protected static $db = null;
     /**
+     * @var array Validations to fields
+     */
+    protected static $validations = [];
+    /**
      * @var array Fields to select from database [ add id field too ]
      */
     protected static $selectFields=[];
@@ -52,6 +56,47 @@ class Model
         if($id!=null) $this->getData($id);
     }
 
+    /**
+     * Data validator
+     * @param $input array Input data to validate
+     * @return bool|string True if data is valid, string if error occurred
+     */
+    public static function validate($input){
+        foreach ($input as $key => $value){
+            if(!isset(static::$validations[$key])) continue;
+            $valid=static::$validations[$key];
+            //regex validation
+            if(isset($valid["regex"])){
+                if(preg_match($valid["regex"], $value) === 0 || preg_match(static::$validations[$key]["regex"], $value) === false){
+                    return (isset($valid["name"])?$valid["name"]:$key)." value is bad";
+                }
+            }
+            //min/max validation
+            if(isset($valid["min"])){
+                if(isset($valid["type"]) && $valid["type"] == "number" && !is_numeric($value))
+                    return (isset($valid["name"])?$valid["name"]:$key)." not a number";
+                if(isset($valid["type"]) && $valid["type"] == "number" && intval($value) < $valid["min"])
+                    return (isset($valid["name"])?$valid["name"]:$key)." too small";
+                else if(strlen($value) < $valid["min"])
+                    return (isset($valid["name"])?$valid["name"]:$key)." too short";
+            }
+            //min/max validation
+            if(isset($valid["max"])){
+                if(isset($valid["type"]) && $valid["type"] == "number" && !is_numeric($value))
+                    return (isset($valid["name"])?$valid["name"]:$key)." not a number";
+                if(isset($valid["type"]) && $valid["type"] == "number" && intval($value) < $valid["max"])
+                    return (isset($valid["name"])?$valid["name"]:$key)." too big";
+                else if(strlen($value) > $valid["max"])
+                    return (isset($valid["name"])?$valid["name"]:$key)." too long";
+            }
+            //hard coded values
+            if(isset($valid["values"])){
+                if(!in_array($value, $valid["values"]))
+                    return (isset($valid["name"])?$valid["name"]:$key)." value is bad";
+            }
+        }
+        return true;
+    }
     /**
      * Get model data from database by id
      * @param $id
