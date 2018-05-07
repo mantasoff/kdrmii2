@@ -58,9 +58,9 @@ function Dashboard_Form1_Validator(theForm)
           return false;
       } else document.getElementById(theForm.affiliation.name + "_ID").innerText = "";
 
-      if (theForm.phone_number.value.length > 18) {
-          document.getElementById(theForm.phone_number.name + "_ID").innerText = theForm.phone_number.placeholder + " too long.";
-          theForm[theForm.phone_number.name].focus();
+      if (theForm.phone.value.length > 18) {
+          document.getElementById(theForm.phone.name + "_ID").innerText = theForm.phone.placeholder + " too long.";
+          theForm[theForm.phone.name].focus();
           return false;
       } else document.getElementById(theForm.phone_number.name + "_ID").innerText = "";
 
@@ -88,10 +88,10 @@ function Dashboard_Form1_Validator(theForm)
           return false;
       } else document.getElementById(theForm.abstract.name + "_ID").innerText = "";
 
-      if (theForm.addinfo.value.length > 64) {
-          document.getElementById(theForm.addinfo.name + "_ID").innerText = theForm.addinfo.placeholder + " too long.";
-          theForm[theForm.addinfo.name].focus();
+      if (theForm.hotel_info.value.length > 64) {
+          document.getElementById(theForm.hotel_info.name + "_ID").innerText = theForm.hotel_info.placeholder + " too long.";
+          theForm[theForm.hotel_info.name].focus();
           return false;
-      } else document.getElementById(theForm.addinfo.name + "_ID").innerText = "";
+      } else document.getElementById(theForm.hotel_info.name + "_ID").innerText = "";
   return true;
 }
