@@ -21,5 +21,7 @@ return [
     'recaptcha'=>[
         "site_key" => "6LcMpVYUAAAAAPD0rqA7Bag75oOMoYmrfWKIRdT1",
         "secret_key" => "6LcMpVYUAAAAACSGMnJ7f3lug_XrfXPdHeJwobmZ"
-    ]
+    ],
+    'admin_name' => "admin",
+    'admin_password' => "admin"
 ];
