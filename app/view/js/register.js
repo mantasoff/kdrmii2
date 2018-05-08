@@ -74,7 +74,6 @@ function FrontPage_Form1_Validator(theForm)
    */
   
   for(var i = 0; i < registerFields.length; i++) {
-    console.log(registerFields[i].name);
     if (registerFields[i].required && (theForm[registerFields[i].name].value.length < 3)) {
       document.getElementById(registerFields[i].name+"_ID").innerText = "Please enter a valid " + registerFields[i].placeholder + ".";
       theForm[registerFields[i].name].focus();
