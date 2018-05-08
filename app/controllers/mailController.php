@@ -41,7 +41,7 @@ class mailController
             "Registration confirmation",
             "<p>Hello ".$user->first_name.",</p>
                     <p>Thank you for registering for 10th International “Data Analysis Methods for Software Systems” workshop.</p>
-                    <p>Please confirm your registration: <a href='".$link."'>confirm</a></p>
+                    <p>Please confirm your registration: <a target='_blank' href='".$link."'>confirm</a></p>
         ");
         $mail->send();
     }
