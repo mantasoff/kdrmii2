@@ -22,51 +22,50 @@
         <option value="Ms">Ms</option>
     </select>
     <br> First Name:<br>
-    <input type="text" name="first_name" placeholder="First Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="first_name" placeholder="First Name" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="first_name_ID"></p>
     </font>
     Last Name:<br>
-    <input type="text" name="last_name" placeholder="Last Name" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="last_name" placeholder="Last Name" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="last_name_ID"></p>
     </font>
     Institution:<br>
-    <input type="text" name="institution" placeholder="Institution" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="institution" placeholder="Institution" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="institution_ID"></p>
     </font>
     Affiliation:<br>
-    <input type="text" name="affiliation" placeholder="Affiliation" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="affiliation" placeholder="Affiliation" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="affiliation_ID"></p>
     </font>
     E-Mail:<br>
-    <input type="email" name="email" placeholder="Email" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="email" name="email" placeholder="Email" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="email_ID"></p>
     </font>
     Phone number:<br>
-    <input type="text" name="phone_number" placeholder="Phone number" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="phone_number" placeholder="Phone number" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="phone_number_ID"></p>
     </font>
     Article title:<br>
-    <input type="text" name="article_title" placeholder="Article title" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <input type="text" name="article_title" placeholder="Article title" onblur="notEmpty(this.name, this.value)" size="26" required> <br>
     <font color="red">
         <p id="article_title_ID"></p>
     </font>
     Article authors:<br>
-    <input type="text" name="article_authors" placeholder="Article authors" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <textarea type="text" name="article_authors" placeholder="Article authors" onblur="notEmpty(this.name, this.value)" rows="4" cols="50" required></textarea><br>
     <font color="red">
         <p id="article_authors_ID"></p>
     </font>
     Article authors affiliations:<br>
-    <input type="text" name="article_authors_affiliations" placeholder="Affiliations" oninput="notEmpty(this.name, this.value)" size="26" required> <br>
+    <textarea type="text" name="article_authors_affiliations" placeholder="Affiliations" onblur="notEmpty(this.name, this.value)" rows="4" cols="50" required></textarea><br>
     <font color="red">
         <p id="article_authors_affiliations_ID"></p>
     </font>
-
     Abstract:<br>
     <textarea type="text" name="abstract" placeholder="Abstract" id="abstractfield" rows="4" cols="50" required></textarea>
     <br>
