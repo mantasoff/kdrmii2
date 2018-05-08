@@ -35,6 +35,14 @@ class reportController extends Controller
         $sheet->getColumnDimension('B')->setAutoSize(true);
         $sheet->getColumnDimension('C')->setAutoSize(true);
         $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->getColumnDimension('E')->setAutoSize(true);
+        $sheet->getColumnDimension('F')->setAutoSize(true);
+        $sheet->getColumnDimension('G')->setAutoSize(true);
+        $sheet->getColumnDimension('H')->setAutoSize(true);
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+        $sheet->getColumnDimension('J')->setAutoSize(true);
+        $sheet->getColumnDimension('K')->setAutoSize(true);
+        $sheet->getColumnDimension('L')->setAutoSize(true);
 
         //The first line on the spreadsheet. Also sets the headers.
         $lineNo = 1;
@@ -42,6 +50,15 @@ class reportController extends Controller
         $sheet->setCellValue('B' . $lineNo, "Second Name");
         $sheet->setCellValue('C' . $lineNo, "Institution");
         $sheet->setCellValue('D' . $lineNo, "Hotel Room Types");
+        $sheet->setCellValue('E' . $lineNo, "Affiliation");
+        $sheet->setCellValue('F' . $lineNo, "E-Mail");
+        $sheet->setCellValue('G' . $lineNo, "Phone Number");
+        $sheet->setCellValue('H' . $lineNo, "Article title");
+        $sheet->setCellValue('I' . $lineNo, "Article Authors");
+        $sheet->setCellValue('J' . $lineNo, "Article Authors affiliations");
+        $sheet->setCellValue('K' . $lineNo, "Leading people");
+        $sheet->setCellValue('L' . $lineNo, "Additional Events");
+
 
 
 
@@ -66,6 +83,26 @@ class reportController extends Controller
                     $sheet->setCellValue('D' . $lineNo, $user->hotel);
                     break;
             }
+
+            $sheet->setCellValue('E' . $lineNo, $user->affiliation);
+            $sheet->setCellValue('F' . $lineNo, $user->email);
+            $sheet->setCellValue('G' . $lineNo, $user->phone_number);
+            $sheet->setCellValue('H' . $lineNo, $user->article_title);
+            $sheet->setCellValue('I' . $lineNo, $user->article_authors);
+            $sheet->setCellValue('J' . $lineNo, $user->article_authors_affiliations);
+
+            if($user->leading_people == '0') {
+                $sheet->setCellValue('K' . $lineNo, 'No');
+            } else {
+                $sheet->setCellValue('K' . $lineNo, 'Yes');
+            }
+
+            if($user->additional_events == '0') {
+                $sheet->setCellValue('L' . $lineNo, 'No');
+            } else {
+                $sheet->setCellValue('L' . $lineNo, 'Yes');
+            }
+
         }
 
 
@@ -79,7 +116,7 @@ class reportController extends Controller
             ),
         );
         //Style setting for the chosen cells
-        $sheet ->getStyle('A1:D1')->applyFromArray($styleArray);
+        $sheet ->getStyle('A1:L1')->applyFromArray($styleArray);
 
 
         // We'll be outputting an excel file
@@ -117,14 +154,18 @@ class reportController extends Controller
 
         //The first line on the spreadsheet. Also sets the headers.
         $lineNo = 1;
-        $sheet->setCellValue('A' . $lineNo, "E-mail");
+        $sheet->setCellValue('A' . $lineNo, "Name");
+        $sheet->setCellValue('B' . $lineNo, "Last Name");
+        $sheet->setCellValue('C' . $lineNo, "E-mail");
 
 
 
         //Sets the values
         foreach ($Users as $user) {
             $lineNo++;
-            $sheet->setCellValue('A' . $lineNo, $user->email);
+            $sheet->setCellValue('A' . $lineNo, $user->first_name);
+            $sheet->setCellValue('B' . $lineNo, $user->last_name);
+            $sheet->setCellValue('C' . $lineNo, $user->email);
         }
 
 
@@ -138,7 +179,7 @@ class reportController extends Controller
             ),
         );
         //Style setting for the chosen cells
-        $sheet ->getStyle('A1:A1')->applyFromArray($styleArray);
+        $sheet ->getStyle('A1:C1')->applyFromArray($styleArray);
 
 
         // We'll be outputting an excel file
