@@ -6,7 +6,8 @@
  */
 
 namespace app\controllers;
-
+use app\models\User;
+use core\Database\Field;
 
 use core\Controller;
 use core\Helper;
@@ -25,6 +26,8 @@ class adminController extends Controller
             indexController::redirect("/admin/login");
             return;
         }
+        $Users = User::getByFields(new Field("Validated", 1));
+        (new View())->render("admin/dashboard", ["users" => json_encode($Users)]);
     }
     public function login(){
         if(isset($_POST) && count($_POST)>1){

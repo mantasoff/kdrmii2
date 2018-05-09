@@ -8,6 +8,7 @@
     <meta name="KeyWords" content="DAMSS, Data Analysis Methods for Software Systems, International Workshop">
     <meta name="Description" content="International Workshop for Data Analysis Methods for Software Systems">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="{{config.directory}}/styles/add_style" type="text/css" rel="stylesheet">
     <script language="JavaScript" type="text/javascript">
         <!--
@@ -18,7 +19,6 @@
     </script>
     <script language="JavaScript" src="{{config.directory}}/scripts/overlib" type="text/javascript"></script>
     <script language="JavaScript" src="{{config.directory}}/scripts/scripts" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body topmargin="0" marginwidth="0" marginheight="0" leftmargin="0" bgcolor="#ffffff">
