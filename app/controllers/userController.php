@@ -4,6 +4,7 @@ use app\models\User;
 use app\models\Validation;
 use core\Controller;
 use core\Database\Field;
+use core\Helper;
 use core\Post;
 use core\Session;
 use core\View;

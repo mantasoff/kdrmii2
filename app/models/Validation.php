@@ -17,6 +17,7 @@ use core\Model;
 class Validation extends Model
 {
     protected static $table = "email_validation";
+    protected static $idColumn = "id";
     protected static $selectFields = ["id","user_id","hash", "valid_till", "type"];
     protected static $saveFields = ["user_id","hash","valid_till", "type"];
 
@@ -24,7 +25,19 @@ class Validation extends Model
      * Delete old validation records
      */
     public static function clearOld(){
-        Mysql::execute((new Query())->table(static::$table)->delete()->where([Field::customSeparator("valid_till",time()-86400,'<')]));
+        $validations = Validation::all();
+        if($validations == null) return;
+        if(is_array($validations)){
+            foreach ($validations as $validation){
+                $validation->delete();
+                if(intval($validation->valid_till) > time()) continue;
+                if($validation->type == "validate"){
+                    $user = new User($validation->user_id);
+                    if($user->id != null && $user->validated != 1)
+                        $user->delete();
+                }
+            }
+        }
     }
 
     /**
@@ -33,7 +46,6 @@ class Validation extends Model
      * @param $type
      */
     public static function createUserValidation($userId, $type="validate"){
-        self::clearOld();
         if($type == "reset"){
             Mysql::execute((new Query())->table(static::$table)->delete()->where([new Field("user_id", $userId),new Field("type", $type)]));
         }

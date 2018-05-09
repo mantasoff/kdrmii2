@@ -12,6 +12,12 @@ return [
      */
     'title' => 'DAMSS',
     /**
+     * Old record delete type
+     * url - records will be deleted when any user enter register page
+     * cron - you will need to configure cronjob to use url: directory/cron/clear
+     */
+    'old_record_clear' => 'url',
+    /**
      * System mail
      */
     'mail' => 'no-reply@mii.lt',

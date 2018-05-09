@@ -268,6 +268,7 @@ class Model
         $query = (new Query())->table(static::$table)->select(implode(',',array_values(static::$selectFields)));
         if(static::$db !== null) $query->db(static::$db);
         $result = Mysql::execute($query);
+        if($result == false) return null;
         $models = [];
         $model = null;
         foreach ($result as $row){

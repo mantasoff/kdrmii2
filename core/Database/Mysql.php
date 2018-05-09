@@ -114,7 +114,7 @@ class Mysql
         self::$num_rows = $result->num_rows;
         if($onlyCount)
             return self::$num_rows;
-        if(self::$num_rows == 1) return $result->fetch_array(MYSQLI_ASSOC);
+        if(self::$num_rows == 1) return [$result->fetch_array(MYSQLI_ASSOC)];
         else return $result->fetch_all(MYSQLI_ASSOC);
     }
 

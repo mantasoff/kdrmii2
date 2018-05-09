@@ -17,6 +17,8 @@ class indexController extends Controller
      */
     public function index()
     {
+        if(Helper::config("app")->old_record_clear == "url")
+            (new cronController())->clear();
         if(User::isLogged()){
             indexController::redirect('/dashboard');
             return 1;
