@@ -29,8 +29,8 @@ class Validation extends Model
         if($validations == null) return;
         if(is_array($validations)){
             foreach ($validations as $validation){
-                $validation->delete();
                 if(intval($validation->valid_till) > time()) continue;
+                $validation->delete();
                 if($validation->type == "validate"){
                     $user = new User($validation->user_id);
                     if($user->id != null && $user->validated != 1)
