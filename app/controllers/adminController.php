@@ -52,7 +52,24 @@ class adminController extends Controller
             indexController::redirect("/admin");
             exit;
         }
-
+        $user = new User($id);
+        if($user->id == null){
+            Session::set("message", '<div class="error">User not exist</div>');
+            indexController::redirect("/admin");
+            exit;
+        }
+        $validate = User::validate($_POST);
+        if($validate != true){
+            Session::set("message", '<div class="error">Entered data invalid: '.$validate.'</div>');
+            indexController::redirect("/admin");
+            exit;
+        }
+        foreach ($_POST as $key=>$value){
+            $user->$key = $value;
+        }
+        $user->save();
+        Session::set("message", '<div class="success">User '.$user->id.' updated</div>');
+        indexController::redirect("/admin");
     }
     public function delete($id){
         if(!self::isAdmin()){
