@@ -1,7 +1,7 @@
 {{include "header-clean"}}
 
 <div class="overlay-header">
-  <a href="/" class="header-item">Back to main site</a>
+  <a href="{{config.directory}}" class="header-item">Back to main site</a>
 </div>
 
 <div class="container pt-5">

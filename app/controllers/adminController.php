@@ -33,6 +33,10 @@ class adminController extends Controller
         }
         (new View())->render("admin/dashboard", ["users" => json_encode($users_array)]);
     }
+    public function logout(){
+        Session::destroy();
+        indexController::redirect("/admin/login");
+    }
     public function login(){
         if(isset($_POST) && count($_POST)>1){
             if(Post::get("name") === false || strlen(Post::get("name")) < 3){
