@@ -26,8 +26,12 @@ class adminController extends Controller
             indexController::redirect("/admin/login");
             return;
         }
-        $Users = User::getByFields(new Field("Validated", 1));
-        (new View())->render("admin/dashboard", ["users" => json_encode($Users)]);
+        $users = User::getByFields(new Field("Validated", 1));
+        $users_array = [];
+        foreach ($users as $user){
+            array_push($users_array, $user->getArray());
+        }
+        (new View())->render("admin/dashboard", ["users" => json_encode($users_array)]);
     }
     public function login(){
         if(isset($_POST) && count($_POST)>1){
