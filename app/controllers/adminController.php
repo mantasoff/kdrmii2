@@ -31,11 +31,43 @@ class adminController extends Controller
         foreach ($users as $user){
             array_push($users_array, $user->getArray());
         }
-        (new View())->render("admin/dashboard", ["users" => json_encode($users_array)]);
+        $message = "";
+        if(Session::get("message") != false){
+            $message = Session::get("message");
+            Session::set("message", false);
+        }
+        (new View())->render("admin/dashboard", ["users" => json_encode($users_array), "message" => $message]);
     }
     public function logout(){
         Session::destroy();
         indexController::redirect("/admin/login");
+    }
+    public function update($id){
+        if(!self::isAdmin()){
+            indexController::redirect("/admin/login");
+            exit;
+        }
+        if(!isset($_POST) || count($_POST)<1){
+            Session::set("message", '<div class="error"> No data given </div>');
+            indexController::redirect("/admin");
+            exit;
+        }
+
+    }
+    public function delete($id){
+        if(!self::isAdmin()){
+            indexController::redirect("/admin/login");
+            exit;
+        }
+        $user = new User($id);
+        if($user->id == null){
+            Session::set("message", '<div class="error"> User not exist</div>');
+            indexController::redirect("/admin");
+            exit;
+        }
+        $user->delete();
+        Session::set("message", '<div class="success">User '.$user->id.' deleted.</div>');
+        indexController::redirect("/admin");
     }
     public function login(){
         if(isset($_POST) && count($_POST)>1){

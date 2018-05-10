@@ -11,6 +11,7 @@
       <div class="text-center pb-4">
         <h3 class="text-center">Registrations</h3>
         <small class="text-muted">Registration requests for the conference.</small>
+          {{message}}
       </div>
       <div id="users-table-body"></div>
     </div>
@@ -22,7 +23,6 @@
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.1/js/tabulator.min.js"></script>
-
 <script>
   var users = {{users}};
 
