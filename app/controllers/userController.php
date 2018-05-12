@@ -57,7 +57,7 @@ class userController extends Controller
                 $user->delete();
                 Session::destroy();
                 Session::start();
-                indexController::moveToIndex("<div class='success'>Registration deleted</div>");
+                indexController::moveToIndex("<div class='success'>Registration has been deleted.</div>");
                 exit;
             }
             return;
@@ -157,7 +157,7 @@ class userController extends Controller
             $user->save();
             $validation->delete();
             mailController::sendPassword($user->id);
-            indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+            indexController::moveToIndex("<div class='success'>User has been validated successful. Password is sent to your email.</div>");
         }else{
             mailController::sendNewPassword($user->id);
             indexController::moveToIndex("<div class='success'>Your new password is sent to your email.</div>");
