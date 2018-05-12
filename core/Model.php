@@ -118,6 +118,8 @@ class Model
      * @param $result
      */
     protected function updateDataFromResult($result){
+        if(!is_array($result) || count($result)<1) return;
+        $result = $result[0];
         if(!is_array($result)) return;
         foreach (array_keys((array)$result) as $key){
                 $this->fields[$key]=$result[''.$key];
