@@ -3,6 +3,7 @@
 <br>
 <a href="{{config.directory}}/user/logout"><input class="top" type="button" value="Logout"></a>
 <a href="{{config.directory}}/dashboard/invoice"><input class="top" type="button" value="Invoice information"></a>
+<a href="{{config.directory}}/user/delete"><input class="top danger" type="button" value="Delete registration"></a>
 {{message}}
 <br>
 Title:<br>

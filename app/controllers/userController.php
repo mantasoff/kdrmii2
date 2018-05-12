@@ -42,13 +42,28 @@ class userController extends Controller
         }
         (new View())->render("recover", ["message" => $message]);
     }
-    public function dashboard(){
+
+    public function delete(){
         if(!User::isLogged()){
             indexController::redirect('/user/login');
             return;
         }
+        if(isset($_POST) && Post::get("password") !== false){
+            $user = User::getByFields([new Field("id", Session::get("id")),
+                new Field("password", User::getHashedPassword(Post::get("password")))]);
+            if($user == null || $user->id == null)
+                (new View())->render("deleteUser", ["message" => "<div class='error'>Password is not valid.</div>"]);
+            else{
+                $user->delete();
+                Session::destroy();
+                Session::start();
+                indexController::moveToIndex("<div class='success'>Registration has been deleted.</div>");
+                exit;
+            }
+            return;
+        }
+        (new View())->render("deleteUser", ["message" => ""]);
     }
-
     /**
      * User login route
      */
@@ -142,7 +157,7 @@ class userController extends Controller
             $user->save();
             $validation->delete();
             mailController::sendPassword($user->id);
-            indexController::moveToIndex("<div class='success'>User validated successful. Password is sent to your email.</div>");
+            indexController::moveToIndex("<div class='success'>User has been validated successful. Password is sent to your email.</div>");
         }else{
             mailController::sendNewPassword($user->id);
             indexController::moveToIndex("<div class='success'>Your new password is sent to your email.</div>");
