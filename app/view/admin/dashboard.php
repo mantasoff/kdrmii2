@@ -14,6 +14,10 @@
           {{message}}
       </div>
       <div id="users-table-body"></div>
+      <div class="text-right pt-3">
+        <button class="btn btn-danger" id="discardButton" onClick="discardChanges()">Cancel</button>
+        <button class="btn btn-success" id="saveButton" onClick="saveChanges()">Save changes</button>
+      </div>
     </div>
   </div>
 </div>
@@ -24,31 +28,95 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/3.5.1/js/tabulator.min.js"></script>
 <script>
-  var users = {{users}};
+  var currentEditingId;
 
+  var users = {{users}};
+  var initialUsers = JSON.stringify(users);
+  $('#saveButton').hide();
+  $('#discardButton').hide();
   $(function() {
     //create Tabulator on DOM element
     $("#users-table-body").tabulator({
-      height:'80vh', // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-      layout:"fitColumns", //fit columns to width of table (optional)
+      height:'70vh', // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+      layout:"fitDataFill",
       columns:[ //Define Table Columns
-        { title: 'First name', field: 'first_name' },
-        { title: 'Last name', field: 'last_name' },
-        { title: 'Institution', field: 'institution' },
-        { title: 'Affiliation', field: 'affiliation' },
-        { title: 'Email', field: 'email' },
-        { title: 'Phone mumber', field: 'phone_number' },
-        { title: 'Article title', field: 'article_title' },
-        { title: 'Article authors', field: 'article_authors' },
-        { title: 'Article authors affiliations', field: 'article_authors_affiliations' }
+        { title: 'ID', field: 'id' },
+        { title: 'Email', field: 'email', editor: true, editable: isEditable },
+        // { title: 'Password', field: 'password', editor: true, editable: isEditable },
+        { title: 'Institution', field: 'institution', editor: true, editable: isEditable },
+        { title: 'Degree', field: 'degree', editor: true, editable: isEditable },
+        { title: 'First name', field: 'first_name', editor: true, editable: isEditable },
+        { title: 'Last name', field: 'last_name', editor: true, editable: isEditable },
+        { title: 'Affiliation', field: 'affiliation', editor: true, editable: isEditable },
+        { title: 'Phone number', field: 'phone_number', editor: true, editable: isEditable },
+        { title: 'Article title', field: 'article_title', editor: true, editable: isEditable },
+        { title: 'Article authors', field: 'article_authors', editor: true, editable: isEditable },
+        { title: 'Article authors affiliations', field: 'article_authors_affiliations', editor: true, editable: isEditable },
+        { title: 'Hotel', field: 'hotel', editor: true, editable: isEditable },
+        { title: 'Leading people', field: 'leading_people', editor: true, editable: isEditable },
+        { title: 'Abstract', field: 'abstract', editor: true, editable: isEditable },
+        { title: 'Additional events', field: 'additional_events', editor: true, editable: isEditable },
+        // { title: 'Validated', field: 'validated', editor: true, editable: isEditable }
       ],
-      rowClick:function(e, row){ //trigger an alert message when the row is clicked
-          alert("Row " + row.getData().id + " Clicked!!!!");
+      cellEdited: function(cell){
+        onCellEdited(cell)
+      },
+      cellClick:function(e, cell){
+        e.preventDefault();
+        return false;
+        //e - the click event object
+        //cell - cell component
       },
     });
     $("#users-table-body").tabulator("setData", users);
   })
 
+  var isEditable = function(cell){
+    var data = cell.getRow().getData();
+    var editable = (currentEditingId == null) || (data.id == currentEditingId);
+    return !!editable;
+  }
+
+  function onCellEdited(cell) {
+    var id = cell.cell.row.cells[0].value;
+    if(usersDataChanged(users)) {
+      currentEditingId = id;
+    } else {
+      currentEditingId = null;
+    }
+  }
+
+  function usersDataChanged(users) {
+    let changed = JSON.stringify(users) != initialUsers;
+    if(changed) {
+      $('#saveButton').show();
+      $('#discardButton').show();
+    } else {
+      $('#saveButton').hide();
+      $('#discardButton').hide();
+    }
+    return changed;
+  }
+
+  function discardChanges() {
+    users = JSON.parse(initialUsers);
+    $("#users-table-body").tabulator("setData", users);
+    currentEditingId = null;
+    usersDataChanged(users);
+  }
+
+  function saveChanges() {
+    var f = document.createElement("form");
+    $(f).attr('action', '{{config.directory}}/admin/update/' + currentEditingId);
+    $(f).attr('method', 'POST'); 
+    var row = users.find(function(el) { return el.id == currentEditingId});
+    if(!row) return;
+    for(var key in row) {
+      $(f).append($("<input>").attr("type", "hidden").attr("name", key).val(row[key]));
+    }
+    $(document.body).append(f);
+    $(f).submit();
+  }
 
 </script>
 
