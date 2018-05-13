@@ -51,6 +51,9 @@ class dashboardController extends Controller
         ]);
     }
 
+    /**
+     * Invoice information update page
+     */
     public function invoice(){
         $invoiceData = Invoice::getByFields([new Field("requesting_user", Session::get("id"))]);
         if($invoiceData == null) $invoiceData = new Invoice();

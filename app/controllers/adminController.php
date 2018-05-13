@@ -17,9 +17,17 @@ use core\View;
 
 class adminController extends Controller
 {
+    /**
+     * Checks if user is logged in as admin
+     * @return bool
+     */
     public static function isAdmin(){
         return Session::get("admin_id") != false;
     }
+
+    /**
+     * Administration panel index page
+     */
     public function index()
     {
         if(!self::isAdmin()){
@@ -38,10 +46,19 @@ class adminController extends Controller
         }
         (new View())->render("admin/dashboard", ["users" => json_encode($users_array), "message" => $message]);
     }
+
+    /**
+     * Logout from admin panel
+     */
     public function logout(){
         Session::destroy();
         indexController::redirect("/admin/login");
     }
+
+    /**
+     * Update user by id
+     * @param $id int user id
+     */
     public function update($id){
         if(!self::isAdmin()){
             indexController::redirect("/admin/login");
@@ -71,6 +88,11 @@ class adminController extends Controller
         Session::set("message", '<div class="success">User '.$user->id.' updated</div>');
         indexController::redirect("/admin");
     }
+
+    /**
+     * Delete user by id
+     * @param $id int user id
+     */
     public function delete($id){
         if(!self::isAdmin()){
             indexController::redirect("/admin/login");
@@ -86,6 +108,10 @@ class adminController extends Controller
         Session::set("message", '<div class="success">User '.$user->id.' deleted.</div>');
         indexController::redirect("/admin");
     }
+
+    /**
+     * Administration panel login page
+     */
     public function login(){
         if(isset($_POST) && count($_POST)>1){
             if(Post::get("name") === false || strlen(Post::get("name")) < 3){

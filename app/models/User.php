@@ -6,8 +6,6 @@
  */
 
 namespace app\models;
-
-
 use app\controllers\recaptcha;
 use core\Database\Field;
 use core\Model;
@@ -36,10 +34,19 @@ class User extends Model
         $this->password = self::getHashedPassword($unHashed);
     }
 
+    /**
+     * Return hashed password with salt
+     * @param $unHashed
+     * @return string
+     */
     public static function getHashedPassword($unHashed){
         return hash('sha256', self::$salt."".$unHashed);
     }
 
+    /**
+     * All user fields validation
+     * @var array
+     */
     protected static $validations = [
         "email" => [
             "name" => "Mail",

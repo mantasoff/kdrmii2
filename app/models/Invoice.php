@@ -20,7 +20,11 @@ class Invoice extends Model
     protected static $idColumn = "invoice_id";
     protected static $selectFields = ["invoice_id", "requesting_user", "company_name", "company_address", "company_code", "bank_code", "generated"];
     protected static $saveFields = ["requesting_user", "company_name", "company_address", "company_code", "bank_code", "generated"];
-// Validations
+
+    /**
+     * Invoice model fields validation
+     * @var array
+     */
 
     protected static $validations = [
         "company_name" => [
