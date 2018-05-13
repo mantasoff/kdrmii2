@@ -1,5 +1,11 @@
 {{include "header-clean"}}
 
+<style>
+  .tabulator-frozen {
+    background: white !important;
+  }
+</style>
+
 <div class="overlay-header">
   <a href="{{config.directory}}" class="header-item">Back to main site</a>
   <a href="{{config.directory}}/admin/logout" class="header-item">Logout</a>
@@ -56,6 +62,7 @@
         { title: 'Leading people', field: 'leading_people', editor: true, editable: isEditable },
         { title: 'Abstract', field: 'abstract', editor: true, editable: isEditable },
         { title: 'Additional events', field: 'additional_events', editor: true, editable: isEditable },
+        { formatter:"buttonCross", width:30, align:"center", frozen: true, headerSort:false, cellClick: deleteUser }
         // { title: 'Validated', field: 'validated', editor: true, editable: isEditable }
       ],
       cellEdited: function(cell){
@@ -70,6 +77,19 @@
     });
     $("#users-table-body").tabulator("setData", users);
   })
+
+  var deleteUser = function(ev, cell) {
+    console.log(cell);
+    
+    let id = cell.getRow().getData().id;
+    if(confirm("Are you sure you want to delete?")) {
+      var f = document.createElement("form");
+      $(f).attr('action', '{{config.directory}}/admin/delete/' + id);
+      $(f).attr('method', 'POST'); 
+      $(document.body).append(f);
+      $(f).submit();
+    }
+  }
 
   var isEditable = function(cell){
     var data = cell.getRow().getData();
