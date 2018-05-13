@@ -109,7 +109,7 @@ class Model
         $values = Mysql::execute($query);
         if($values === false) return false;
         $this->id = $id;
-        $this->updateDataFromResult($values);
+        $this->updateDataFromResult($values[0]);
         return true;
     }
 
@@ -118,8 +118,6 @@ class Model
      * @param $result
      */
     protected function updateDataFromResult($result){
-        if(!is_array($result) || count($result)<1) return;
-        $result = $result[0];
         if(!is_array($result)) return;
         foreach (array_keys((array)$result) as $key){
                 $this->fields[$key]=$result[''.$key];
@@ -257,7 +255,7 @@ class Model
         if(Mysql::$num_rows == 0)
             return null;
         $model = new $className();
-        $model->updateDataFromResult($result);
+        $model->updateDataFromResult($result[0]);
         return $model;
     }
 
