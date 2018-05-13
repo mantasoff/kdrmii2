@@ -16,10 +16,10 @@ window.onload = defaultValues;
 function notEmpty(name, value) {
   console.log(name);
   var x = value;
-	if (x.length === 0)	{
+	if (x.length < 3)	{
 		return document.getElementById(name+"_ID").innerHTML = "Please fill out this field";
   }
-  if (x.length > 0)	{
+  if (x.length >= 3)	{
 		return document.getElementById(name+"_ID").innerHTML = "";
 	}
 }
