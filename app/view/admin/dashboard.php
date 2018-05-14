@@ -19,6 +19,12 @@
         <small class="text-muted">Registration requests for the conference.</small>
           {{message}}
       </div>
+      <div class="text-center py-3">
+        <a href="/kdrmii/report/emailExcel" target="_blank" class="btn btn-info mx-1">emailExcel.xls</a>
+        <a href="/kdrmii/report/peopleExcel" target="_blank" class="btn btn-info mx-1">peopleExcel.xls</a>
+        <a href="/kdrmii/report/abstractword" target="_blank" class="btn btn-info mx-1">abstractword.doc</a>
+        <a href="/kdrmii/report/diplomaword" target="_blank" class="btn btn-info mx-1">diplomaword.doc</a>
+      </div>
       <div id="users-table-body"></div>
       <div class="text-right pt-3">
         <button class="btn btn-danger" id="discardButton" onClick="discardChanges()">Cancel</button>
@@ -43,7 +49,7 @@
   $(function() {
     //create Tabulator on DOM element
     $("#users-table-body").tabulator({
-      height:'70vh', // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+      height:'65vh', // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
       layout:"fitDataFill",
       columns:[ //Define Table Columns
         { title: 'ID', field: 'id' },
