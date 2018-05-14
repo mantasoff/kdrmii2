@@ -15,18 +15,24 @@ use core\Post;
 use core\Session;
 use core\View;
 
+/**
+ * Administrator controller
+ */
 class adminController extends Controller
 {
     /**
-     * Checks if user is logged in as admin
-     * @return bool
+     * Returnas value is admin
+     *
+     * @return boolean
      */
     public static function isAdmin(){
         return Session::get("admin_id") != false;
     }
 
     /**
-     * Administration panel index page
+     * Handles index action
+     *
+     * @return void
      */
     public function index()
     {
@@ -48,7 +54,9 @@ class adminController extends Controller
     }
 
     /**
-     * Logout from admin panel
+     * Handles log out action
+     *
+     * @return void
      */
     public function logout(){
         Session::destroy();
@@ -56,8 +64,10 @@ class adminController extends Controller
     }
 
     /**
-     * Update user by id
-     * @param $id int user id
+     * Handles user update action
+     *
+     * @param [type] $id
+     * @return void
      */
     public function update($id){
         if(!self::isAdmin()){
@@ -90,8 +100,10 @@ class adminController extends Controller
     }
 
     /**
-     * Delete user by id
-     * @param $id int user id
+     * Handles user delete action
+     *
+     * @param [type] $id
+     * @return void
      */
     public function delete($id){
         if(!self::isAdmin()){
@@ -110,7 +122,9 @@ class adminController extends Controller
     }
 
     /**
-     * Administration panel login page
+     * Handles log in 
+     *
+     * @return void
      */
     public function login(){
         if(isset($_POST) && count($_POST)>1){
