@@ -45,6 +45,12 @@ class Invoice extends Model
         ]
     ];
 
+    /**
+     * Update data
+     *
+     * @param [type] $data
+     * @return void
+     */
     public static function update($data)
     {
         Mysql::execute((new Query())->table(static::$table)->delete()->where(new Field("requesting_user", Session::get("id"))));

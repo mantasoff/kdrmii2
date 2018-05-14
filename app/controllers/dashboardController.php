@@ -11,6 +11,8 @@ class dashboardController extends Controller
 {
     /**
      * Main dashboard page
+     *
+     * @return void
      */
     public function index(){
         $user = new User(Session::get("id"));
@@ -51,6 +53,11 @@ class dashboardController extends Controller
         ]);
     }
 
+    /**
+     * Handles invoice download
+     *
+     * @return void
+     */
     public function invoice(){
         $invoiceData = Invoice::getByFields([new Field("requesting_user", Session::get("id"))]);
         if($invoiceData == null) $invoiceData = new Invoice();

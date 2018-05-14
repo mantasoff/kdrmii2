@@ -13,7 +13,9 @@ use core\View;
 class indexController extends Controller
 {
     /**
-     * Default location in controller
+     * Defult location in controller
+     *
+     * @return void
      */
     public function index()
     {
@@ -28,7 +30,9 @@ class indexController extends Controller
 
     /**
      * Redirect to index page
-     * @param $message
+     *
+     * @param [type] $message
+     * @return void
      */
     public static function moveToIndex($message){
         Session::set("message",$message);
@@ -37,7 +41,9 @@ class indexController extends Controller
 
     /**
      * Redirect in project
-     * @param $project_url
+     *
+     * @param [type] $project_url
+     * @return void
      */
     public static function redirect($project_url){
         header('Location: '.Helper::config("app")->directory.$project_url);

@@ -1,0 +1,13 @@
+PROJECT_NAME     = KDRMII
+OUTPUT_DIRECTORY = doxygen
+WARNINGS         = YES
+INPUT            = ./index.php ./app/controllers
+FILE_PATTERNS    = *.php
+PERL_PATH        = /usr/bin/perl
+SEARCHENGINE     = YES
+RECURSIVE              = YES
+SOURCE_BROWSER         = YES
+GENERATE_TREEVIEW      = YES
+GENERATE_TODOLIST      = YES
+GENERATE_DEPRECATEDLIST= YES
+SHOW_DIRECTORIES       = YES

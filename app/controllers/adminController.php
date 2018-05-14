@@ -15,11 +15,25 @@ use core\Post;
 use core\Session;
 use core\View;
 
+/**
+ * Administrator controller
+ */
 class adminController extends Controller
 {
+    /**
+     * Returnas value is admin
+     *
+     * @return boolean
+     */
     public static function isAdmin(){
         return Session::get("admin_id") != false;
     }
+
+    /**
+     * Handles index action
+     *
+     * @return void
+     */
     public function index()
     {
         if(!self::isAdmin()){
@@ -38,10 +52,23 @@ class adminController extends Controller
         }
         (new View())->render("admin/dashboard", ["users" => json_encode($users_array), "message" => $message]);
     }
+
+    /**
+     * Handles log out action
+     *
+     * @return void
+     */
     public function logout(){
         Session::destroy();
         indexController::redirect("/admin/login");
     }
+
+    /**
+     * Handles user update action
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function update($id){
         if(!self::isAdmin()){
             indexController::redirect("/admin/login");
@@ -71,6 +98,13 @@ class adminController extends Controller
         Session::set("message", '<div class="success">User '.$user->id.' updated</div>');
         indexController::redirect("/admin");
     }
+
+    /**
+     * Handles user delete action
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function delete($id){
         if(!self::isAdmin()){
             indexController::redirect("/admin/login");
@@ -86,6 +120,12 @@ class adminController extends Controller
         Session::set("message", '<div class="success">User '.$user->id.' deleted.</div>');
         indexController::redirect("/admin");
     }
+
+    /**
+     * Handles log in 
+     *
+     * @return void
+     */
     public function login(){
         if(isset($_POST) && count($_POST)>1){
             if(Post::get("name") === false || strlen(Post::get("name")) < 3){
